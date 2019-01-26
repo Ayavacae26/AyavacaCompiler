@@ -282,9 +282,9 @@ public class MyScannerTest {
 	        String input = "; , : . [ ] ( ) + - = < <= > >= * / := <>";
 	        MyScanner instance = new MyScanner(new StringReader(input));
 	        
-	        //1st token test 
-	        System.out.println("1st token test");
-	        TokenType expected = TokenType.PROGRAM;
+	        //1st symbol test 
+	        System.out.println("semicolon test");
+	        TokenType expected = TokenType.SEMICOLON;
 	        
 	        try {
 	            myToken = instance.nextToken();
@@ -292,10 +292,10 @@ public class MyScannerTest {
 	            System.out.println(myToken);
 	            }
 	            catch( Exception e) { e.printStackTrace();}
-	          
-	    //2nd token test 
-	        System.out.println("2nd token test");
-	        TokenType expected1 = TokenType.NUMBER;
+	        
+	      //2nd symbol test 
+	        System.out.println("comma test");
+	        TokenType expected1 = TokenType.COMMA;
 	        
 	        try {
 	            myToken = instance.nextToken();
@@ -303,18 +303,207 @@ public class MyScannerTest {
 	            System.out.println(myToken);
 	            }
 	            catch( Exception e) { e.printStackTrace();}
+	            
+	      //3rd symbol test 
+	        System.out.println("colon test");
+	        TokenType expected2 = TokenType.COLON;
 	        
-	        }
+	        try {
+	            myToken = instance.nextToken();
+	            assertEquals(expected2, myToken.getTokenType());
+	            System.out.println(myToken);
+	            }
+	            catch( Exception e) { e.printStackTrace();}
+	            
+	      //4th symbol test 
+	        System.out.println("period test");
+	        TokenType expected3 = TokenType.PERIOD;
+	        
+	        try {
+	            myToken = instance.nextToken();
+	            assertEquals(expected3, myToken.getTokenType());
+	            System.out.println(myToken);
+	            }
+	            catch( Exception e) { e.printStackTrace();}
+	            
+	      //5th symbol test 
+	        System.out.println("LeftBracket test");
+	        TokenType expected4 = TokenType.LEFTBRACKET;
+	        
+	        try {
+	            myToken = instance.nextToken();
+	            assertEquals(expected4, myToken.getTokenType());
+	            System.out.println(myToken);
+	            }
+	            catch( Exception e) { e.printStackTrace();}
+	            
+	      //6th symbol test 
+	        System.out.println("rightbracket test");
+	        TokenType expected5 = TokenType.RIGHTBRACKET;
+	        
+	        try {
+	            myToken = instance.nextToken();
+	            assertEquals(expected5, myToken.getTokenType());
+	            System.out.println(myToken);
+	            }
+	            catch( Exception e) { e.printStackTrace();}
+	            
+	      //7th symbol test 
+	        System.out.println("leftParenthesis test");
+	        TokenType expected6 = TokenType.LEFTPARENTHESES;
+	        
+	        try {
+	            myToken = instance.nextToken();
+	            assertEquals(expected6, myToken.getTokenType());
+	            System.out.println(myToken);
+	            }
+	            catch( Exception e) { e.printStackTrace();}
+	            
+	      //8th symbol test 
+	        System.out.println("rightparentheses test");
+	        TokenType expected7 = TokenType.RIGHTPARENTHESES;
+	        
+	        try {
+	            myToken = instance.nextToken();
+	            assertEquals(expected7, myToken.getTokenType());
+	            System.out.println(myToken);
+	            }
+	            catch( Exception e) { e.printStackTrace();}
+	            
+	      //9th symbol test 
+	        System.out.println("plus test");
+	        TokenType expected8 = TokenType.PLUS;
+	        
+	        try {
+	            myToken = instance.nextToken();
+	            assertEquals(expected8, myToken.getTokenType());
+	            System.out.println(myToken);
+	            }
+	            catch( Exception e) { e.printStackTrace();}
+	            
+	      //10th symbol test 
+	        System.out.println("minus test");
+	        TokenType expected9 = TokenType.MINUS;
+	        
+	        try {
+	            myToken = instance.nextToken();
+	            assertEquals(expected9, myToken.getTokenType());
+	            System.out.println(myToken);
+	            }
+	            catch( Exception e) { e.printStackTrace();}
+	            
+	      //11th symbol test 
+	        System.out.println("equals test");
+	        TokenType expected10 = TokenType.EQUALS;
+	        
+	        try {
+	            myToken = instance.nextToken();
+	            assertEquals(expected10, myToken.getTokenType());
+	            System.out.println(myToken);
+	            }
+	            catch( Exception e) { e.printStackTrace();}
+	            
+	      //12th symbol test 
+	        System.out.println("less than test");
+	        TokenType expected11 = TokenType.LESS_THAN;
+	        
+	        try {
+	            myToken = instance.nextToken();
+	            assertEquals(expected11, myToken.getTokenType());
+	            System.out.println(myToken);
+	            }
+	            catch( Exception e) { e.printStackTrace();}
+	            
+	      //13th symbol test 
+	        System.out.println("less then or equal test");
+	        TokenType expected12 = TokenType.LESS_THAN_OR_EQUAL;
+	        
+	        try {
+	            myToken = instance.nextToken();
+	            assertEquals(expected12, myToken.getTokenType());
+	            System.out.println(myToken);
+	            }
+	            catch( Exception e) { e.printStackTrace();}
+	            
+	      //14th symbol test 
+	        System.out.println("greather than test");
+	        TokenType expected13 = TokenType.GREATER_THAN;
+	        
+	        try {
+	            myToken = instance.nextToken();
+	            assertEquals(expected13, myToken.getTokenType());
+	            System.out.println(myToken);
+	            }
+	            catch( Exception e) { e.printStackTrace();}
+	            
+	      //15th symbol test 
+	        System.out.println("greather than or equaltest");
+	        TokenType expected14 = TokenType.GREATER_THAN_OR_EQUAL;
+	        
+	        try {
+	            myToken = instance.nextToken();
+	            assertEquals(expected14, myToken.getTokenType());
+	            System.out.println(myToken);
+	            }
+	            catch( Exception e) { e.printStackTrace();}
+	            
+	      //16th symbol test 
+	        System.out.println("asterisk test");
+	        TokenType expected15 = TokenType.ASTERISK;
+	        
+	        try {
+	            myToken = instance.nextToken();
+	            assertEquals(expected15, myToken.getTokenType());
+	            System.out.println(myToken);
+	            }
+	            catch( Exception e) { e.printStackTrace();}
+	            
+	      //17th symbol test 
+	        System.out.println("slash test");
+	        TokenType expected16 = TokenType.SLASH;
+	        
+	        try {
+	            myToken = instance.nextToken();
+	            assertEquals(expected16, myToken.getTokenType());
+	            System.out.println(myToken);
+	            }
+	            catch( Exception e) { e.printStackTrace();}
+	            
+	      //18th symbol test 
+	        System.out.println("assign test");
+	        TokenType expected17 = TokenType.ASSIGN;
+	        
+	        try {
+	            myToken = instance.nextToken();
+	            assertEquals(expected17, myToken.getTokenType());
+	            System.out.println(myToken);
+	            }
+	            catch( Exception e) { e.printStackTrace();}
+	            
+	      //19th symbol test 
+	        System.out.println("guillements test");
+	        TokenType expected18 = TokenType.GUILLEMENTS;
+	        
+	        try {
+	            myToken = instance.nextToken();
+	            assertEquals(expected18, myToken.getTokenType());
+	            System.out.println(myToken);
+	            }
+	            catch( Exception e) { e.printStackTrace();}
+	            
+	    }
+	          
+	   
 	    //Testing types of numbers
 	    @Test
 	    public void test3() {
 	        Token myToken = null;
-	        String input = " ";
+	        String input = "2 8.777  10E+10  6E-8";
 	        MyScanner instance = new MyScanner(new StringReader(input));
 	        
-	        //1st token test 
-	        System.out.println("1st token test");
-	        TokenType expected = TokenType.PROGRAM;
+	        //1st number test 
+	        System.out.println("1st number test");
+	        TokenType expected = TokenType.NUMBER;
 	        
 	        try {
 	            myToken = instance.nextToken();
@@ -322,9 +511,9 @@ public class MyScannerTest {
 	            System.out.println(myToken);
 	            }
 	            catch( Exception e) { e.printStackTrace();}
-	          
-	    //2nd token test 
-	        System.out.println("2nd token test");
+	        
+	        //2nd number test 
+	        System.out.println("2nd number test");
 	        TokenType expected1 = TokenType.NUMBER;
 	        
 	        try {
@@ -334,17 +523,39 @@ public class MyScannerTest {
 	            }
 	            catch( Exception e) { e.printStackTrace();}
 	        
-	        }
-	  //Testing illegal chars
+	      //3rd number test 
+	        System.out.println("3rd number test");
+	        TokenType expected2 = TokenType.NUMBER;
+	        
+	        try {
+	            myToken = instance.nextToken();
+	            assertEquals(expected2, myToken.getTokenType());
+	            System.out.println(myToken);
+	            }
+	            catch( Exception e) { e.printStackTrace();}
+	        
+	      //4th number test 
+	        System.out.println("2nd number test");
+	        TokenType expected3 = TokenType.NUMBER;
+	        
+	        try {
+	            myToken = instance.nextToken();
+	            assertEquals(expected3, myToken.getTokenType());
+	            System.out.println(myToken);
+	            }
+	            catch( Exception e) { e.printStackTrace();}
+	    }
+	 
+	  //Testing ID's
 	    @Test
 	    public void test4() {
 	        Token myToken = null;
-	        String input = "; , : . [ ] ( ) + - = < <= > >= * / := <>";
+	        String input = "zekrom pikachu14";
 	        MyScanner instance = new MyScanner(new StringReader(input));
 	        
-	        //1st token test 
-	        System.out.println("1st token test");
-	        TokenType expected = TokenType.PROGRAM;
+	        //1st id test 
+	        System.out.println("1st id test");
+	        TokenType expected = TokenType.ID;
 	        
 	        try {
 	            myToken = instance.nextToken();
@@ -352,10 +563,10 @@ public class MyScannerTest {
 	            System.out.println(myToken);
 	            }
 	            catch( Exception e) { e.printStackTrace();}
-	          
-	    //2nd token test 
-	        System.out.println("2nd token test");
-	        TokenType expected1 = TokenType.NUMBER;
+	        
+	      //2nd id test 
+	        System.out.println("2nd id test");
+	        TokenType expected1 = TokenType.ID;
 	        
 	        try {
 	            myToken = instance.nextToken();
@@ -363,8 +574,7 @@ public class MyScannerTest {
 	            System.out.println(myToken);
 	            }
 	            catch( Exception e) { e.printStackTrace();}
-	        
-	        }
 	            
+}
 }
 
