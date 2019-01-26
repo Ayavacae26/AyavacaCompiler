@@ -1,4 +1,4 @@
-
+package scanner;
 // token class
 
 public class Token {
