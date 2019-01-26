@@ -1,1 +1,7 @@
 /bin/
+# Ugly mac OS file
+*. DS_Store 
+# Object Files
+*.class 
+# jflex
+*.jflex1.7.
