@@ -14,7 +14,7 @@ public class MyScannerTest {
 	    @Test
 	    public void test1() {
 	        Token myToken = null;
-	        String input = "pikachu1 3.5 end";
+	        String input = "pikachu12 1E-10 end";
 	        MyScanner instance = new MyScanner(new StringReader(input));
 	        
 	        
@@ -25,6 +25,7 @@ public class MyScannerTest {
 	        try {
 	            myToken = instance.nextToken();
 	            assertEquals(expected, myToken.getTokenType());
+	            System.out.println(myToken);
 	            }
 	            catch( Exception e) { e.printStackTrace();}
 	          
@@ -35,9 +36,11 @@ public class MyScannerTest {
 	        try {
 	            myToken = instance.nextToken();
 	            assertEquals(expected1, myToken.getTokenType());
+	            System.out.println(myToken);
 	            }
 	            catch( Exception e) { e.printStackTrace();}
 	        
 	        }
 	            
 }
+
