@@ -574,7 +574,44 @@ public class MyScannerTest {
 	            System.out.println(myToken);
 	            }
 	            catch( Exception e) { e.printStackTrace();}
-	            
-}
+	            }
+	    
+	  //Testing illegal characters 
+	    @Test
+	    public void test5() {
+	        Token myToken = null;
+	        String input = "# % @";
+	        MyScanner instance = new MyScanner(new StringReader(input));
+	        
+	        //1st test
+	        System.out.println("1st id test");
+	        TokenType expected = TokenType.ILLEGAL;
+	        
+	        try {
+	            myToken = instance.nextToken();
+	            assertEquals(expected, myToken.getTokenType());
+	            System.out.println(myToken);
+	            }
+	            catch( Exception e) { e.printStackTrace();}
+	        
+	      //2nd test
+	        System.out.println("2nd id test");
+	        TokenType expected1 = TokenType.ILLEGAL;
+	        
+	        try {
+	            myToken = instance.nextToken();
+	            assertEquals(expected1, myToken.getTokenType());
+	            System.out.println(myToken);
+	            }
+	            catch( Exception e) { e.printStackTrace();}
+	            }
+	    
+	    
+	    
+	    
+	    
+	    
+	    
+	    
 }
 
