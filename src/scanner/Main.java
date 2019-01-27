@@ -1,5 +1,5 @@
 package scanner;
-import java.io.FileInputStream;
+/*import java.io.FileInputStream;
 import java.io.InputStreamReader;
 
 public class Main{
@@ -25,4 +25,4 @@ public class Main{
               // System.out.println("The token returned was " + aToken);
         } while( aToken != null);
     }
-}
+}*/
