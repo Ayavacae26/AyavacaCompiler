@@ -1,6 +1,7 @@
 /**
-* In this Jflex file. I will be creating a scanner that has lexem definition in order
+* In this Jflex file. I will be creating a scanner that has lexem definitions in order
 * to recognize  different tokens. 
+* Erik Ayavaca
 */
 
 /* Declarations */
@@ -76,6 +77,6 @@ symbol = [;,:\.\[\]\(\)+-\=<>*/]|:=|<=|>=|<>
               } 
 
 {other}    { 
-             System.out.println("Illegal char: '" + yytext() + "' found.");
-             //return "";
-           }
+             //System.out.println("Illegal char: '" + yytext() + "' found.");
+             return new Token(yytext(), TokenType.ILLEGAL);
+            }

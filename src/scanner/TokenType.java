@@ -11,6 +11,6 @@ public enum TokenType {
 		GREATER_THAN_OR_EQUAL,ASTERISK,SLASH,ASSIGN,GUILLEMENTS,
 		
 	//Identifiers
-		ID, NUMBER,
+		ID, NUMBER,ILLEGAL
 		
 }
