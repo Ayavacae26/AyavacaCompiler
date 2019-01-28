@@ -5,7 +5,7 @@ import org.junit.Test;
 import java.io.StringReader;
 
 /**
-*
+* This is J unit file. That is testing myscanner.java
 * @author erikayavaca
 */
 
@@ -576,15 +576,15 @@ public class MyScannerTest {
 	            catch( Exception e) { e.printStackTrace();}
 	            }
 	    
-	  //Testing illegal characters 
+	  //Testing some illegal characters 
 	    @Test
 	    public void test5() {
 	        Token myToken = null;
-	        String input = "# % @";
+	        String input = "# %";
 	        MyScanner instance = new MyScanner(new StringReader(input));
 	        
 	        //1st test
-	        System.out.println("1st id test");
+	        System.out.println("1st illegal character test");
 	        TokenType expected = TokenType.ILLEGAL;
 	        
 	        try {
@@ -594,8 +594,8 @@ public class MyScannerTest {
 	            }
 	            catch( Exception e) { e.printStackTrace();}
 	        
-	      //2nd test
-	        System.out.println("2nd id test");
+	      //2nd test for illegal 
+	        System.out.println("2nd illegall charcter  test");
 	        TokenType expected1 = TokenType.ILLEGAL;
 	        
 	        try {
@@ -605,13 +605,6 @@ public class MyScannerTest {
 	            }
 	            catch( Exception e) { e.printStackTrace();}
 	            }
-	    
-	    
-	    
-	    
-	    
-	    
-	    
-	    
+	    	    
 }
 
