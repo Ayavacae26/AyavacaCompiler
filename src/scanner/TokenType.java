@@ -1,4 +1,7 @@
 package scanner;
+/*
+ * In this file all Token types are defined whether they be a keyword,symbol or identifier of some kind.
+ */
 public enum TokenType {
 
 	//Keywords

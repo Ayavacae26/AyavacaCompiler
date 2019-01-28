@@ -1,5 +1,8 @@
 package scanner;
 import java.util.HashMap;
+/*
+ * This is look up table match of already pre-generated token's. the lexeme is matched with the token type to create the tokens.
+ */
 public class lookUpTable extends HashMap<String, TokenType>{
 	public lookUpTable(){
 		HashMap<String, TokenType> Map = new HashMap<String, TokenType>();

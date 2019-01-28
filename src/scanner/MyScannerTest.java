@@ -5,7 +5,9 @@ import org.junit.Test;
 import java.io.StringReader;
 
 /**
-* This is J unit file. That is testing myscanner.java
+* This is J unit file. That is testing myscanner.java I have created 5 tests,
+* they tested:
+* 
 * @author erikayavaca
 */
 
