@@ -1,30 +1,36 @@
+package scanner;
 import java.util.HashMap;
-
-
+/*
+ * This is look up table match of already pre-generated token's. the lexeme is matched with the token type to create the tokens.
+ */
 public class lookUpTable extends HashMap<String, TokenType>{
 	public lookUpTable(){
 		HashMap<String, TokenType> Map = new HashMap<String, TokenType>();
-			this.put("AND", TokenType.AND);
-			this.put("PROGRAM", TokenType.PROGRAM);
-			this.put("ARRAY", TokenType.ARRAY);
-			this.put("BEGIN", TokenType.BEGIN);
-			this.put("DIV", TokenType.DIV);
-			this.put("DO", TokenType.DO);
-			this.put("ELSE", TokenType.ELSE);
-			this.put("FUNCTION", TokenType.FUNCTION);
-			this.put("IF", TokenType.IF);
-			this.put("INTERGER", TokenType.INTERGER);
-			this.put("DIGIT", TokenType.DIGIT);
-			this.put("MOD", TokenType.MOD);
-			this.put("NOT", TokenType.NOT);
-			this.put("OF", TokenType.OF);
-			this.put("OR", TokenType.OR);
-			this.put("PROCEDURE", TokenType.PROCEDURE);
-			this.put("REAL", TokenType.REAL);
-			this.put("THEN", TokenType.THEN);
-			this.put("VAR", TokenType.VAR);
-			this.put("WHILE", TokenType.WHILE);
-		
+		//Keywords
+                        this.put("program", TokenType.PROGRAM);
+                        this.put("while", TokenType.WHILE);
+                        this.put("if", TokenType.IF);
+                        this.put("integer", TokenType.INTEGER);
+                        this.put("div", TokenType.DIV);
+                        this.put("mod", TokenType.MOD);
+                        this.put("or", TokenType.OR);
+                        this.put("and", TokenType.AND);
+                        this.put("do", TokenType.DO);
+                        this.put("else", TokenType.ELSE);
+                        this.put("then", TokenType.THEN);
+                        this.put("function", TokenType.FUNCTION);
+                        this.put("var", TokenType.VAR);
+                        this.put("read", TokenType.READ);
+                        this.put("begin", TokenType.BEGIN);
+                        this.put("end", TokenType.END);
+                        this.put("of", TokenType.OF);
+                        this.put("real", TokenType.REAL);
+                        this.put("procedure", TokenType.PROCEDURE);
+                        this.put("write", TokenType.WRITE);
+                        this.put("array", TokenType.ARRAY);
+                        this.put("not", TokenType.NOT);
+                        this.put("return", TokenType.RETURN);
+                
 			//SYMBOLS
 			this.put(";", TokenType.SEMICOLON);
 			this.put(",", TokenType.COMMA);

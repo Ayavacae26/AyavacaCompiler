@@ -1,6 +1,8 @@
-
+package scanner;
 // token class
-
+/*
+ * In this class we have what is defined as a token. A token consists of a lexeme and a token type.
+ */
 public class Token {
 	private String lexeme;
 	private TokenType tokentype;
