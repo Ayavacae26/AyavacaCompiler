@@ -1,12 +1,12 @@
+/* Declarations */
+
+package scanner;
+
 /**
 * In this Jflex file. I will be creating a scanner that has lexem definitions in order
 * to recognize  different tokens. 
 * Erik Ayavaca
 */
-
-/* Declarations */
-
-package scanner;
 
 %%
 //%standalone         /* The produced java file has a main */
@@ -14,7 +14,7 @@ package scanner;
 %type Token            /* Defines the return TokenType of the scanning function*/
 
 %{
-lookUpTable m = new lookUpTable();
+LookUpTable m = new LookUpTable();
 %}
 
 %class  MyScanner   /* Names the produced java file */
