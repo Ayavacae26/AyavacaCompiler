@@ -11,7 +11,7 @@ package scanner;
 */
 
 
-class MyScanner {
+public class MyScanner {
 
   /** This character denotes the end of file */
   public static final int YYEOF = -1;
@@ -240,7 +240,7 @@ LookUpTable m = new LookUpTable();
    *
    * @param   in  the java.io.Reader to read input from.
    */
-  MyScanner(java.io.Reader in) {
+  public MyScanner(java.io.Reader in) {
     this.zzReader = in;
   }
 

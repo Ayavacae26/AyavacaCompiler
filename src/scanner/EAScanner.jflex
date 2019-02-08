@@ -17,6 +17,7 @@ package scanner;
 LookUpTable m = new LookUpTable();
 %}
 
+%public
 %class  MyScanner   /* Names the produced java file */
 %function nextToken /* Renames the yylex() function */
 //%type   String      /* Defines the return type of the scanning function */\
