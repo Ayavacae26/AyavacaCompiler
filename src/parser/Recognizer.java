@@ -12,12 +12,13 @@ import scanner.Token;
 import scanner.TokenType;
 
 /**
- * The parser recognizes whether an input string of tokens
+ * The program recognizes whether an input string of tokens
  * is an expression.
  * To use a parser, create an instance pointing at a file,
  * and then call the top-level function, <code>exp()</code>.
  * If the functions returns without an error, the file
  * contains an acceptable expression.
+ * @author Erik Ayavaca-Tirado
  */
 public class Recognizer {
     
@@ -37,7 +38,7 @@ public class Recognizer {
         if( isFilename) {
         FileInputStream fis = null;
         try {
-            fis = new FileInputStream("expressions/simplest.pas");
+            fis = new FileInputStream("");
         } catch (FileNotFoundException ex) {
             error( "No file");
         }
@@ -61,6 +62,53 @@ public class Recognizer {
     ///////////////////////////////
     
     /**
+     * Executes the rule for the program non-terminal symbol in
+     * the expression grammar.
+     */
+    public void program() {
+    	match(TokenType.PROGRAM);
+    	match(TokenType.ID);
+    	match(TokenType.SEMICOLON);
+    	declarations();
+    	subprogram_declarations();
+    	compound_statement();
+    	match(TokenType.PERIOD);
+    }
+    
+    /**
+     * Executes the rule for the identifer_list non-terminal symbol in
+     * the expression grammar.
+     */
+    public void identifer_list() {
+    	if(lookahead.getTokenType() == TokenType.ID) {
+    		match(TokenType.ID);
+    	}
+    	else {
+    		match(TokenType.ID);
+    		match(TokenType.COMMA);
+    		identifer_list();
+    		}
+    }
+    
+    /**
+     * Executes the rule for the declarations non-terminal symbol in
+     * the expression grammar.
+     */
+    public void declarations() {
+    	if(lookahead.getTokenType() == TokenType.VAR) {
+    		match(TokenType.VAR);
+    		identifer_list();
+    		match(TokenType.COLON);
+    		type();
+    		match(TokenType.SEMICOLON);
+    		declarations();
+    	}
+    	else {
+    		// lamda option
+    	}
+    }
+    
+    /**
      * Executes the rule for the exp non-terminal symbol in
      * the expression grammar.
      */
@@ -70,7 +118,7 @@ public class Recognizer {
     }
     
     /**
-     * Executes the rule for the exp&prime; non-terminal symbol in
+     * Executes the rule for the exp & prime; non-terminal symbol in
      * the expression grammar.
      */
     public void exp_prime() {
