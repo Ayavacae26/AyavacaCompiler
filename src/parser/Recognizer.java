@@ -109,6 +109,35 @@ public class Recognizer {
     }
     
     /**
+     * creating private variable
+     * to check if type is valid for 1st part
+     */
+    private boolean isType(TokenType input) {
+    	if (input ==TokenType.INTEGER || input == TokenType.REAL) {
+    		return true;
+    	}
+    	else {
+    		return false;
+    	}
+    }
+    
+    
+    /**
+     * Executes the rule for the type non-terminal symbol in
+     * the expression grammar.
+     */
+    public void type() {
+    	if(isType(lookahead.getTokenType())) {
+    		standard_type();
+    	}
+    	else if(lookahead.getTokenType() == TokenType.ARRAY) {
+    		match(TokenType.ARRAY);
+    		
+    	}
+    	
+    }
+    
+    /**
      * Executes the rule for the exp non-terminal symbol in
      * the expression grammar.
      */
