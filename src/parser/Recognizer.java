@@ -27,13 +27,13 @@ public class Recognizer {
     
     private Token lookahead;
     
-    private Scanner scanner;
+    private MyScanner scanner;
     
     ///////////////////////////////
     //       Constructors
     ///////////////////////////////
     
-    public Parser( String text, boolean isFilename) {
+    public Recognizer( String text, boolean isFilename) {
         if( isFilename) {
         FileInputStream fis = null;
         try {
@@ -42,11 +42,11 @@ public class Recognizer {
             error( "No file");
         }
         InputStreamReader isr = new InputStreamReader( fis);
-        scanner = new ExpScanner( isr);
+        scanner = new MyScanner( isr);
                  
         }
         else {
-            scanner = new ExpScanner( new StringReader( text));
+            scanner = new MyScanner( new StringReader( text));
         }
         try {
             lookahead = scanner.nextToken();
@@ -74,8 +74,8 @@ public class Recognizer {
      * the expression grammar.
      */
     public void exp_prime() {
-        if( lookahead.getType() == ExpTokenType.PLUS || 
-                lookahead.getType() == ExpTokenType.MINUS ) {
+        if( lookahead.getTokenType() == TokenType.PLUS || 
+                lookahead.getTokenType() == TokenType.MINUS ) {
             addop();
             term();
             exp_prime();
@@ -90,11 +90,11 @@ public class Recognizer {
      * the expression grammar.
      */
     public void addop() {
-        if( lookahead.getType() == ExpTokenType.PLUS) {
-            match( ExpTokenType.PLUS);
+        if( lookahead.getTokenType() == TokenType.PLUS) {
+            match(TokenType.PLUS);
         }
-        else if( lookahead.getType() == ExpTokenType.MINUS) {
-            match( ExpTokenType.MINUS);
+        else if( lookahead.getTokenType() == TokenType.MINUS) {
+            match(TokenType.MINUS);
         }
         else {
             error( "Addop");
@@ -131,10 +131,10 @@ public class Recognizer {
      * @param token The token to check.
      * @return true if the token is a mulop, false otherwise
      */
-    private boolean isMulop( ExpToken token) {
+    private boolean isMulop( Token token) {
         boolean answer = false;
-        if( token.getType() == ExpTokenType.MULTIPLY || 
-                token.getType() == ExpTokenType.DIVIDE ) {
+        if( token.getTokenType() == TokenType.ASTERISK || 
+                token.getTokenType() == TokenType.SLASH ) {
             answer = true;
         }
         return answer;
@@ -145,11 +145,11 @@ public class Recognizer {
      * the expression grammar.
      */
     public void mulop() {
-        if( lookahead.getType() == ExpTokenType.MULTIPLY) {
-            match( ExpTokenType.MULTIPLY);
+        if( lookahead.getTokenType() == TokenType.ASTERISK) {
+            match( TokenType.ASTERISK);
         }
-        else if( lookahead.getType() == ExpTokenType.DIVIDE) {
-            match( ExpTokenType.DIVIDE);
+        else if( lookahead.getTokenType() == TokenType.SLASH) {
+            match(TokenType.SLASH);
         }
         else {
             error( "Mulop");
@@ -163,14 +163,14 @@ public class Recognizer {
     public void factor() {
         // Executed this decision as a switch instead of an
         // if-else chain. Either way is acceptable.
-        switch (lookahead.getType()) {
-            case LEFT_PAREN:
-                match( ExpTokenType.LEFT_PAREN);
+        switch (lookahead.getTokenType()) {
+            case LEFTPARENTHESES:
+                match( TokenType.LEFTPARENTHESES);
                 exp();
-                match( ExpTokenType.RIGHT_PAREN);
+                match( TokenType.RIGHTPARENTHESES);
                 break;
             case NUMBER:
-                match( ExpTokenType.NUMBER);
+                match(TokenType.NUMBER);
                 break;
             default:
                 error("Factor");
@@ -189,20 +189,20 @@ public class Recognizer {
      * type.
      * @param expected The expected token type.
      */
-    public void match( ExpTokenType expected) {
+    public void match( TokenType expected) {
         System.out.println("match( " + expected + ")");
-        if( this.lookahead.getType() == expected) {
+        if( this.lookahead.getTokenType() == expected) {
             try {
                 this.lookahead = scanner.nextToken();
                 if( this.lookahead == null) {
-                    this.lookahead = new ExpToken( "End of File", null);
+                    this.lookahead = new Token( "End of File", null);
                 }
             } catch (IOException ex) {
                 error( "Scanner exception");
             }
         }
         else {
-            error("Match of " + expected + " found " + this.lookahead.getType()
+            error("Match of " + expected + " found " + this.lookahead.getTokenType()
                     + " instead.");
         }
     }
@@ -213,9 +213,7 @@ public class Recognizer {
      * @param message The error message to print.
      */
     public void error( String message) {
-        System.out.println( "Error " + message + " at line " + 
-                this.scanner.getLine() + " column " + 
-                this.scanner.getColumn());
+        System.out.println();
         //System.exit( 1);
     }
 }
