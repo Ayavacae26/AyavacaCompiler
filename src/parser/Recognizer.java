@@ -146,6 +146,63 @@ public class Recognizer {
     }
     
     /**
+     * Executes the rule for the standard_type non-terminal symbol in
+     * the expression grammar.
+     */
+    public void standard_type() {
+    	if(lookahead.getTokenType() == TokenType.INTEGER) {
+    		match(TokenType.INTEGER);
+    	}
+    	else if(lookahead.getTokenType() == TokenType.REAL) {
+    		match(TokenType.REAL);
+    	}
+    	else {
+    	error("Error in standard_type");		
+    	}
+    }
+    
+    /**
+     * Executes the rule for the subprogram_declarations non-terminal symbol in
+     * the expression grammar.
+     */
+    
+    
+    
+    
+    /**
+     * Executes the rule for the subprogram_declaration non-terminal symbol in
+     * the expression grammar.
+     */
+    public void subprogram_declaration() {
+    	subprogram_head();
+    	declarations();
+    	compopund_statement();
+    }
+    
+    /**
+     * Executes the rule for the subprogram_head non-terminal symbol in
+     * the expression grammar.
+     */
+    public void subprogram_head() {
+		if(lookahead.getTokenType() == TokenType.FUNCTION)
+		{
+			match(TokenType.FUNCTION);
+			match(TokenType.ID);
+			arguments();
+			match(TokenType.COLON);
+			standard_type();
+			match(TokenType.SEMICOLON);
+		}
+		else
+		{
+			error("Error in subprogram_head.");
+		}	
+	}
+  
+    
+    
+    
+    /**
      * Executes the rule for the exp non-terminal symbol in
      * the expression grammar.
      */
