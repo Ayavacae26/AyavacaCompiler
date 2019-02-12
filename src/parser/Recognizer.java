@@ -132,9 +132,17 @@ public class Recognizer {
     	}
     	else if(lookahead.getTokenType() == TokenType.ARRAY) {
     		match(TokenType.ARRAY);
-    		
+    		match(TokenType.LEFTBRACKET);
+    		match(TokenType.NUMBER);
+    		match(TokenType.COLON);
+    		match(TokenType.NUMBER);
+    		match(TokenType.RIGHTBRACKET);
+    		match(TokenType.OF);
+    		standard_type();
     	}
-    	
+    	else {
+    		error("Error in type. ");
+    	}
     }
     
     /**
@@ -290,7 +298,7 @@ public class Recognizer {
      * @param message The error message to print.
      */
     public void error( String message) {
-        System.out.println();
+        System.out.println("Error" + message);
         //System.exit( 1);
     }
 }
