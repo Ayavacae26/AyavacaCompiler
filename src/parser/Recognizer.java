@@ -243,16 +243,36 @@ public class Recognizer {
     }
     
     /**
-     * Executes the rule for the parameter_list non-terminal symbol in
+     * Executes the rule for the compound_statement non-terminal symbol in
      * the expression grammar.
      */
     public void compound_statement() {
     	 match(TokenType.BEGIN);
     	 optional_statements();
-    	 
-    	 
+    	 match(TokenType.END);
+    }
+    
+    /**
+     * Executes the rule for the optional_statement non-terminal symbol in
+     * the expression grammar.
+     */
+    public void optional_statements() {
+    	 if(lookahead.getTokenType() == TokenType.BEGIN || lookahead.getTokenType() == TokenType.ID 
+    			 || lookahead.getTokenType() == TokenType.IF || lookahead.getTokenType() == TokenType.WHILE) {
+    	 statement_list();
+    	 }
+    	 else {
+    		 //lamda
+    	 }
     }
   
+    /**
+     * Executes the rule for the  statement_list non-terminal symbol in
+     * the expression grammar.
+     */
+    public void  statement_list() {
+    	
+    }
     
     
     
