@@ -165,8 +165,16 @@ public class Recognizer {
      * Executes the rule for the subprogram_declarations non-terminal symbol in
      * the expression grammar.
      */
-    
-    
+    public void subprogram_declarations() {
+    if(lookahead.getTokenType() == TokenType.FUNCTION || lookahead.getTokenType() == TokenType.PROCEDURE) {
+    	subprogram_declaration();
+    	match(TokenType.SEMICOLON);
+    	subprogram_declarations();
+    }
+    else {
+    	//lamda
+    }
+    }
     
     
     /**
@@ -176,7 +184,7 @@ public class Recognizer {
     public void subprogram_declaration() {
     	subprogram_head();
     	declarations();
-    	compopund_statement();
+    	compound_statement();
     }
     
     /**
@@ -193,12 +201,59 @@ public class Recognizer {
 			standard_type();
 			match(TokenType.SEMICOLON);
 		}
+		else if(lookahead.getTokenType() == TokenType.PROCEDURE){
+			match(TokenType.PROCEDURE);
+			match(TokenType.ID);
+			arguments();
+			match(TokenType.SEMICOLON);
+		}
 		else
 		{
 			error("Error in subprogram_head.");
 		}	
 	}
+    
+    /**
+     * Executes the rule for the subprogram_head non-terminal symbol in
+     * the expression grammar.
+     */
+    public void arguments() {
+    	if(lookahead.getTokenType() == TokenType.LEFTPARENTHESES) {
+    		match(TokenType.LEFTPARENTHESES);
+    		parameter_list();
+    		match(TokenType.RIGHTPARENTHESES);
+    	}
+    	else {
+    		//lamda option
+    	}
+    }
+    
+    /**
+     * Executes the rule for the parameter_list non-terminal symbol in
+     * the expression grammar.
+     */
+    public void parameter_list() {
+    	identifer_list();
+    match(TokenType.COLON);
+    type();
+    if(lookahead.getTokenType() == TokenType.SEMICOLON){
+            match(TokenType.COLON);
+            parameter_list();
+    }
+    }
+    
+    /**
+     * Executes the rule for the parameter_list non-terminal symbol in
+     * the expression grammar.
+     */
+    public void compound_statement() {
+    	 match(TokenType.BEGIN);
+    	 optional_statements();
+    	 
+    	 
+    }
   
+    
     
     
     
