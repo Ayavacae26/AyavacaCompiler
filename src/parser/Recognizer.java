@@ -268,7 +268,7 @@ public class Recognizer {
     }
   
     /**
-     * Executes the rule for the  statement_list non-terminal symbol in
+     * Executes the rule for the statement_list non-terminal symbol in
      * the expression grammar.
      */
     public void statement_list() {
@@ -343,6 +343,37 @@ public class Recognizer {
 	}
     }
     
+    /**
+     * Executes the rule for the variable non-terminal symbol in
+     * the expression grammar.
+     */
+    public void variable() {
+    if(lookahead.getTokenType() == TokenType.ID) {
+    		match(TokenType.ID);
+    	}
+    	else {
+    		match(TokenType.ID);
+    		match(TokenType.RIGHTBRACKET);
+    		expression();
+    		match(TokenType.LEFTBRACKET);
+    	}
+    }
+    
+    /**
+     * Executes the rule for the procedure_statement non-terminal symbol in
+     * the expression grammar.
+     */
+    public void procedure_statement() {
+    if(lookahead.getTokenType() == TokenType.ID) {
+    		match(TokenType.ID);
+    	}
+    	else {
+    		match(TokenType.ID);
+    		match(TokenType.RIGHTPARENTHESES);
+    		expression_list();
+    		match(TokenType.LEFTPARENTHESES);
+    	}
+    }
     
     
     
