@@ -258,7 +258,8 @@ public class Recognizer {
      */
     public void optional_statements() {
     	 if(lookahead.getTokenType() == TokenType.BEGIN || lookahead.getTokenType() == TokenType.ID 
-    			 || lookahead.getTokenType() == TokenType.IF || lookahead.getTokenType() == TokenType.WHILE) {
+    			 || lookahead.getTokenType() == TokenType.IF || lookahead.getTokenType() == TokenType.WHILE || lookahead.getTokenType() == TokenType.WRITE
+    			 || lookahead.getTokenType() == TokenType.READ) {
     	 statement_list();
     	 }
     	 else {
@@ -270,8 +271,76 @@ public class Recognizer {
      * Executes the rule for the  statement_list non-terminal symbol in
      * the expression grammar.
      */
-    public void  statement_list() {
-    	
+    public void statement_list() {
+    	if(lookahead.getTokenType() == TokenType.BEGIN || lookahead.getTokenType() == TokenType.ID 
+   			 || lookahead.getTokenType() == TokenType.IF || lookahead.getTokenType() == TokenType.WHILE || lookahead.getTokenType() == TokenType.WRITE
+   			 || lookahead.getTokenType() == TokenType.READ) {
+    		statement();
+    		if(lookahead.getTokenType() == TokenType.SEMICOLON) {
+    			match(TokenType.SEMICOLON);
+    			statement_list();
+    		}
+    		else {
+    			// nothing
+    		}
+    	}
+    }
+    
+    /**
+     * Executes the rule for the  statement non-terminal symbol in
+     * the expression grammar.
+     */
+    public void statement() {
+    	// Varible or procedure_statement
+    	if(lookahead.getTokenType() == TokenType.ID) {
+    		//Variable 
+    		if(lookahead.getTokenType() == TokenType.ASSIGN) {
+    			variable();
+    			match(TokenType.ASSIGN);
+    			expression();	
+    		}
+    		else {
+    			procedure_statement();
+    		}
+    	}
+    	//compound statement
+    	else if (lookahead.getTokenType() == TokenType.BEGIN) {
+    		compound_statement();	
+    	}
+    	else if(lookahead.getTokenType() == TokenType.IF) {
+    		match(TokenType.IF);
+    		expression();
+    		match(TokenType.THEN);
+    		statement();
+    		match(TokenType.ELSE);
+    		statement();
+    	}
+    	else if(lookahead.getTokenType() == TokenType.WHILE) {
+    		match(TokenType.WHILE);
+    		expression();
+    		match(TokenType.DO);
+    		statement();
+    	}
+    else if(lookahead.getTokenType() == TokenType.READ) {
+    	match(TokenType.READ);
+    	match(TokenType.LEFTPARENTHESES);
+    	match(TokenType.ID);
+    	match(TokenType.RIGHTPARENTHESES);
+    }
+    else if(lookahead.getTokenType() == TokenType.WRITE) {
+    	match(TokenType.WRITE);
+    	match(TokenType.LEFTPARENTHESES);
+    	expression();
+    	match(TokenType.RIGHTPARENTHESES);
+    }
+    else if(lookahead.getTokenType() == TokenType.RETURN) {
+    	match(TokenType.RETURN);
+    expression();
+    }
+    else
+	{
+		error("Error in statement");
+	}
     }
     
     
