@@ -375,9 +375,24 @@ public class Recognizer {
     	}
     }
     
-    
-    
-    
+    /**
+     * Executes the rule for the expression_list non-terminal symbol in
+     * the expression grammar.
+     */
+    public void expression_list() {
+    	if(lookahead.getTokenType() == TokenType.ID|| lookahead.getTokenType() == TokenType.NUMBER 
+      			 || lookahead.getTokenType() == TokenType.LEFTPARENTHESES || lookahead.getTokenType() == TokenType.PLUS || lookahead.getTokenType() == TokenType.MINUS){
+       		expression();
+       		if(lookahead.getTokenType() == TokenType.COMMA) {
+       			match(TokenType.COMMA);
+       			expression_list();
+       		}
+       		else {
+       			// nothing
+       		}
+       	}
+       }
+    	
     
     /**
      * Executes the rule for the exp non-terminal symbol in
