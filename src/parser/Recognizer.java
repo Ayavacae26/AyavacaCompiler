@@ -381,7 +381,7 @@ public class Recognizer {
      */
     public void expression_list() {
     	if(lookahead.getTokenType() == TokenType.ID|| lookahead.getTokenType() == TokenType.NUMBER 
-      			 || lookahead.getTokenType() == TokenType.LEFTPARENTHESES || lookahead.getTokenType() == TokenType.PLUS || lookahead.getTokenType() == TokenType.MINUS){
+      			 || lookahead.getTokenType() == TokenType.LEFTPARENTHESES || lookahead.getTokenType() == TokenType.NOT || lookahead.getTokenType() == TokenType.PLUS || lookahead.getTokenType() == TokenType.MINUS){
        		expression();
        		if(lookahead.getTokenType() == TokenType.COMMA) {
        			match(TokenType.COMMA);
@@ -390,127 +390,44 @@ public class Recognizer {
        		else {
        			// nothing
        		}
-       	}
-       }
-    	
+       	}		
+	}
+    
+    private boolean isRelop(TokenType input) {
+		if(input == TokenType.EQUALS|| 
+				input == TokenType.GUILLEMENTS|| 
+				input == TokenType.LESS_THAN|| 
+				input == TokenType.GREATER_THAN ||
+				input == TokenType.LESS_THAN_OR_EQUAL||
+				input == TokenType.GREATER_THAN_OR_EQUAL)
+			return true;
+		else return false;		
+	}
     
     /**
-     * Executes the rule for the exp non-terminal symbol in
+     * Executes the rule for the expression non-terminal symbol in
      * the expression grammar.
      */
-    public void exp() {
-        term();
-        exp_prime();
+    public void expression() {
+    	if(lookahead.getTokenType() == TokenType.ID|| lookahead.getTokenType() == TokenType.NUMBER || lookahead.getTokenType() == TokenType.LEFTPARENTHESES 
+    		|| lookahead.getTokenType() == TokenType.NOT || lookahead.getTokenType() == TokenType.PLUS || lookahead.getTokenType() == TokenType.MINUS){
+    		simple_expression();
+    		if(isRelop(lookahead.getTokenType())) {
+    			match(TokenType.EQUALS);
+    			match(TokenType.GUILLEMENTS);
+    			match(TokenType.LESS_THAN);
+    			match(TokenType.GREATER_THAN);
+    			match(TokenType.LESS_THAN_OR_EQUAL);
+    			match(TokenType.GREATER_THAN_OR_EQUAL);
+    			simple_expression();
+    		}
+    	}
     }
     
-    /**
-     * Executes the rule for the exp & prime; non-terminal symbol in
-     * the expression grammar.
-     */
-    public void exp_prime() {
-        if( lookahead.getTokenType() == TokenType.PLUS || 
-                lookahead.getTokenType() == TokenType.MINUS ) {
-            addop();
-            term();
-            exp_prime();
-        }
-        else{
-            // lambda option
-        }
-    }
     
-    /**
-     * Executes the rule for the addop non-terminal symbol in
-     * the expression grammar.
-     */
-    public void addop() {
-        if( lookahead.getTokenType() == TokenType.PLUS) {
-            match(TokenType.PLUS);
-        }
-        else if( lookahead.getTokenType() == TokenType.MINUS) {
-            match(TokenType.MINUS);
-        }
-        else {
-            error( "Addop");
-        }
-    }
     
-    /**
-     * Executes the rule for the term non-terminal symbol in
-     * the expression grammar.
-     */
-    public void term() {
-        factor();
-        term_prime();
-    }
     
-    /**
-     * Executes the rule for the term&prime; non-terminal symbol in
-     * the expression grammar.
-     */
-    public void term_prime() {
-        if( isMulop( lookahead) ) {
-            mulop();
-            factor();
-            term_prime();
-        }
-        else{
-            // lambda option
-        }
-    }
     
-    /**
-     * Determines whether or not the given token is
-     * a mulop token.
-     * @param token The token to check.
-     * @return true if the token is a mulop, false otherwise
-     */
-    private boolean isMulop( Token token) {
-        boolean answer = false;
-        if( token.getTokenType() == TokenType.ASTERISK || 
-                token.getTokenType() == TokenType.SLASH ) {
-            answer = true;
-        }
-        return answer;
-    }
-    
-    /**
-     * Executes the rule for the mulop non-terminal symbol in
-     * the expression grammar.
-     */
-    public void mulop() {
-        if( lookahead.getTokenType() == TokenType.ASTERISK) {
-            match( TokenType.ASTERISK);
-        }
-        else if( lookahead.getTokenType() == TokenType.SLASH) {
-            match(TokenType.SLASH);
-        }
-        else {
-            error( "Mulop");
-        }
-    }
-    
-    /**
-     * Executes the rule for the factor non-terminal symbol in
-     * the expression grammar.
-     */
-    public void factor() {
-        // Executed this decision as a switch instead of an
-        // if-else chain. Either way is acceptable.
-        switch (lookahead.getTokenType()) {
-            case LEFTPARENTHESES:
-                match( TokenType.LEFTPARENTHESES);
-                exp();
-                match( TokenType.RIGHTPARENTHESES);
-                break;
-            case NUMBER:
-                match(TokenType.NUMBER);
-                break;
-            default:
-                error("Factor");
-                break;
-        }
-    }
     
     /**
      * Matches the expected token.
