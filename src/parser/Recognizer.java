@@ -5,8 +5,8 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.StringReader;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+//import java.util.logging.Level;
+//import java.util.logging.Logger;
 import scanner.MyScanner;
 import scanner.Token;
 import scanner.TokenType;
@@ -507,6 +507,55 @@ public class Recognizer {
 	  	}
    }
     
+   /** Executes the rule for the factor non-terminal symbol in
+    * the expression grammar.
+    */
+   public void factor() {
+	   if(lookahead.getTokenType() == TokenType.ID) {
+		   match(TokenType.ID);
+		   if(lookahead.getTokenType() == TokenType.LEFTBRACKET) {
+			   match(TokenType.LEFTBRACKET);
+			   expression();
+			   match(TokenType.RIGHTBRACKET);
+		   }
+		   else if(lookahead.getTokenType() == TokenType.LEFTPARENTHESES) {
+			   match(TokenType.LEFTPARENTHESES);
+			   expression_list();
+			   match(TokenType.RIGHTPARENTHESES);
+		   }
+	   }
+	   else if(lookahead.getTokenType() == TokenType.NUMBER) {
+		   match(TokenType.NUMBER);
+	   }
+	   else if(lookahead.getTokenType() == TokenType.LEFTPARENTHESES) {
+		   match(TokenType.LEFTPARENTHESES);
+		   expression();
+		   match(TokenType.RIGHTPARENTHESES);
+	   }
+	   else if (lookahead.getTokenType() ==TokenType.NOT) {
+		   match(TokenType.NOT);
+		   factor();
+	   }
+	   else {
+		   error("factor error");
+	   }   
+   }
+   
+   /** Executes the rule for the sign non-terminal symbol in
+    * the expression grammar.
+    */
+   public void sign() {
+	   if(lookahead.getTokenType() == TokenType.PLUS) {
+		   match(TokenType.PLUS);
+	   }
+	   else if(lookahead.getTokenType() == TokenType.MINUS) {
+		   match(TokenType.MINUS);
+	   }
+	   else {
+		   error("sign error");
+	   }
+	   
+   }
     
     
     /**
