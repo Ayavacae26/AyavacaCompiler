@@ -424,8 +424,88 @@ public class Recognizer {
     	}
     }
     
+    /**
+     * Executes the rule for the simple_expression non-terminal symbol in
+     * the expression grammar.
+     */
+    public void simple_expression() {
+    	if(lookahead.getTokenType() == TokenType.ID|| lookahead.getTokenType() == TokenType.NUMBER || lookahead.getTokenType() == TokenType.LEFTPARENTHESES 
+    		|| lookahead.getTokenType() == TokenType.NOT){
+    		term();
+    		simple_part();
+    	}
+    	else if (lookahead.getTokenType() == TokenType.PLUS || lookahead.getTokenType() == TokenType.MINUS) {
+    		sign();
+    		term();
+    		simple_part();
+    	}
+    		
+    	}
     
+    private boolean isAddop(TokenType input) {
+		if(input == TokenType.PLUS|| 
+				input == TokenType.MINUS|| 
+				input == TokenType.OR|| 
+				input == TokenType.GREATER_THAN)
+			return true;
+		else return false;		
     
+    }
+    
+    /**
+     * Executes the rule for the simple_part non-terminal symbol in
+     * the expression grammar.
+     */
+    public void simple_part() {
+    	if(isAddop(lookahead.getTokenType())) {
+			match(TokenType.PLUS);
+			match(TokenType.MINUS);
+			match(TokenType.OR);
+			term();
+			simple_part();
+		}
+    	else {
+    		//lamda option
+    	}
+    	
+    }
+    
+    /** Executes the rule for the term non-terminal symbol in
+    * the expression grammar.
+    */
+   public void term() {
+	if(lookahead.getTokenType() == TokenType.ID|| lookahead.getTokenType() == TokenType.NUMBER || lookahead.getTokenType() == TokenType.LEFTPARENTHESES 
+    		|| lookahead.getTokenType() == TokenType.NOT) { 
+    factor();
+    term_part();
+   }
+} 
+   
+   private boolean isMulop(TokenType input) {
+		if(input == TokenType.ASTERISK || 
+				input == TokenType.SLASH || 
+				input == TokenType.DIV || 
+				input == TokenType.MOD ||
+				input ==TokenType.AND)
+			return true;
+		else return false;		
+   
+   }
+   
+   /** Executes the rule for the term_part non-terminal symbol in
+    * the expression grammar.
+    */
+   public void term_part() {
+	  	if(isMulop(lookahead.getTokenType())) {
+				match(TokenType.ASTERISK);
+				match(TokenType.SLASH);
+				match(TokenType.DIV);
+				match(TokenType.MOD);
+				match(TokenType.AND);
+				factor();
+				term_part();	
+	  	}
+   }
     
     
     
