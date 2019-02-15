@@ -13,10 +13,37 @@ import org.junit.Test;
  */
 
 public class RecognizerTest {
-
+	
+	/**
+	 * This is testing the happy path of the program function
+	 */
 	@Test
-	public void test() {
-		fail("Not yet implemented"); // TODO
+	public void programPass() {
+		System.out.println("Program pass test");
+		String Pass = "program foo ; begin end .";
+		Recognizer r = new Recognizer(Pass,false);
+		try {
+			r.program();
+		}
+		catch(Exception e) {
+			fail(e.getMessage());		
+		}
+	}
+	
+	/**
+	 * This is testing the happy path of the declarations function
+	 */
+	@Test
+	public void declarationsPass() {
+		System.out.println("declarations pass test");
+		String Pass = "var pikachu : integer ; var zekrom : real;";
+		Recognizer r = new Recognizer(Pass,false);
+		try {
+			r.declarations();
+		}
+		catch(Exception e) {
+			fail(e.getMessage());		
+		}
 	}
 
 }
