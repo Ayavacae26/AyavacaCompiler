@@ -31,6 +31,23 @@ public class RecognizerTest {
 	}
 	
 	/**
+	 * This is testing the bad path of the program function
+	 */
+	@Test
+	public void programFail() {
+		System.out.println("Program fail test");
+		String fail = "program ; foo begin end .";
+		Recognizer r = new Recognizer(fail,false);
+		try {
+			r.program();	
+		}
+		catch(Exception e) {
+			fail(e.getMessage());		
+		}
+	}
+	
+	
+	/**
 	 * This is testing the happy path of the declarations function
 	 */
 	@Test
@@ -40,6 +57,22 @@ public class RecognizerTest {
 		Recognizer r = new Recognizer(Pass,false);
 		try {
 			r.declarations();
+		}
+		catch(Exception e) {
+			fail(e.getMessage());		
+		}
+	}
+	
+	/**
+	 * This is testing the happy path of the subprogram_declaration function
+	 */
+	@Test
+	public void subprogram_declarationPass() {
+		System.out.println("subprogram_declaration pass test");
+		String Pass = "procedure pikachu ; var fo : integer ; begin end";
+		Recognizer r = new Recognizer(Pass,false);
+		try {
+			r.subprogram_declaration();
 		}
 		catch(Exception e) {
 			fail(e.getMessage());		
