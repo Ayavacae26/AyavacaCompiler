@@ -119,14 +119,103 @@ public class RecognizerTest {
 	@Test
 	public void programFail() {
 		System.out.println("Program fail test");
-		String fail = "program ; foo begin end .";
+		String fail = "foo begin end .";
 		Recognizer r = new Recognizer(fail,false);
 		try {
 			r.program();	
+			fail("this pascal should fail");
 		}
 		catch(Exception e) {
-			fail(e.getMessage());		
+			assertEquals(null, e.getMessage());	
 		}
 	}
+	
+	/**
+	 * This is testing the bad path of the declarations function
+	 */
+	@Test
+	public void declartionsFail() {
+		System.out.println("declarations fail test");
+		String fail = "10 999 ";
+		Recognizer r = new Recognizer(fail,false);
+		try {
+			r.declarations();	
+			fail("this pascal should fail");
+		}
+		catch(Exception e) {
+			assertEquals(null, e.getMessage());	
+		}
+	}
+	
+
+	/**
+	 * This is testing the bad path of the subprogram declaration function
+	 */
+	@Test
+	public void subprogram_declarationFail() {
+		System.out.println("subprogram_declaration fail test");
+		String fail = " Zekrom function";
+		Recognizer r = new Recognizer(fail,false);
+		try {
+			r.declarations();	
+			fail("this pascal should fail");
+		}
+		catch(Exception e) {
+			assertEquals(null, e.getMessage());	
+		}
+	}
+	/**
+	 * This is testing the bad path of the statement function
+	 */
+	@Test
+	public void statementFail() {
+		System.out.println("statement fail test");
+		String fail = "program 12 ";
+		Recognizer r = new Recognizer(fail,false);
+		try {
+			r.declarations();	
+			fail("this pascal should fail");
+		}
+		catch(Exception e) {
+			assertEquals(null, e.getMessage());	
+		}
+	}
+	
+
+/**
+ * This is testing the bad path of the simple_expression function
+ */
+@Test
+public void simple_expressionFail() {
+	System.out.println("simple_expression fail test");
+	String fail = "array ";
+	Recognizer r = new Recognizer(fail,false);
+	try {
+		r.declarations();	
+		fail("this pascal should fail");
+	}
+	catch(Exception e) {
+		assertEquals(null, e.getMessage());	
+	}
+}
+
+/**
+ * This is testing the bad path of the factor function
+ */
+@Test
+public void factorFail() {
+	System.out.println("simple_expression fail test");
+	String fail = "program";
+	Recognizer r = new Recognizer(fail,false);
+	try {
+		r.declarations();	
+		fail("this pascal should fail");
+	}
+	catch(Exception e) {
+		assertEquals(null, e.getMessage());	
+	}
+}
+
+	
 
 }

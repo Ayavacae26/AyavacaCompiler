@@ -588,6 +588,7 @@ public class Recognizer {
      */
     public void error( String message) {
         System.out.println("Error" + message);
+        throw new RuntimeException();
         //System.exit( 1);
     }
 }
