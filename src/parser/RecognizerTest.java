@@ -69,7 +69,7 @@ public class RecognizerTest {
 	@Test
 	public void statementPass() {
 		System.out.println("statement pass test");
-		String Pass = "procedure pikachu ; var fo : integer ; begin end";
+		String Pass = "read ( pikachu10 )";
 		Recognizer r = new Recognizer(Pass,false);
 		try {
 			r.statement();

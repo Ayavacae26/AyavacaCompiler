@@ -293,16 +293,13 @@ public class Recognizer {
     public void statement() {
     	// Varible or procedure_statement
     	if(lookahead.getTokenType() == TokenType.ID) {
-    		//Variable 
-    		if(lookahead.getTokenType() == TokenType.ASSIGN) {
     			variable();
     			match(TokenType.ASSIGN);
     			expression();	
     		}
-    		else {
-    			procedure_statement();
-    		}
-    	}
+    		//else {   commented out 
+    			//procedure_statement();
+    		//}
     	//compound statement
     	else if (lookahead.getTokenType() == TokenType.BEGIN) {
     		compound_statement();	
@@ -348,14 +345,11 @@ public class Recognizer {
      * the expression grammar.
      */
     public void variable() {
-    if(lookahead.getTokenType() == TokenType.ID) {
     		match(TokenType.ID);
-    	}
-    	else {
-    		match(TokenType.ID);
-    		match(TokenType.RIGHTBRACKET);
-    		expression();
+    	if(lookahead.getTokenType() == TokenType.LEFTBRACKET) {
     		match(TokenType.LEFTBRACKET);
+    		expression();
+    		match(TokenType.RIGHTBRACKET);
     	}
     }
     
