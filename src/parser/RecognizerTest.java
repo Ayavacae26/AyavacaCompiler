@@ -80,7 +80,37 @@ public class RecognizerTest {
 		
 	}
 	
-	
+	/**
+	 * This is the testing for the simple expression( good path)
+	 */
+		@Test
+		public void simple_expressionPass() {
+		 System.out.println("simple_expression pass test");
+			String Pass = "5";
+			Recognizer r = new Recognizer(Pass,false);
+			try {
+				r.simple_expression();
+			}
+			catch(Exception e) {
+				fail(e.getMessage());		
+			}
+	 }
+		
+		/**
+		 * This is the testing for the factor( good path)
+		 */
+			@Test
+			public void factorPass() {
+			 System.out.println("factor pass test");
+				String Pass = "Zekrom";
+				Recognizer r = new Recognizer(Pass,false);
+				try {
+					r.factor();
+				}
+				catch(Exception e) {
+					fail(e.getMessage());		
+				}
+		 }
 	
 
 	/**
