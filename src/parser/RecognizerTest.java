@@ -126,7 +126,7 @@ public class RecognizerTest {
 			fail("this pascal should fail");
 		}
 		catch(Exception e) {
-			assertEquals(null, e.getMessage());	
+			assertEquals("error", e.getMessage());	
 		}
 	}
 	
@@ -143,7 +143,7 @@ public class RecognizerTest {
 			fail("this pascal should fail");
 		}
 		catch(Exception e) {
-			assertEquals(null, e.getMessage());	
+			assertEquals("error", e.getMessage());	
 		}
 	}
 	
@@ -161,7 +161,7 @@ public class RecognizerTest {
 			fail("this pascal should fail");
 		}
 		catch(Exception e) {
-			assertEquals(null, e.getMessage());	
+			assertEquals("error", e.getMessage());	
 		}
 	}
 	/**
@@ -177,7 +177,7 @@ public class RecognizerTest {
 			fail("this pascal should fail");
 		}
 		catch(Exception e) {
-			assertEquals(null, e.getMessage());	
+			assertEquals("error", e.getMessage());	
 		}
 	}
 	
@@ -195,7 +195,7 @@ public void simple_expressionFail() {
 		fail("this pascal should fail");
 	}
 	catch(Exception e) {
-		assertEquals(null, e.getMessage());	
+		assertEquals("error", e.getMessage());	
 	}
 }
 
@@ -212,7 +212,7 @@ public void factorFail() {
 		fail("this pascal should fail");
 	}
 	catch(Exception e) {
-		assertEquals(null, e.getMessage());	
+		assertEquals("error", e.getMessage());	
 	}
 }
 
