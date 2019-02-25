@@ -44,7 +44,7 @@ public class SymbolTable {
 		ss.name = name;
 		ss.kind = Kind.VARIABLE;
 		symbols.put(name, ss);
-		System.out.println("Adding " + name + " in type " + ss.kind + " to hashtable");
+		System.out.println("Adding " + name + " in type " + ss.kind + " to hashmap");
 		return true;
 	}
 	}
@@ -61,6 +61,45 @@ public class SymbolTable {
 			return false;
 		}
 		else if(data.kind == Kind.VARIABLE){
+			return true;
+		}
+		return false;
+	}
+	
+	///////////////////////////////////////////////
+	/**
+	 * This method addProgram checks to see if there exists a name
+	 * of the type variable, returns false if found, else it add's in to the hashmap
+	 * @param name- name of variable that is being checked by hashmap
+	 * @return True if there is no existance of the name.
+	 */
+	
+	public boolean addProgram(String name) {
+		DataType ss = new DataType();
+	if (symbols.containsKey(name)) {
+		return false;
+	}
+	else {
+		ss.name = name;
+		ss.kind = Kind.PROGRAM;
+		symbols.put(name, ss);
+		System.out.println("Adding " + name + " in type " + ss.kind + " to hashmap");
+		return true;
+	}
+	}
+	
+	/**
+	 * This isProgram method checks to see if the kind of id matches
+	 * the enum type of variable 
+	 * @param name -The variable id name that is being checked in the hash map
+	 * @return True if there is a match 
+	 */
+	public boolean isProgram(String name) {
+		DataType data = (DataType) symbols.get(name);
+		if(data == null) {
+			return false;
+		}
+		else if(data.kind == Kind.PROGRAM){
 			return true;
 		}
 		return false;
