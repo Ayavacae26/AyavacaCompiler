@@ -15,20 +15,43 @@ public class SymbolTableTest {
 		expected = true;
 		boolean actual = test.isVariable(name);
 		assertEquals(expected,actual);
-		System.out.println("/////////////////////");
+		
 	}
 	
 	@Test
 	public void addVariableNameFail() {
-		String wrongName = "program foo";
+		String wrongName = "pop foo";
+		SymbolTable test = new SymbolTable();
+		//Checking that is no variable of the name
+		test.addVariable(wrongName);
+		boolean expected = false;
+		boolean actual = test.isVariable(wrongName);
+		assertEquals(expected,actual);
+		
+	}
+
+	@Test
+	public void addProgramName() {
+		String name = "program Foo";
+		SymbolTable test = new SymbolTable();
+		test.addProgram(name);
+		boolean expected = true;
+		//returns true for variable named "Variable"
+		expected = true;
+		boolean actual = test.isProgram(name);
+		assertEquals(expected,actual);
+		
+	}
+	
+	@Test
+	public void addProgramNameFail() {
+		String wrongName = "no foo";
 		SymbolTable test = new SymbolTable();
 		
 		//Checking that is no variable of the name
-		test.addVariable(wrongName);
-		boolean expected = true;
-		boolean actual = test.isVariable(wrongName);
+		boolean expected = false;
+		boolean actual = test.addProgram(wrongName);
 		assertEquals(expected,actual);
-		System.out.println("/////////////////////");
+		
 	}
-
 }

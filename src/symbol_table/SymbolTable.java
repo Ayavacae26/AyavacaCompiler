@@ -44,7 +44,7 @@ public class SymbolTable {
 		ss.name = name;
 		ss.kind = Kind.VARIABLE;
 		symbols.put(name, ss);
-		System.out.println("Adding " + name + " in type " + ss.kind + " to hashmap");
+		//System.out.println("Adding " + name + " in type " + ss.kind + " to hashmap");
 		return true;
 	}
 	}
@@ -83,7 +83,7 @@ public class SymbolTable {
 		ss.name = name;
 		ss.kind = Kind.PROGRAM;
 		symbols.put(name, ss);
-		System.out.println("Adding " + name + " in type " + ss.kind + " to hashmap");
+		//System.out.println("Adding " + name + " in type " + ss.kind + " to hashmap");
 		return true;
 	}
 	}
@@ -124,7 +124,7 @@ public class SymbolTable {
 		ss.name = name;
 		ss.kind = Kind.PROGRAM;
 		symbols.put(name, ss);
-		System.out.println("Adding " + name + " in type " + ss.kind + " to hashmap");
+		//System.out.println("Adding " + name + " in type " + ss.kind + " to hashmap");
 		return true;
 	}
 	}
@@ -164,7 +164,7 @@ public class SymbolTable {
 		ss.name = name;
 		ss.kind = Kind.FUNCTION;
 		symbols.put(name, ss);
-		System.out.println("Adding " + name + " in type " + ss.kind + " to hashmap");
+		//System.out.println("Adding " + name + " in type " + ss.kind + " to hashmap");
 		return true;
 	}
 	}
@@ -203,7 +203,7 @@ public class SymbolTable {
 		ss.name = name;
 		ss.kind = Kind.PROCEDURE;
 		symbols.put(name, ss);
-		System.out.println("Adding " + name + " in type " + ss.kind + " to hashmap");
+		//System.out.println("Adding " + name + " in type " + ss.kind + " to hashmap");
 		return true;
 	}
 	}
