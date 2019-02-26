@@ -23,7 +23,6 @@ public class SymbolTableTest {
 		String wrongName = "pop foo";
 		SymbolTable test = new SymbolTable();
 		//Checking that is no variable of the name
-		test.addVariable(wrongName);
 		boolean expected = false;
 		boolean actual = test.isVariable(wrongName);
 		assertEquals(expected,actual);
@@ -47,10 +46,82 @@ public class SymbolTableTest {
 	public void addProgramNameFail() {
 		String wrongName = "no foo";
 		SymbolTable test = new SymbolTable();
+		//Checking that is no variable of the name
+		boolean expected = false;
+		boolean actual = test.isProgram(wrongName);
+		assertEquals(expected,actual);
+	}
+	
+	@Test
+	public void addArrayName() {
+		String name = "array Foo";
+		SymbolTable test = new SymbolTable();
+		test.addArray(name);
+		boolean expected = true;
+		//returns true for variable named "array"
+		expected = true;
+		boolean actual = test.isArray(name);
+		assertEquals(expected,actual);
+		
+	}
+	
+	@Test
+	public void addArrayNameFail() {
+		String wrongName = "no foo";
+		SymbolTable test = new SymbolTable();
 		
 		//Checking that is no variable of the name
 		boolean expected = false;
-		boolean actual = test.addProgram(wrongName);
+		boolean actual = test.isArray(wrongName);
+		assertEquals(expected,actual);
+		
+	}
+	
+	@Test
+	public void addFunctionName() {
+		String name = "function Foo";
+		SymbolTable test = new SymbolTable();
+		test.addFunction(name);
+		boolean expected = true;
+		//returns true for variable named "function"
+		expected = true;
+		boolean actual = test.isFunction(name);
+		assertEquals(expected,actual);
+		
+	}
+	
+	@Test
+	public void addFunctionNameFail() {
+		String wrongName = "no foo";
+		SymbolTable test = new SymbolTable();
+		//Checking that is no variable of the name
+		boolean expected = false;
+		boolean actual = test.isFunction(wrongName);
+		assertEquals(expected,actual);
+		
+	}
+	
+
+	@Test
+	public void addProcedureName() {
+		String name = "function Foo";
+		SymbolTable test = new SymbolTable();
+		test.addProcedure(name);
+		boolean expected = true;
+		//returns true for variable named "Procedure"
+		expected = true;
+		boolean actual = test.isProcedure(name);
+		assertEquals(expected,actual);
+		
+	}
+	
+	@Test
+	public void addProcedureNameFail() {
+		String wrongName = "no foo";
+		SymbolTable test = new SymbolTable();
+		//Checking that is no variable of the name
+		boolean expected = false;
+		boolean actual = test.isProcedure(wrongName);
 		assertEquals(expected,actual);
 		
 	}
