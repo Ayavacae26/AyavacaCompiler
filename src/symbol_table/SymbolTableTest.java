@@ -5,6 +5,10 @@ import org.junit.Test;
 
 public class SymbolTableTest {
 
+	/**
+	 * test case checking the addVariable function
+	 * should return true, which means it passes
+	 */
 	@Test
 	public void addVariableName() {
 		String name = "variable Foo";
@@ -17,7 +21,11 @@ public class SymbolTableTest {
 		assertEquals(expected,actual);
 		
 	}
-	
+	/**
+	 * Test case check isVariable function
+	 * return false if input string is not good
+	 * should pass if both expected and actual are false
+	 */
 	@Test
 	public void addVariableNameFail() {
 		String wrongName = "pop foo";
@@ -28,6 +36,10 @@ public class SymbolTableTest {
 		assertEquals(expected,actual);
 		
 	}
+	/**
+	 * test case checking the addProgram function
+	 * should return true, which means it passes
+	 */
 
 	@Test
 	public void addProgramName() {
@@ -41,6 +53,11 @@ public class SymbolTableTest {
 		assertEquals(expected,actual);
 		
 	}
+	/**
+	 * Test case check isProgram function
+	 * return false if input string is not good
+	 * should pass if both expected and actual are false
+	 */
 	
 	@Test
 	public void addProgramNameFail() {
@@ -51,6 +68,11 @@ public class SymbolTableTest {
 		boolean actual = test.isProgram(wrongName);
 		assertEquals(expected,actual);
 	}
+	
+	/**
+	 * test case checking the addArrayfunction
+	 * should return true, which means it passes
+	 */
 	
 	@Test
 	public void addArrayName() {
@@ -64,6 +86,11 @@ public class SymbolTableTest {
 		assertEquals(expected,actual);
 		
 	}
+	/**
+	 * Test case check isArray function
+	 * return false if input string is not good
+	 * should pass if both expected and actual are false
+	 */
 	
 	@Test
 	public void addArrayNameFail() {
@@ -76,6 +103,11 @@ public class SymbolTableTest {
 		assertEquals(expected,actual);
 		
 	}
+	
+	/**
+	 * test case checking the addFunction function
+	 * should return true, which means it passes
+	 */
 	
 	@Test
 	public void addFunctionName() {
@@ -90,6 +122,12 @@ public class SymbolTableTest {
 		
 	}
 	
+	/**
+	 * Test case check isFunction function
+	 * return false if input string is not good
+	 * should pass if both expected and actual are false
+	 */
+	
 	@Test
 	public void addFunctionNameFail() {
 		String wrongName = "no foo";
@@ -101,6 +139,10 @@ public class SymbolTableTest {
 		
 	}
 	
+	/**
+	 * test case checking the addProcedure function
+	 * should return true, which means it passes
+	 */
 
 	@Test
 	public void addProcedureName() {
@@ -115,6 +157,11 @@ public class SymbolTableTest {
 		
 	}
 	
+	/**
+	 * Test case check isProcedure function
+	 * return false if input string is not good
+	 * should pass if both expected and actual are false
+	 */
 	@Test
 	public void addProcedureNameFail() {
 		String wrongName = "no foo";
