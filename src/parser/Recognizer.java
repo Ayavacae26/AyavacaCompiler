@@ -80,13 +80,13 @@ public class Recognizer {
      * the expression grammar.
      */
     public void identifer_list() {
-    	if(lookahead.getTokenType() == TokenType.ID) {
-    		match(TokenType.ID);
-    	}
-    	else {
-    		match(TokenType.ID);
+    	match(TokenType.ID);
+    	if(lookahead.getTokenType() == TokenType.COMMA) {
     		match(TokenType.COMMA);
     		identifer_list();
+    	}
+    	else {
+    		
     		}
     }
     
