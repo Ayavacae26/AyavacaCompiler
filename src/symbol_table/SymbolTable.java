@@ -235,4 +235,18 @@ public class SymbolTable {
 		return false;
 	}
 
+	/**
+	 * 
+	 */
+	@Override
+	public String toString() {
+		String sym = String.format("%-20s %-20s %15s "," =NAME=","=KIND=","=TYPE=") + "\n";
+		Set<String> keys = symbols.keySet();
+		for(String key: keys) {
+			sym+= String.format()
+		}
+		return sym; 
+	}
+
+
 }
