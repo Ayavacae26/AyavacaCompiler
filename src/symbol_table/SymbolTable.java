@@ -240,13 +240,12 @@ public class SymbolTable {
 	 */
 	@Override
 	public String toString() {
-		String sym = String.format("%-20s %-20s %15s "," =NAME=","=KIND=","=TYPE=") + "\n";
+		String sym = String.format("%-20s %-20s %15s ", " =NAME=", "=KIND=", "=TYPE=") + "\n";
 		Set<String> keys = symbols.keySet();
-		for(String key: keys) {
-			sym+= String.format()
+		for (String key : keys) {
+			sym += String.format("%-20s %-20s %15s ", key, symbols.get(key).kind, symbols.get(key).type) + "\n";
 		}
-		return sym; 
+		return sym;
 	}
-
 
 }
