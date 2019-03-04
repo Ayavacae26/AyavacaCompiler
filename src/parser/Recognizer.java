@@ -70,9 +70,9 @@ public class Recognizer {
      */
     public void program() {
     	match(TokenType.PROGRAM);
-    	String name = lookahead.getlexeme();
+    	String programName = lookahead.getlexeme();
     	match(TokenType.ID);
-    	if(!symbolTable.addProgram(name))
+    	if(!symbolTable.addProgram(programName))
     		error("name already exists in symbol");
     	match(TokenType.SEMICOLON);
     	declarations();
@@ -201,8 +201,10 @@ public class Recognizer {
 		if(lookahead.getTokenType() == TokenType.FUNCTION)
 		{
 			match(TokenType.FUNCTION);
-			
+			String functionName = lookahead.getlexeme();
 			match(TokenType.ID);
+			if(!symbolTable.addFunction(functionName))
+				error("name already exists in symbol table");
 			arguments();
 			match(TokenType.COLON);
 			standard_type();
@@ -210,7 +212,10 @@ public class Recognizer {
 		}
 		else if(lookahead.getTokenType() == TokenType.PROCEDURE){
 			match(TokenType.PROCEDURE);
+			String procedureName = lookahead.getlexeme();
 			match(TokenType.ID);
+			if(!symbolTable.addProcedure(procedureName))
+				error("name already exists in symbol table");
 			arguments();
 			match(TokenType.SEMICOLON);
 		}
