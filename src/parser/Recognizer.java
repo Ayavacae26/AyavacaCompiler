@@ -10,6 +10,7 @@ import java.io.StringReader;
 import scanner.MyScanner;
 import scanner.Token;
 import scanner.TokenType;
+import symbol_table.SymbolTable;
 
 /**
  * The program recognizes whether an input string of tokens
@@ -29,6 +30,8 @@ public class Recognizer {
     private Token lookahead;
     
     private MyScanner scanner;
+    
+    private SymbolTable symbolTable;
     
     ///////////////////////////////
     //       Constructors
@@ -67,7 +70,10 @@ public class Recognizer {
      */
     public void program() {
     	match(TokenType.PROGRAM);
+    	String name = lookahead.getlexeme();
     	match(TokenType.ID);
+    	if(!symbolTable.addProgram(name))
+    		error("name already exists in symbol");
     	match(TokenType.SEMICOLON);
     	declarations();
     	subprogram_declarations();
@@ -195,6 +201,7 @@ public class Recognizer {
 		if(lookahead.getTokenType() == TokenType.FUNCTION)
 		{
 			match(TokenType.FUNCTION);
+			
 			match(TokenType.ID);
 			arguments();
 			match(TokenType.COLON);
