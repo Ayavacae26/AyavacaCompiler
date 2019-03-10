@@ -11,6 +11,9 @@ import scanner.MyScanner;
 import scanner.Token;
 import scanner.TokenType;
 import symbol_table.SymbolTable;
+import java.io.PrintWriter;
+import java.io.FileWriter;
+import java.io.BufferedWriter;
 
 /**
  * The program recognizes whether an input string of tokens

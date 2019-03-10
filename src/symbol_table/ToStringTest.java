@@ -4,7 +4,9 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 public class ToStringTest {
-
+	/**
+	 * Here I am testing the toString override that occured in the Sy
+	 */
 	@Test
 	public void test() {
 		SymbolTable symbols = new SymbolTable();
@@ -13,7 +15,6 @@ public class ToStringTest {
 		symbols.addArray("GREEN");
 		symbols.addFunction("YELLOW");
 		symbols.addVariable("RUBY");
-		//String table = "NAME   FUNCTION    TYPE    \n" + "RED      PROGRAM      \n";
 		
 		System.out.println(symbols.toString());
 	}
