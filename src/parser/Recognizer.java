@@ -75,8 +75,7 @@ public class Recognizer {
     	match(TokenType.PROGRAM);
     	String programName = lookahead.getlexeme();
     	match(TokenType.ID);
-    	if(!symbolTable.addProgram(programName))
-    		error("name already exists in symbol");
+    	symbolTable.addProgram(programName);
     	match(TokenType.SEMICOLON);
     	declarations();
     	subprogram_declarations();
@@ -89,7 +88,9 @@ public class Recognizer {
      * the expression grammar.
      */
     public void identifer_list() {
+    	String IdName = lookahead.getlexeme();
     	match(TokenType.ID);
+    symbolTable.addProgram(IdName);
     	if(lookahead.getTokenType() == TokenType.COMMA) {
     		match(TokenType.COMMA);
     		identifer_list();
@@ -206,8 +207,7 @@ public class Recognizer {
 			match(TokenType.FUNCTION);
 			String functionName = lookahead.getlexeme();
 			match(TokenType.ID);
-			if(!symbolTable.addFunction(functionName))
-				error("name already exists in symbol table");
+			symbolTable.addFunction(functionName);
 			arguments();
 			match(TokenType.COLON);
 			standard_type();
@@ -217,8 +217,7 @@ public class Recognizer {
 			match(TokenType.PROCEDURE);
 			String procedureName = lookahead.getlexeme();
 			match(TokenType.ID);
-			if(!symbolTable.addProcedure(procedureName))
-				error("name already exists in symbol table");
+			symbolTable.addProcedure(procedureName);
 			arguments();
 			match(TokenType.SEMICOLON);
 		}
