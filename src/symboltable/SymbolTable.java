@@ -1,4 +1,4 @@
-package symbol_table;
+package symboltable;
 
 import java.util.HashMap;
 import java.util.Map.Entry;
