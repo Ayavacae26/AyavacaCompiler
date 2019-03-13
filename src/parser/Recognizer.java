@@ -11,6 +11,7 @@ import scanner.MyScanner;
 import scanner.Token;
 import scanner.TokenType;
 import symbol_table.SymbolTable;
+import symbol_table.SymbolTable.Kind;
 import java.io.PrintWriter;
 import java.io.FileWriter;
 import java.io.BufferedWriter;
@@ -75,21 +76,22 @@ public class Recognizer {
 		match(TokenType.PROGRAM);
 		String programName = lookahead.getlexeme();
 		match(TokenType.ID);
-		symbolTable.addProgram(programName);
+		symbolTable.addKind(programName, Kind.PROGRAM);
 		match(TokenType.SEMICOLON);
 		declarations();
 		subprogram_declarations();
 		compound_statement();
 		match(TokenType.PERIOD);
 		
-		PrintWriter write;
+		
+		/*PrintWriter write;
 		try {
 			write = new PrintWriter(new BufferedWriter(new FileWriter(System.getProperty("user.dir") + "/" + "output.symboltable")));
 			write.println(this.symbolTable.toString());
 			write.close();
 		} catch (IOException e) {
 			e.printStackTrace();
-		} 
+		} */
 	}
 
 	/**
@@ -99,12 +101,12 @@ public class Recognizer {
 	public void identifer_list() {
 		String IdName = lookahead.getlexeme();
 		match(TokenType.ID);
-		symbolTable.addProgram(IdName);
+		symbolTable.addKind(IdName, Kind.VARIABLE);
 		if (lookahead.getTokenType() == TokenType.COMMA) {
 			match(TokenType.COMMA);
 			identifer_list();
 		} else {
-
+			
 		}
 	}
 
@@ -203,7 +205,7 @@ public class Recognizer {
 			match(TokenType.FUNCTION);
 			String functionName = lookahead.getlexeme();
 			match(TokenType.ID);
-			symbolTable.addFunction(functionName);
+			symbolTable.addKind(functionName, Kind.FUNCTION);
 			arguments();
 			match(TokenType.COLON);
 			standard_type();
@@ -212,7 +214,7 @@ public class Recognizer {
 			match(TokenType.PROCEDURE);
 			String procedureName = lookahead.getlexeme();
 			match(TokenType.ID);
-			symbolTable.addProcedure(procedureName);
+			symbolTable.addKind(procedureName, Kind.PROCEDURE);
 			arguments();
 			match(TokenType.SEMICOLON);
 		} else {
