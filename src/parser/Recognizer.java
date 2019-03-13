@@ -83,7 +83,7 @@ public class Recognizer {
 		compound_statement();
 		match(TokenType.PERIOD);
 		
-		
+		/*
 		PrintWriter write;
 		try {
 			write = new PrintWriter(new BufferedWriter(new FileWriter(System.getProperty("user.dir") + "/" + "output.symboltable")));
@@ -92,6 +92,7 @@ public class Recognizer {
 		} catch (IOException e) {
 			e.printStackTrace();
 		} 
+		*/
 	}
 
 	/**
