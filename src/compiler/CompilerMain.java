@@ -16,6 +16,7 @@ public class CompilerMain {
 		Recognizer recognizer = new Recognizer(filename, true);
 
 		try {
+			recognizer.program();
 			recognizer.writeToFile();
 			System.out.println("file ran with no errors");
 		} catch (Exception e) {

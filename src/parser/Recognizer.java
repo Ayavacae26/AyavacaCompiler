@@ -76,7 +76,7 @@ public class Recognizer {
 		match(TokenType.PROGRAM);
 		String programName = lookahead.getlexeme();
 		match(TokenType.ID);
-		symbolTable.addKind(programName, Kind.PROGRAM);
+		symbolTable.addProgram(programName);
 		match(TokenType.SEMICOLON);
 		declarations();
 		subprogram_declarations();
@@ -84,14 +84,14 @@ public class Recognizer {
 		match(TokenType.PERIOD);
 		
 		
-		/*PrintWriter write;
+		PrintWriter write;
 		try {
 			write = new PrintWriter(new BufferedWriter(new FileWriter(System.getProperty("user.dir") + "/" + "output.symboltable")));
 			write.println(this.symbolTable.toString());
 			write.close();
 		} catch (IOException e) {
 			e.printStackTrace();
-		} */
+		} 
 	}
 
 	/**
@@ -101,7 +101,7 @@ public class Recognizer {
 	public void identifer_list() {
 		String IdName = lookahead.getlexeme();
 		match(TokenType.ID);
-		symbolTable.addKind(IdName, Kind.VARIABLE);
+		symbolTable.addVariable(IdName);
 		if (lookahead.getTokenType() == TokenType.COMMA) {
 			match(TokenType.COMMA);
 			identifer_list();
@@ -205,7 +205,7 @@ public class Recognizer {
 			match(TokenType.FUNCTION);
 			String functionName = lookahead.getlexeme();
 			match(TokenType.ID);
-			symbolTable.addKind(functionName, Kind.FUNCTION);
+			symbolTable.addFunction(functionName);
 			arguments();
 			match(TokenType.COLON);
 			standard_type();
@@ -214,7 +214,7 @@ public class Recognizer {
 			match(TokenType.PROCEDURE);
 			String procedureName = lookahead.getlexeme();
 			match(TokenType.ID);
-			symbolTable.addKind(procedureName, Kind.PROCEDURE);
+			symbolTable.addProcedure(procedureName);
 			arguments();
 			match(TokenType.SEMICOLON);
 		} else {
@@ -298,11 +298,11 @@ public class Recognizer {
 	 */
 	public void statement() {
 		// Variable or procedure_statement
-		if (lookahead.getTokenType() == TokenType.ID && this.symbolTable.isVariable(lookahead.getlexeme())) {
+		if (lookahead !=null && lookahead.getTokenType() == TokenType.ID && this.symbolTable.isVariable(lookahead.getlexeme())) {
 			variable();
 			match(TokenType.ASSIGN);
 			expression();
-		} else if (lookahead.getTokenType() == TokenType.ID && this.symbolTable.isProcedure(lookahead.getlexeme())) {
+		} else if (lookahead !=null && lookahead.getTokenType() == TokenType.ID && this.symbolTable.isProcedure(lookahead.getlexeme())) {
 			procedure_statement();
 		}
 		// compound statement
@@ -343,9 +343,9 @@ public class Recognizer {
 	 * grammar.
 	 */
 	public void variable() {
-		String variableName = lookahead.getlexeme();
+		//String variableName = lookahead.getlexeme();
 		match(TokenType.ID);
-		symbolTable.addVariable(variableName);
+		//symbolTable.addVariable(variableName);
 		if (lookahead.getTokenType() == TokenType.LEFTBRACKET) {
 			match(TokenType.LEFTBRACKET);
 			expression();
