@@ -103,7 +103,8 @@ public class Parser {
 	 * Executes the rule for the declarations non-terminal symbol in the expression
 	 * grammar.
 	 */
-	public void declarations() {
+	public DeclarationsNode declarations() {
+		DeclarationsNode declarationsNode = new DeclarationsNode();
 		if (lookahead.getTokenType() == TokenType.VAR) {
 			match(TokenType.VAR);
 			identifer_list();
@@ -114,6 +115,7 @@ public class Parser {
 		} else {
 			// lamda option
 		}
+		return declarationsNode;
 	}
 
 	/**
