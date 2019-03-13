@@ -40,6 +40,7 @@ public class Recognizer {
 	///////////////////////////////
 
 	public Recognizer(String text, boolean isFilename) {
+		symbolTable = new SymbolTable();
 		if (isFilename) {
 			String filename = System.getProperty("user.dir") + "/" + text + ".txt";
 			FileInputStream fis = null;
@@ -80,16 +81,15 @@ public class Recognizer {
 		subprogram_declarations();
 		compound_statement();
 		match(TokenType.PERIOD);
-
+		
 		PrintWriter write;
 		try {
-			write = new PrintWriter(
-					new BufferedWriter(new FileWriter(System.getProperty("user.dir") + "/" + "output.symboltable")));
+			write = new PrintWriter(new BufferedWriter(new FileWriter(System.getProperty("user.dir") + "/" + "output.symboltable")));
 			write.println(this.symbolTable.toString());
 			write.close();
 		} catch (IOException e) {
 			e.printStackTrace();
-		}
+		} 
 	}
 
 	/**
@@ -583,8 +583,7 @@ public class Recognizer {
 	public void writeToFile() {
 		PrintWriter printWriter;
 		try {
-			printWriter = new PrintWriter(
-					new BufferedWriter(new FileWriter(System.getProperty("user.dir") + "/" + "output.symboltable")));
+			printWriter = new PrintWriter(new BufferedWriter(new FileWriter(System.getProperty("user.dir") + "/" + "output.symboltable")));
 			printWriter.println(this.symbolTable.toString());
 			printWriter.close();
 		} catch (IOException e) {
