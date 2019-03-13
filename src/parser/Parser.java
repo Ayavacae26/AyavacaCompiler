@@ -167,7 +167,8 @@ public class Parser {
 	 * Executes the rule for the subprogram_declarations non-terminal symbol in the
 	 * expression grammar.
 	 */
-	public void subprogram_declarations() {
+	public SubProgramDeclarationsNode subprogram_declarations() {
+		SubProgramDeclarationsNode SPDNode = new SubProgramDeclarationsNode();
 		if (lookahead.getTokenType() == TokenType.FUNCTION || lookahead.getTokenType() == TokenType.PROCEDURE) {
 			subprogram_declaration();
 			match(TokenType.SEMICOLON);
@@ -175,6 +176,7 @@ public class Parser {
 		} else {
 			// lamda
 		}
+		return SPDNode;
 	}
 
 	/**
