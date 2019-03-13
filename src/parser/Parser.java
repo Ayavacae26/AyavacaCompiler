@@ -1,17 +1,14 @@
 package parser;
 
+import scanner.*;
+import symboltable.*;
+import syntaxtree.*;
+
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.StringReader;
-//import java.util.logging.Level;
-//import java.util.logging.Logger;
-import scanner.MyScanner;
-import scanner.Token;
-import scanner.TokenType;
-import symboltable.SymbolTable;
-//import symboltable.SymbolTable.Kind;
 import java.io.PrintWriter;
 import java.io.FileWriter;
 import java.io.BufferedWriter;
@@ -72,27 +69,18 @@ public class Parser {
 	 * Executes the rule for the program non-terminal symbol in the expression
 	 * grammar.
 	 */
-	public void program() {
+	public ProgramNode program() {
 		match(TokenType.PROGRAM);
+		ProgramNode programNode = new ProgramNode(lookahead.getlexeme());
 		String programName = lookahead.getlexeme();
 		match(TokenType.ID);
 		symbolTable.addProgram(programName);
 		match(TokenType.SEMICOLON);
-		declarations();
-		subprogram_declarations();
-		compound_statement();
+		programNode.setVariables(declarations());
+		programNode.setFunctions(subprogram_declarations());
+		programNode.setMain(compound_statement());
 		match(TokenType.PERIOD);
-		
-		/*
-		PrintWriter write;
-		try {
-			write = new PrintWriter(new BufferedWriter(new FileWriter(System.getProperty("user.dir") + "/" + "output.symboltable")));
-			write.println(this.symbolTable.toString());
-			write.close();
-		} catch (IOException e) {
-			e.printStackTrace();
-		} 
-		*/
+		return programNode;
 	}
 
 	/**
