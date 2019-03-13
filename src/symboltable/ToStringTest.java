@@ -1,9 +1,9 @@
-package symbol_table;
+package symboltable;
 
 import static org.junit.Assert.*;
 import org.junit.Test;
 
-import symbol_table.SymbolTable.Kind;
+
 
 public class ToStringTest {
 	/**
