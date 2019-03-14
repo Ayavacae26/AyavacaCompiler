@@ -247,10 +247,12 @@ public class Parser {
 	 * Executes the rule for the compound_statement non-terminal symbol in the
 	 * expression grammar.
 	 */
-	public void compound_statement() {
+	public CompoundStatementNode compound_statement() {
+		CompoundStatementNode CSNode = new CompoundStatementNode();
 		match(TokenType.BEGIN);
 		optional_statements();
 		match(TokenType.END);
+		return CSNode;
 	}
 
 	/**
