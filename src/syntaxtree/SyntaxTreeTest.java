@@ -6,7 +6,7 @@ import scanner.*;
 import parser.*;
 
 /**
- * stand alone junit test for building a syntax tree.
+ * stand alone Junit test for building a syntax tree.
  * 
  * @author Erik Ayavaca
  */
@@ -87,6 +87,10 @@ public class SyntaxTreeTest {
 				+ "|-- --- --- --- Value: 3900\n";
 
 		assertEquals(expected, actual);
+		/////////////////////////////////////////////////////////////////////////
+		
+		//printing out the tree just to see how it looks
+		System.out.println(actual);
 	}
 	// curently not finding the file for some reason 
 	 /* @Test
