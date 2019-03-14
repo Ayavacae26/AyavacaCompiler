@@ -11,8 +11,8 @@ grammar given in class.  The scanner will be created using the JFlex tool.  This
 begining part for the pascal compiler. This project will be divided in 4 main sections:
 1. Scanner 
 2. Parser 
-3. symboltable 
-4. syntax tree
+3. Symbol Table 
+4. Syntax Tree
 
 This project on the main level will contain
 1. SDD folder - most recent version of the Software Design Document. Word and PDF version
@@ -21,7 +21,9 @@ This project on the main level will contain
 In the Src Folder there exist the following packages:
 1. scanner 
 2. parser
-3. symbol_table
+3. symboltable
+4. compiler
+5. syntaxtree
 
 In the scanner package these are the following files:
 1. EAScanner.jflex   
@@ -37,7 +39,30 @@ In the scanner package these are the following files:
 In the parser package these are the following files:
 1. Recognizer.java   
 2. RecognizerTest.java
+3. Parser.java
 
-In the symbol_table package, these are the following files:
+In the symboltable package, these are the following files:
 1. SymbolTable.java    
 2. SymbolTableTest.java
+3. ToStringTest.java
+
+In the compiler package, there are the following files:
+1. CompilerMain.java
+
+In the syntaxtree package, there are the following files:
+1. AssignmentStatementNode.java
+2. CompoundStatementNode.java
+3. DeclarationsNode.java
+4. ExpressionNode.java
+5. IfStatementNode.java
+6. OperationNode.java
+7. ProgramNode.java
+8. StatementNode.java
+9. SubProgramDeclarationsNode.java
+10. SubProgramNode.java
+11. SyntaxTreeNode.java
+12. SyntaxTreeTest.java
+13. ValueNode.java
+14. VariableNode.java
+
+
