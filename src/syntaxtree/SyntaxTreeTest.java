@@ -3,6 +3,7 @@ package syntaxtree;
 import static org.junit.Assert.*;
 import org.junit.Test;
 import scanner.*;
+import parser.*;
 
 /**
  * stand alone junit test for building a syntax tree.
@@ -22,11 +23,11 @@ public class SyntaxTreeTest {
 		// Defining currency as variable nodes, this is done for Dollars,yen and bitcoin
 		VariableNode dollars = new VariableNode("dollars");
 		VariableNode yen = new VariableNode("yen");
-		VariableNode bitcoin = new VariableNode("bitcoin");
+		VariableNode bitcoins = new VariableNode("bitcoins");
 		// Adding the variable nodes to dNode
 		dNode.addVariable(dollars);
 		dNode.addVariable(yen);
-		dNode.addVariable(bitcoin);
+		dNode.addVariable(bitcoins);
 		// adding the dnodes to pNode
 		pNode.setVariables(dNode);
 
@@ -45,7 +46,7 @@ public class SyntaxTreeTest {
 		// 2nd assignment dealing with yen
 		AssignmentStatementNode aNodeYen = new AssignmentStatementNode();
 		// setting aNodeYen to lvalue of yen
-		aNodeYen.setLvalue(dollars);
+		aNodeYen.setLvalue(yen);
 		// creating the times/multiply operation node
 		OperationNode yenTimes = new OperationNode(TokenType.ASTERISK);
 		yenTimes.setLeft(dollars);
@@ -54,20 +55,56 @@ public class SyntaxTreeTest {
 		aNodeYen.setExpression(yenTimes);
 
 		// 3rd assignment dealing with bitcoins
+		AssignmentStatementNode aNodeBit = new AssignmentStatementNode();
+		// setting aNodeBit to lvalue of bitcoin
+		aNodeBit.setLvalue(bitcoins);
+		// creating the divde/slash operation node
+		OperationNode bitDivide = new OperationNode(TokenType.SLASH);
+		bitDivide.setLeft(dollars);
+		bitDivide.setRight(new ValueNode("3900"));
+		// expression of yenTimes to assignment node aNodeYen
+		aNodeBit.setExpression(bitDivide);
 
-		//////// Taken from prof's test money.pas program
-		String actualString = pNode.indentedToString(0);
+		// Adding statements to compundStatementNode
+		CSNode.addStatement(aNodeDollars);
+		CSNode.addStatement(aNodeYen);
+		CSNode.addStatement(aNodeBit);
 
-		String expectedString = "Program: sample\n" + "|-- Declarations\n" + "|-- --- Name: dollars\n"
-				+ "|-- --- Name: yen\n" + "|-- --- Name: bitcoins\n" + "|-- SubProgramDeclarations\n"
-				+ "|-- Compound Statement\n" + "|-- --- Assignment\n" + "|-- --- --- Name: dollars\n"
-				+ "|-- --- --- Value: 1000000\n" + "|-- --- Assignment\n" + "|-- --- --- Name: yen\n"
-				+ "|-- --- --- Operation: MULTIPLY\n" + "|-- --- --- --- Name: dollars\n"
-				+ "|-- --- --- --- Value: 110\n" + "|-- --- Assignment\n" + "|-- --- --- Name: bitcoins\n"
-				+ "|-- --- --- Operation: DIVIDE\n" + "|-- --- --- --- Name: dollars\n"
+		pNode.setMain(CSNode);
+
+		//////// Taken from prof's test money.pas program //////////////////////////
+
+		// actual-created using the indentedToString
+		String actual = pNode.indentedToString(0);
+
+		// Expected- what the syntax tree for this is suppose to look like.
+		String expected = "Program: sample\n" + "|-- Declarations\n" + "|-- --- Name: dollars\n" + "|-- --- Name: yen\n"
+				+ "|-- --- Name: bitcoins\n" + "|-- SubProgramDeclarations\n" + "|-- Compound Statement\n"
+				+ "|-- --- Assignment\n" + "|-- --- --- Name: dollars\n" + "|-- --- --- Value: 1000000\n"
+				+ "|-- --- Assignment\n" + "|-- --- --- Name: yen\n" + "|-- --- --- Operation: ASTERISK\n"
+				+ "|-- --- --- --- Name: dollars\n" + "|-- --- --- --- Value: 110\n" + "|-- --- Assignment\n"
+				+ "|-- --- --- Name: bitcoins\n" + "|-- --- --- Operation: SLASH\n" + "|-- --- --- --- Name: dollars\n"
 				+ "|-- --- --- --- Value: 3900\n";
 
-		assertEquals(expectedString, actualString);
+		assertEquals(expected, actual);
 	}
-
+	/*
+	 * @Test public void programTest() { Parser parser = new Parser(
+	 * "money.txt",true); ProgramNode actual = parser.program(); String actualString
+	 * = actual.indentedToString( 0); String expectedString =
+	 * 
+	 * "Program: sample\n" + "|-- Declarations\n" + "|-- --- Name: dollars\n" +
+	 * "|-- --- Name: yen\n" + "|-- --- Name: bitcoins\n" +
+	 * "|-- SubProgramDeclarations\n" + "|-- Compound Statement\n" +
+	 * "|-- --- Assignment\n" + "|-- --- --- Name: dollars\n" +
+	 * "|-- --- --- Value: 1000000\n" + "|-- --- Assignment\n" +
+	 * "|-- --- --- Name: yen\n" + "|-- --- --- Operation: MULTIPLY\n" +
+	 * "|-- --- --- --- Name: dollars\n" + "|-- --- --- --- Value: 110\n" +
+	 * "|-- --- Assignment\n" + "|-- --- --- Name: bitcoins\n" +
+	 * "|-- --- --- Operation: DIVIDE\n" + "|-- --- --- --- Name: dollars\n" +
+	 * "|-- --- --- --- Value: 3900\n";
+	 * 
+	 * 
+	 * assertEquals( expectedString, actualString); }
+	 */
 }
