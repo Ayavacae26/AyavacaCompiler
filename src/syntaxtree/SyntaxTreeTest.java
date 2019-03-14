@@ -20,7 +20,7 @@ public class SyntaxTreeTest {
 	public void testMoneyEx() {
 		ProgramNode pNode = new ProgramNode("sample");
 		DeclarationsNode dNode = new DeclarationsNode();
-		// Defining currency as variable nodes, this is done for Dollars,yen and bitcoin
+		// Defining currency as variable nodes, this is done for Dollars,yen and bitcoins
 		VariableNode dollars = new VariableNode("dollars");
 		VariableNode yen = new VariableNode("yen");
 		VariableNode bitcoins = new VariableNode("bitcoins");
@@ -88,7 +88,6 @@ public class SyntaxTreeTest {
 
 		assertEquals(expected, actual);
 	}
-	
 	// curently not finding the file for some reason 
 	 /* @Test
 	  public void programTest() { 
@@ -105,6 +104,5 @@ public class SyntaxTreeTest {
 						+ "|-- --- --- --- Value: 3900\n";
 				 assertEquals( expectedString, actualString);
 			
-		 }*/
-	 
+		 }*/	 
 }
