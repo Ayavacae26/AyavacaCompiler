@@ -14,7 +14,6 @@ public class ToStringTest {
 		SymbolTable symbols = new SymbolTable();
 		//symbols.addKind("red", Kind.VARIABLE);
 		symbols.addProgram("RED");
-		symbols.addProcedure("Blue");
 		symbols.addArray("GREEN");
 		symbols.addFunction("YELLOW");
 		symbols.addVariable("RUBY");
