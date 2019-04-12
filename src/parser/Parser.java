@@ -367,7 +367,7 @@ public class Parser {
 	 * Executes the rule for the expression_list non-terminal symbol in the
 	 * expression grammar.
 	 */
-	public void expression_list() {
+	public ExpressionNode expression_list() {
 		if (lookahead.getTokenType() == TokenType.ID || lookahead.getTokenType() == TokenType.NUMBER
 				|| lookahead.getTokenType() == TokenType.LEFTPARENTHESES || lookahead.getTokenType() == TokenType.NOT
 				|| lookahead.getTokenType() == TokenType.PLUS || lookahead.getTokenType() == TokenType.MINUS) {
@@ -379,6 +379,7 @@ public class Parser {
 				// nothing
 			}
 		}
+		return null;
 	}
 
 	private boolean isRelop(TokenType input) {
@@ -394,7 +395,7 @@ public class Parser {
 	 * Executes the rule for the expression non-terminal symbol in the expression
 	 * grammar.
 	 */
-	public void expression() {
+	public ExpressionNode expression() {
 		if (lookahead.getTokenType() == TokenType.ID || lookahead.getTokenType() == TokenType.NUMBER
 				|| lookahead.getTokenType() == TokenType.LEFTPARENTHESES || lookahead.getTokenType() == TokenType.NOT
 				|| lookahead.getTokenType() == TokenType.PLUS || lookahead.getTokenType() == TokenType.MINUS) {
@@ -409,13 +410,14 @@ public class Parser {
 				simple_expression();
 			}
 		}
+		return null;
 	}
 
 	/**
 	 * Executes the rule for the simple_expression non-terminal symbol in the
 	 * expression grammar.
 	 */
-	public void simple_expression() {
+	public ExpressionNode simple_expression() {
 		if (lookahead.getTokenType() == TokenType.ID || lookahead.getTokenType() == TokenType.NUMBER
 				|| lookahead.getTokenType() == TokenType.LEFTPARENTHESES || lookahead.getTokenType() == TokenType.NOT) {
 			term();
@@ -425,6 +427,7 @@ public class Parser {
 			term();
 			simple_part();
 		}
+		return null;
 
 	}
 
@@ -441,7 +444,7 @@ public class Parser {
 	 * Executes the rule for the simple_part non-terminal symbol in the expression
 	 * grammar.
 	 */
-	public void simple_part() {
+	public ExpressionNode simple_part() {
 		if (isAddop(lookahead.getTokenType())) {
 			match(TokenType.PLUS);
 			match(TokenType.MINUS);
@@ -451,18 +454,20 @@ public class Parser {
 		} else {
 			// lamda option
 		}
+		return null;
 
 	}
 
 	/**
 	 * Executes the rule for the term non-terminal symbol in the expression grammar.
 	 */
-	public void term() {
+	public ExpressionNode term() {
 		if (lookahead.getTokenType() == TokenType.ID || lookahead.getTokenType() == TokenType.NUMBER
 				|| lookahead.getTokenType() == TokenType.LEFTPARENTHESES || lookahead.getTokenType() == TokenType.NOT) {
 			factor();
 			term_part();
 		}
+		return null;
 	}
 
 	private boolean isMulop(TokenType input) {
@@ -478,7 +483,7 @@ public class Parser {
 	 * Executes the rule for the term_part non-terminal symbol in the expression
 	 * grammar.
 	 */
-	public void term_part() {
+	public ExpressionNode term_part() {
 		if (isMulop(lookahead.getTokenType())) {
 			match(TokenType.ASTERISK);
 			match(TokenType.SLASH);
@@ -488,6 +493,7 @@ public class Parser {
 			factor();
 			term_part();
 		}
+		return null;
 	}
 
 	/**
