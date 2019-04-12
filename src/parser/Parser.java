@@ -494,8 +494,10 @@ public class Parser {
 	 * Executes the rule for the factor non-terminal symbol in the expression
 	 * grammar.
 	 */
-	public void factor() {
+	public ExpressionNode factor() {
+		ExpressionNode ex = null;
 		if (lookahead.getTokenType() == TokenType.ID) {
+			ex = new VariableNode(lookahead.getlexeme());
 			match(TokenType.ID);
 			if (lookahead.getTokenType() == TokenType.LEFTBRACKET) {
 				match(TokenType.LEFTBRACKET);
@@ -518,6 +520,7 @@ public class Parser {
 		} else {
 			error("factor error");
 		}
+		return ex;
 	}
 
 	/**
