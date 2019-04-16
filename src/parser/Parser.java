@@ -111,7 +111,7 @@ public class Parser {
 			match(TokenType.COLON);
 			type();
 			match(TokenType.SEMICOLON);
-			declarations();
+			declarationsNode.addDeclarations(declarations());
 		} else {
 			// lamda option
 		}
