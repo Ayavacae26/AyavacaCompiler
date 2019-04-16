@@ -170,9 +170,9 @@ public class Parser {
 	public SubProgramDeclarationsNode subprogram_declarations() {
 		SubProgramDeclarationsNode SPDNode = new SubProgramDeclarationsNode();
 		if (lookahead.getTokenType() == TokenType.FUNCTION || lookahead.getTokenType() == TokenType.PROCEDURE) {
-			subprogram_declaration();
+			SPDNode.addSubProgramDeclaration(subprogram_declaration());
 			match(TokenType.SEMICOLON);
-			subprogram_declarations();
+			SPDNode.addall(subprogram_declarations().getProcs());
 		} else {
 			// lamda
 		}
@@ -183,17 +183,20 @@ public class Parser {
 	 * Executes the rule for the subprogram_declaration non-terminal symbol in the
 	 * expression grammar.
 	 */
-	public void subprogram_declaration() {
-		subprogram_head();
-		declarations();
-		compound_statement();
+	public SubProgramNode subprogram_declaration() {
+		SubProgramNode SPN = subprogram_head();
+		SPN.setVariables(declarations());
+		SPN.setFunctions(subprogram_declarations());
+		SPN.setMain(compound_statement());
+		return SPN;
 	}
 
 	/**
 	 * Executes the rule for the subprogram_head non-terminal symbol in the
 	 * expression grammar.
 	 */
-	public void subprogram_head() {
+	public SubProgramNode subprogram_head() {
+		 SubProgramNode SpN = null;
 		if (lookahead.getTokenType() == TokenType.FUNCTION) {
 			match(TokenType.FUNCTION);
 			String functionName = lookahead.getlexeme();

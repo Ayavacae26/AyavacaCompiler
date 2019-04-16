@@ -5,7 +5,12 @@ package syntaxtree;
  * @author erikayavaca
  *
  */
-public class SubProgramNode extends SyntaxTreeNode{
+public class SubProgramNode extends ProgramNode{
+	
+	public SubProgramNode(String aName) {
+		super(aName);
+	}
+
 	/**
 	 * Creates a string representation of the SubprogramNode
 	 * @param level -the tree level at which this node resides 
