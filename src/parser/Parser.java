@@ -256,7 +256,7 @@ public class Parser {
 	public CompoundStatementNode compound_statement() {
 		CompoundStatementNode CSNode = new CompoundStatementNode();
 		match(TokenType.BEGIN);
-		optional_statements();
+		CSNode = optional_statements();
 		match(TokenType.END);
 		return CSNode;
 	}
@@ -265,39 +265,43 @@ public class Parser {
 	 * Executes the rule for the optional_statement non-terminal symbol in the
 	 * expression grammar.
 	 */
-	public void optional_statements() {
+	public CompoundStatementNode optional_statements() {
+		CompoundStatementNode CSNode = new CompoundStatementNode();
 		if (lookahead.getTokenType() == TokenType.BEGIN || lookahead.getTokenType() == TokenType.ID
 				|| lookahead.getTokenType() == TokenType.IF || lookahead.getTokenType() == TokenType.WHILE
 				|| lookahead.getTokenType() == TokenType.WRITE || lookahead.getTokenType() == TokenType.READ) {
-			statement_list();
+			CSNode.addAll(statement_list());
 		} else {
 			// lamda
 		}
+		return CSNode;
 	}
 
 	/**
 	 * Executes the rule for the statement_list non-terminal symbol in the
 	 * expression grammar.
 	 */
-	public void statement_list() {
+	public StatementNode statement_list() {
+		StatementNode sNode = null;
 		if (lookahead.getTokenType() == TokenType.BEGIN || lookahead.getTokenType() == TokenType.ID
 				|| lookahead.getTokenType() == TokenType.IF || lookahead.getTokenType() == TokenType.WHILE
 				|| lookahead.getTokenType() == TokenType.WRITE || lookahead.getTokenType() == TokenType.READ) {
-			statement();
+			sNode.add(statement());
 			if (lookahead.getTokenType() == TokenType.SEMICOLON) {
 				match(TokenType.SEMICOLON);
-				statement_list();
+				sNode.addAll(statement_list());
 			} else {
 				// nothing
 			}
 		}
+		return sNode;
 	}
 
 	/**
 	 * Executes the rule for the statement non-terminal symbol in the expression
 	 * grammar.
 	 */
-	public void statement() {
+	public StatementNode statement() {
 		// Variable or procedure_statement
 		if (lookahead !=null && lookahead.getTokenType() == TokenType.ID && this.symbolTable.isVariable(lookahead.getlexeme())) {
 			variable();
