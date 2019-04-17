@@ -196,12 +196,13 @@ public class Parser {
 	 * expression grammar.
 	 */
 	public SubProgramNode subprogram_head() {
-		 SubProgramNode SpN = null;
+		  SubProgramNode SpN = null;
 		if (lookahead.getTokenType() == TokenType.FUNCTION) {
 			match(TokenType.FUNCTION);
 			String functionName = lookahead.getlexeme();
 			match(TokenType.ID);
 			symbolTable.addFunction(functionName);
+			SpN = new SubProgramNode(functionName);
 			arguments();
 			match(TokenType.COLON);
 			standard_type();
@@ -211,11 +212,13 @@ public class Parser {
 			String procedureName = lookahead.getlexeme();
 			match(TokenType.ID);
 			symbolTable.addProcedure(procedureName);
+			SpN = new SubProgramNode(procedureName);
 			arguments();
 			match(TokenType.SEMICOLON);
 		} else {
 			error("Error in subprogram_head.");
 		}
+		return SpN;
 	}
 
 	/**
