@@ -21,7 +21,21 @@ public class ParserTest {
 	 */
 	@Test
 	public void factorTest() {
-		Parser par = new Parser("7", false);
+		Parser par = new Parser("26", false);
+		String expected = "Value: 26\n";
+		ExpressionNode real = par.factor();
+		String realString = real.indentedToString(0);
+		System.out.println(realString);
+		assertEquals(expected,realString);
+		System.out.println("passed factor test 1");
+		
+		par = new Parser("foo", false);
+		expected = "Name: foo\n";
+		real = par.factor();
+		realString = real.indentedToString(0);
+		System.out.println(realString);
+		assertEquals(expected,realString);
+		System.out.println("passed factor test 2");
 		
 	}
 	/**

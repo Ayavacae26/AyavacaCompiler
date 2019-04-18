@@ -525,7 +525,10 @@ public class Parser {
 				match(TokenType.RIGHTPARENTHESES);
 			}
 		} else if (lookahead.getTokenType() == TokenType.NUMBER) {
+			String number = lookahead.getlexeme();
+			ValueNode value = new ValueNode(number);
 			match(TokenType.NUMBER);
+			return value;
 		} else if (lookahead.getTokenType() == TokenType.LEFTPARENTHESES) {
 			match(TokenType.LEFTPARENTHESES);
 			expression();

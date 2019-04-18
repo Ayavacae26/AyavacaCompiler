@@ -37,7 +37,7 @@ public class CompoundStatementNode extends StatementNode {
         return answer;
     }
 
-	public void addAll(ArrayList<StatementNode> statement_list) {
+	public void addAll(StatementNode statementNode) {
 		// TODO Auto-generated method stub
 		
 	}
