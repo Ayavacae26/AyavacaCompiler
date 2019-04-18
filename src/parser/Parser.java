@@ -406,21 +406,20 @@ public class Parser {
 	 * grammar.
 	 */
 	public ExpressionNode expression() {
+		ExpressionNode left = null;
 		if (lookahead.getTokenType() == TokenType.ID || lookahead.getTokenType() == TokenType.NUMBER
 				|| lookahead.getTokenType() == TokenType.LEFTPARENTHESES || lookahead.getTokenType() == TokenType.NOT
 				|| lookahead.getTokenType() == TokenType.PLUS || lookahead.getTokenType() == TokenType.MINUS) {
-			simple_expression();
+			left = simple_expression();
 			if (isRelop(lookahead.getTokenType())) {
-				match(TokenType.EQUALS);
-				match(TokenType.GUILLEMENTS);
-				match(TokenType.LESS_THAN);
-				match(TokenType.GREATER_THAN);
-				match(TokenType.LESS_THAN_OR_EQUAL);
-				match(TokenType.GREATER_THAN_OR_EQUAL);
-				simple_expression();
+				OperationNode op = new OperationNode(lookahead.getTokenType());
+				match(lookahead.getTokenType());
+				op.setLeft(left);
+				op.setRight(simple_expression());
+				return op;
 			}
 		}
-		return null;
+		return left;
 	}
 
 	/**
@@ -428,16 +427,17 @@ public class Parser {
 	 * expression grammar.
 	 */
 	public ExpressionNode simple_expression() {
+		ExpressionNode ex = null;
 		if (lookahead.getTokenType() == TokenType.ID || lookahead.getTokenType() == TokenType.NUMBER
 				|| lookahead.getTokenType() == TokenType.LEFTPARENTHESES || lookahead.getTokenType() == TokenType.NOT) {
-			term();
-			simple_part();
+			ex = term();
+			ex = simple_part(ex);
 		} else if (lookahead.getTokenType() == TokenType.PLUS || lookahead.getTokenType() == TokenType.MINUS) {
-			sign();
-			term();
-			simple_part();
+			UnaryOperationNode op = sign();
+			ex = term();
+			op.setExpression(simple_part(ex));
 		}
-		return null;
+		return ex;
 
 	}
 
@@ -454,17 +454,18 @@ public class Parser {
 	 * Executes the rule for the simple_part non-terminal symbol in the expression
 	 * grammar.
 	 */
-	public ExpressionNode simple_part() {
+	public ExpressionNode simple_part(ExpressionNode posLeft) {
 		if (isAddop(lookahead.getTokenType())) {
-			match(TokenType.PLUS);
-			match(TokenType.MINUS);
-			match(TokenType.OR);
-			term();
-			simple_part();
+			OperationNode op = new OperationNode(lookahead.getTokenType());
+			match(lookahead.getTokenType());
+			ExpressionNode right = term();
+			op.setLeft(posLeft);
+			op.setRight(right);
+			return simple_part(op);
 		} else {
 			// lamda option
 		}
-		return null;
+		return posLeft;
 
 	}
 
@@ -474,8 +475,8 @@ public class Parser {
 	public ExpressionNode term() {
 		if (lookahead.getTokenType() == TokenType.ID || lookahead.getTokenType() == TokenType.NUMBER
 				|| lookahead.getTokenType() == TokenType.LEFTPARENTHESES || lookahead.getTokenType() == TokenType.NOT) {
-			factor();
-			term_part();
+			ExpressionNode left = factor();
+			return term_part(left);
 		}
 		return null;
 	}
@@ -533,8 +534,11 @@ public class Parser {
 			ex = expression();
 			match(TokenType.RIGHTPARENTHESES);
 		} else if (lookahead.getTokenType() == TokenType.NOT) {
+			UnaryOperationNode op = new UnaryOperationNode(TokenType.NOT);
 			match(TokenType.NOT);
-			factor();
+			ex = factor();
+			op.setExpression(ex);
+			return op;
 		} else {
 			error("factor error");
 		}

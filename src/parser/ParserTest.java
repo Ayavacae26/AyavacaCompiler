@@ -37,21 +37,35 @@ public class ParserTest {
 		assertEquals(expected,realString);
 		System.out.println("passed factor test 2");
 		
+		
 		par = new Parser("(8*5)", false);
-		expected = "Operation: ASTERICK\\n|-- Value: 8\\n|-- Value: 5\n";
+		expected = "Operation: ASTERISK\n|-- Value: 8\n|-- Value: 5\n";
 		real = par.factor();
 		realString = real.indentedToString(0);
 		System.out.println(realString);
 		assertEquals(expected,realString);
-		System.out.println("passed factor test 3");
-		
+		System.out.println("passed factor test 3");	
+	    
+		 par = new Parser("not 26", false);
+	     real = par.factor();
+	     realString = real.indentedToString(0);
+	     expected = "Unary Operation: NOT\n|-- Value: 26\n";
+	     assertEquals(expected, realString);
+	     System.out.println("Passed Test 4");
 	}
 	/**
 	 * This test is going to be testing the simple_expression function within the parser
 	 */
 	@Test
 	public void simple_expressionTest() {
-		Parser par = new Parser("7", false);
+		Parser par = new Parser("foo * 10 + bar", false);
+        ExpressionNode real = par.simple_expression();
+        String realString = real.indentedToString(0);
+        System.out.println(realString);
+        String expectString = "Operation: PLUS\n|-- Operation: ASTERISK\n|-- --- Name: foo\n" +
+                "|-- --- Value: 10\n|-- Name: bar\n";
+        assertEquals(expectString, realString);
+        System.out.println("Passed Test 1");
 		
 	}
 	/**
