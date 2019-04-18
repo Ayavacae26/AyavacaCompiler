@@ -29,13 +29,21 @@ public class ParserTest {
 		assertEquals(expected,realString);
 		System.out.println("passed factor test 1");
 		
-		par = new Parser("foo", false);
-		expected = "Name: foo\n";
+		par = new Parser("bar", false);
+		expected = "Name: bar\n";
 		real = par.factor();
 		realString = real.indentedToString(0);
 		System.out.println(realString);
 		assertEquals(expected,realString);
 		System.out.println("passed factor test 2");
+		
+		par = new Parser("(8*5)", false);
+		expected = "Operation: ASTERICK\\n|-- Value: 8\\n|-- Value: 5\n";
+		real = par.factor();
+		realString = real.indentedToString(0);
+		System.out.println(realString);
+		assertEquals(expected,realString);
+		System.out.println("passed factor test 3");
 		
 	}
 	/**

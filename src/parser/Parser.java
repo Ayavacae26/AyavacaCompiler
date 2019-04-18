@@ -493,17 +493,16 @@ public class Parser {
 	 * Executes the rule for the term_part non-terminal symbol in the expression
 	 * grammar.
 	 */
-	public ExpressionNode term_part() {
+	public ExpressionNode term_part(ExpressionNode posLeft) {
 		if (isMulop(lookahead.getTokenType())) {
-			match(TokenType.ASTERISK);
-			match(TokenType.SLASH);
-			match(TokenType.DIV);
-			match(TokenType.MOD);
-			match(TokenType.AND);
-			factor();
-			term_part();
+			OperationNode op = new OperationNode(lookahead.getTokenType());
+			match(lookahead.getTokenType());
+			ExpressionNode right = factor();
+			op.setLeft(posLeft);
+			op.setRight(term_part(right));
+			return op;
 		}
-		return null;
+		return posLeft;
 	}
 
 	/**
@@ -531,7 +530,7 @@ public class Parser {
 			return value;
 		} else if (lookahead.getTokenType() == TokenType.LEFTPARENTHESES) {
 			match(TokenType.LEFTPARENTHESES);
-			expression();
+			ex = expression();
 			match(TokenType.RIGHTPARENTHESES);
 		} else if (lookahead.getTokenType() == TokenType.NOT) {
 			match(TokenType.NOT);
