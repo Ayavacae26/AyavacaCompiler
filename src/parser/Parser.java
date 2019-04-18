@@ -545,15 +545,18 @@ public class Parser {
 	/**
 	 * Executes the rule for the sign non-terminal symbol in the expression grammar.
 	 */
-	public void sign() {
+	public UnaryOperationNode sign() {
+		 UnaryOperationNode op = null;
 		if (lookahead.getTokenType() == TokenType.PLUS) {
+			op = new UnaryOperationNode(TokenType.PLUS);
 			match(TokenType.PLUS);
 		} else if (lookahead.getTokenType() == TokenType.MINUS) {
 			match(TokenType.MINUS);
+			op = new UnaryOperationNode(TokenType.MINUS);
 		} else {
 			error("sign error");
 		}
-
+		return op;
 	}
 
 	/**
