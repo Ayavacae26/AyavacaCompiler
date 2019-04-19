@@ -2,6 +2,7 @@ package parser;
 
 import scanner.*;
 import symboltable.*;
+import symboltable.SymbolTable.Kind;
 import syntaxtree.*;
 
 import java.io.FileInputStream;
@@ -74,7 +75,8 @@ public class Parser {
 		ProgramNode programNode = new ProgramNode(lookahead.getlexeme());
 		String programName = lookahead.getlexeme();
 		match(TokenType.ID);
-		symbolTable.addProgram(programName);
+		//symbolTable.addProgram(programName);
+		symbolTable.addKind(programName, Kind.PROGRAM, null);
 		match(TokenType.SEMICOLON);
 		programNode.setVariables(declarations());
 		programNode.setFunctions(subprogram_declarations());
@@ -90,7 +92,8 @@ public class Parser {
 	public void identifer_list() {
 		String IdName = lookahead.getlexeme();
 		match(TokenType.ID);
-		symbolTable.addVariable(IdName);
+		//symbolTable.addVariable(IdName);
+		symbolTable.addKind(IdName, Kind.VARIABLE, null);
 		if (lookahead.getTokenType() == TokenType.COMMA) {
 			match(TokenType.COMMA);
 			identifer_list();
@@ -185,9 +188,9 @@ public class Parser {
 	 */
 	public SubProgramNode subprogram_declaration() {
 		SubProgramNode SPN = subprogram_head();
-		SPN.setVariables(declarations());
-		SPN.setFunctions(subprogram_declarations());
-		SPN.setMain(compound_statement());
+		//SPN.setVariables(declarations());
+		//SPN.setFunctions(subprogram_declarations());
+		//SPN.setMain(compound_statement());
 		return SPN;
 	}
 
@@ -201,7 +204,8 @@ public class Parser {
 			match(TokenType.FUNCTION);
 			String functionName = lookahead.getlexeme();
 			match(TokenType.ID);
-			symbolTable.addFunction(functionName);
+			//symbolTable.addFunction(functionName);
+			
 			SpN = new SubProgramNode(functionName);
 			arguments();
 			match(TokenType.COLON);
@@ -211,7 +215,7 @@ public class Parser {
 			match(TokenType.PROCEDURE);
 			String procedureName = lookahead.getlexeme();
 			match(TokenType.ID);
-			symbolTable.addProcedure(procedureName);
+			//symbolTable.addProcedure(procedureName);
 			SpN = new SubProgramNode(procedureName);
 			arguments();
 			match(TokenType.SEMICOLON);
@@ -277,6 +281,7 @@ public class Parser {
 		return CSNode;
 	}
 
+	
 	/**
 	 * Executes the rule for the statement_list non-terminal symbol in the
 	 * expression grammar.
@@ -303,11 +308,11 @@ public class Parser {
 	 */
 	public StatementNode statement() {
 		// Variable or procedure_statement
-		if (lookahead !=null && lookahead.getTokenType() == TokenType.ID && this.symbolTable.isVariable(lookahead.getlexeme())) {
+		if (lookahead !=null && lookahead.getTokenType() == TokenType.ID && this.symbolTable.isKind(lookahead.getlexeme(),Kind.VARIABLE)) {
 			variable();
 			match(TokenType.ASSIGN);
 			expression();
-		} else if (lookahead !=null && lookahead.getTokenType() == TokenType.ID && this.symbolTable.isProcedure(lookahead.getlexeme())) {
+		} else if (lookahead !=null && lookahead.getTokenType() == TokenType.ID && this.symbolTable.isKind(lookahead.getlexeme(),Kind.PROCEDURE)) {
 			procedure_statement();
 		}
 		// compound statement

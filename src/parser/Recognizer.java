@@ -11,6 +11,8 @@ import scanner.MyScanner;
 import scanner.Token;
 import scanner.TokenType;
 import symboltable.SymbolTable;
+import symboltable.SymbolTable.Kind;
+
 //import symboltable.SymbolTable.Kind;
 import java.io.PrintWriter;
 import java.io.FileWriter;
@@ -76,7 +78,8 @@ public class Recognizer {
 		match(TokenType.PROGRAM);
 		String programName = lookahead.getlexeme();
 		match(TokenType.ID);
-		symbolTable.addProgram(programName);
+		//symbolTable.addProgram(programName);
+		symbolTable.addKind(programName, Kind.PROGRAM, null);
 		match(TokenType.SEMICOLON);
 		declarations();
 		subprogram_declarations();
@@ -102,7 +105,8 @@ public class Recognizer {
 	public void identifer_list() {
 		String IdName = lookahead.getlexeme();
 		match(TokenType.ID);
-		symbolTable.addVariable(IdName);
+		//symbolTable.addVariable(IdName);
+		symbolTable.addKind(IdName, Kind.VARIABLE, null);
 		if (lookahead.getTokenType() == TokenType.COMMA) {
 			match(TokenType.COMMA);
 			identifer_list();
@@ -206,7 +210,8 @@ public class Recognizer {
 			match(TokenType.FUNCTION);
 			String functionName = lookahead.getlexeme();
 			match(TokenType.ID);
-			symbolTable.addFunction(functionName);
+			//symbolTable.addFunction(functionName);
+			symbolTable.addKind(functionName,Kind.FUNCTION,null);
 			arguments();
 			match(TokenType.COLON);
 			standard_type();
@@ -215,7 +220,8 @@ public class Recognizer {
 			match(TokenType.PROCEDURE);
 			String procedureName = lookahead.getlexeme();
 			match(TokenType.ID);
-			symbolTable.addProcedure(procedureName);
+			//symbolTable.addProcedure(procedureName);
+			symbolTable.addKind(procedureName,Kind.PROCEDURE, null);
 			arguments();
 			match(TokenType.SEMICOLON);
 		} else {
@@ -299,11 +305,11 @@ public class Recognizer {
 	 */
 	public void statement() {
 		// Variable or procedure_statement
-		if (lookahead !=null && lookahead.getTokenType() == TokenType.ID && this.symbolTable.isVariable(lookahead.getlexeme())) {
+		if (lookahead !=null && lookahead.getTokenType() == TokenType.ID && this.symbolTable.isKind(lookahead.getlexeme(),Kind.VARIABLE)) {
 			variable();
 			match(TokenType.ASSIGN);
 			expression();
-		} else if (lookahead !=null && lookahead.getTokenType() == TokenType.ID && this.symbolTable.isProcedure(lookahead.getlexeme())) {
+		} else if (lookahead !=null && lookahead.getTokenType() == TokenType.ID && this.symbolTable.isKind(lookahead.getlexeme(),Kind.PROCEDURE)) {
 			procedure_statement();
 		}
 		// compound statement

@@ -1,6 +1,7 @@
 package compiler;
+import parser.*;
 
-import parser.Recognizer;
+
 
 /**
  * This is the main that will run a test program and save the symboltable of a
@@ -13,11 +14,14 @@ public class CompilerMain {
 
 	public static void main(String[] args) {
 		String filename = "CompilerTest";
-		Recognizer recognizer = new Recognizer(filename, true);
-
+		//String filename = args[0];
+		//Parser par = new Parser(filename, true);
 		try {
+			Recognizer recognizer = new Recognizer(filename, true);
 			recognizer.program();
 			recognizer.writeToFile();
+			//par.program();
+			//par.writeToFile();
 			System.out.println("file ran with no errors");
 		} catch (Exception e) {
 

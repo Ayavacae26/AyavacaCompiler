@@ -5,10 +5,10 @@ package syntaxtree;
  * @author erikayavaca
  *
  */
-public class SubProgramNode extends ProgramNode{
+public class SubProgramNode extends SyntaxTreeNode{
 	
 	public SubProgramNode(String aName) {
-		super(aName);
+		
 	}
 
 	/**
