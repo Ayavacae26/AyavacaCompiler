@@ -16,17 +16,19 @@ public class ToStringTest {
 	@Test
 	public void test() {
 		SymbolTable symbols = new SymbolTable();
-		symbols.addKind("red", Kind.VARIABLE, Type.REAL);
-		symbols.addKind("green", Kind.ARRAY, Type.NULL);
-		symbols.addKind("blue", Kind.FUNCTION, Type.INTEGER);
-		symbols.addKind("yellow", Kind.PROGRAM, Type.NULL);
-		symbols.addKind("black", Kind.PROCEDURE, Type.REAL);
-        /* symbols.addProgram("RED");
-	   //symbols.addArray("GREEN");
-	  //symbols.addFunction("YELLOW");
-		//symbols.addVariable("RUBY ", INTEGER);
-*/		
+	
+        symbols.addProgram("RED");
+	    symbols.addArray("GREEN");
+	    symbols.addFunction("YELLOW", Type.REAL);
+		symbols.addVariable("RUBY ", Type.INTEGER);
+		
 		System.out.println(symbols.toString());
 	}
 
 }
+
+/*	symbols.addKind("red", Kind.VARIABLE, Type.REAL);
+symbols.addKind("green", Kind.ARRAY, Type.NULL);
+symbols.addKind("blue", Kind.FUNCTION, Type.INTEGER);
+symbols.addKind("yellow", Kind.PROGRAM, Type.NULL);
+symbols.addKind("black", Kind.PROCEDURE, Type.REAL);*/
