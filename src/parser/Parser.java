@@ -2,7 +2,7 @@ package parser;
 
 import scanner.*;
 import symboltable.*;
-import symboltable.SymbolTable.Kind;
+import symboltable.SymbolTable.Type;
 import syntaxtree.*;
 import java.util.ArrayList;
 
@@ -139,9 +139,10 @@ public class Parser {
 	/**
 	 * Executes the rule for the type non-terminal symbol in the expression grammar.
 	 */
-	public void type() {
+	public Type type() {
+		Type t = null;
 		if (isType(lookahead.getTokenType())) {
-			standard_type();
+			t = standard_type();
 		} else if (lookahead.getTokenType() == TokenType.ARRAY) {
 			match(TokenType.ARRAY);
 			match(TokenType.LEFTBRACKET);
@@ -154,20 +155,25 @@ public class Parser {
 		} else {
 			error("Error in type. ");
 		}
+		return t;
 	}
 
 	/**
 	 * Executes the rule for the standard_type non-terminal symbol in the expression
 	 * grammar.
 	 */
-	public void standard_type() {
+	public Type standard_type() {
+		Type t = null;
 		if (lookahead.getTokenType() == TokenType.INTEGER) {
+			t = Type.INTEGER;
 			match(TokenType.INTEGER);
 		} else if (lookahead.getTokenType() == TokenType.REAL) {
+			t = Type.REAL;
 			match(TokenType.REAL);
 		} else {
 			error("Error in standard_type");
 		}
+		return t;
 	}
 
 	/**
@@ -192,9 +198,9 @@ public class Parser {
 	 */
 	public SubProgramNode subprogram_declaration() {
 		SubProgramNode SPN = subprogram_head();
-		//SPN.setVariables(declarations());
-		//SPN.setFunctions(subprogram_declarations());
-		//SPN.setMain(compound_statement());
+		SPN.setVariables(declarations());
+		SPN.setFunctions(subprogram_declarations());
+		SPN.setMain(compound_statement());
 		return SPN;
 	}
 
@@ -209,7 +215,6 @@ public class Parser {
 			String functionName = lookahead.getlexeme();
 			match(TokenType.ID);
 			//symbolTable.addFunction(functionName);
-			
 			SpN = new SubProgramNode(functionName);
 			arguments();
 			match(TokenType.COLON);
@@ -247,14 +252,16 @@ public class Parser {
 	 * Executes the rule for the parameter_list non-terminal symbol in the
 	 * expression grammar.
 	 */
-	public void parameter_list() {
-		identifer_list();
+	public ArrayList<VariableNode> parameter_list() {
+		ArrayList<String> idlist = identifer_list();
+		ArrayList<VariableNode> args = new ArrayList<VariableNode>();
 		match(TokenType.COLON);
 		type();
 		if (lookahead.getTokenType() == TokenType.SEMICOLON) {
 			match(TokenType.COLON);
 			parameter_list();
 		}
+		return args;
 	}
 
 	/**
@@ -262,11 +269,11 @@ public class Parser {
 	 * expression grammar.
 	 */
 	public CompoundStatementNode compound_statement() {
-		CompoundStatementNode CSNode = new CompoundStatementNode();
+		CompoundStatementNode csNode = new CompoundStatementNode();
 		match(TokenType.BEGIN);
-		CSNode = optional_statements();
+		csNode = optional_statements();
 		match(TokenType.END);
-		return CSNode;
+		return csNode;
 	}
 
 	/**
@@ -290,8 +297,8 @@ public class Parser {
 	 * Executes the rule for the statement_list non-terminal symbol in the
 	 * expression grammar.
 	 */
-	public StatementNode statement_list() {
-		StatementNode sNode = null;
+	public ArrayList<StatementNode> statement_list() {
+		 ArrayList<StatementNode> sNode = new ArrayList<StatementNode>();
 		if (lookahead.getTokenType() == TokenType.BEGIN || lookahead.getTokenType() == TokenType.ID
 				|| lookahead.getTokenType() == TokenType.IF || lookahead.getTokenType() == TokenType.WHILE
 				|| lookahead.getTokenType() == TokenType.WRITE || lookahead.getTokenType() == TokenType.READ) {
@@ -314,7 +321,7 @@ public class Parser {
 		StatementNode sNode = null;
 		// Variable or procedure_statement
 		if (lookahead !=null && lookahead.getTokenType() == TokenType.ID ) {
-			if( this.symbolTable.isVariable(lookahead.getlexeme())) {
+			if(this.symbolTable.isVariable(lookahead.getlexeme())) {
 			AssignmentStatementNode assign = new AssignmentStatementNode();
 			VariableNode varNode = variable();
 			assign.setLvalue(variable());
@@ -323,11 +330,10 @@ public class Parser {
 			assign.setExpression(expression());
 			return assign;
 			}
-			//this.symbolTable.isProcedure(lookahead.getlexeme()
-		 else {
+		 else if (this.symbolTable.isProcedure(lookahead.getlexeme())) {
 			return procedure_statement();
 		}
-		}
+        }
 		// compound statement
 		else if (lookahead.getTokenType() == TokenType.BEGIN) {
 			sNode = compound_statement();
@@ -369,6 +375,7 @@ public class Parser {
 	public VariableNode variable() {
 		String variableName = lookahead.getlexeme();
 		VariableNode var = new VariableNode(variableName);
+		var.setType(symbolTable.getType(variableName));
 		match(TokenType.ID);
 		//symbolTable.addVariable(variableName);
 		if (lookahead.getTokenType() == TokenType.LEFTBRACKET) {
@@ -386,14 +393,12 @@ public class Parser {
 	public ProcedureStatementNode procedure_statement() {
 		ProcedureStatementNode proNode = new ProcedureStatementNode();
 		String prodName = lookahead.getlexeme();
-		
-		if (lookahead.getTokenType() == TokenType.ID) {
-			match(TokenType.ID);
-		} else {
-			match(TokenType.ID);
-			match(TokenType.RIGHTPARENTHESES);
-			expression_list();
+		proNode.setVariable(new VariableNode(lookahead.getlexeme()));
+		match(TokenType.ID);
+	    if (lookahead.getTokenType() == TokenType.LEFTPARENTHESES){
 			match(TokenType.LEFTPARENTHESES);
+			proNode.addAllExpNode(expression_list());
+			match(TokenType.RIGHTPARENTHESES);
 		}
 		return proNode;
 	}
@@ -402,19 +407,20 @@ public class Parser {
 	 * Executes the rule for the expression_list non-terminal symbol in the
 	 * expression grammar.
 	 */
-	public ExpressionNode expression_list() {
+	public  ArrayList<ExpressionNode> expression_list() {
+		ArrayList<ExpressionNode> exp = new ArrayList();
 		if (lookahead.getTokenType() == TokenType.ID || lookahead.getTokenType() == TokenType.NUMBER
 				|| lookahead.getTokenType() == TokenType.LEFTPARENTHESES || lookahead.getTokenType() == TokenType.NOT
 				|| lookahead.getTokenType() == TokenType.PLUS || lookahead.getTokenType() == TokenType.MINUS) {
-			expression();
+			exp.add(expression());
 			if (lookahead.getTokenType() == TokenType.COMMA) {
 				match(TokenType.COMMA);
-				expression_list();
+				exp.addAll(expression_list());
 			} else {
 				// nothing
 			}
 		}
-		return null;
+		return exp;
 	}
 
 	private boolean isRelop(TokenType input) {
