@@ -11,6 +11,8 @@ import scanner.MyScanner;
 import scanner.Token;
 import scanner.TokenType;
 import symboltable.SymbolTable;
+import symboltable.SymbolTable.Kind;
+
 //import symboltable.SymbolTable.Kind;
 import java.io.PrintWriter;
 import java.io.FileWriter;
@@ -76,6 +78,7 @@ public class Recognizer {
 		match(TokenType.PROGRAM);
 		String programName = lookahead.getlexeme();
 		match(TokenType.ID);
+		//symbolTable.addProgram(programName);
 		symbolTable.addProgram(programName);
 		match(TokenType.SEMICOLON);
 		declarations();
@@ -102,7 +105,8 @@ public class Recognizer {
 	public void identifer_list() {
 		String IdName = lookahead.getlexeme();
 		match(TokenType.ID);
-		symbolTable.addVariable(IdName);
+		symbolTable.addVariable(IdName, null);
+		//symbolTable.addKind(IdName, Kind.VARIABLE, null);
 		if (lookahead.getTokenType() == TokenType.COMMA) {
 			match(TokenType.COMMA);
 			identifer_list();
@@ -206,7 +210,8 @@ public class Recognizer {
 			match(TokenType.FUNCTION);
 			String functionName = lookahead.getlexeme();
 			match(TokenType.ID);
-			symbolTable.addFunction(functionName);
+			symbolTable.addFunction(functionName, null);
+			//symbolTable.addKind(functionName,Kind.FUNCTION,null);
 			arguments();
 			match(TokenType.COLON);
 			standard_type();
@@ -216,6 +221,7 @@ public class Recognizer {
 			String procedureName = lookahead.getlexeme();
 			match(TokenType.ID);
 			symbolTable.addProcedure(procedureName);
+			//symbolTable.addKind(procedureName,Kind.PROCEDURE, null);
 			arguments();
 			match(TokenType.SEMICOLON);
 		} else {

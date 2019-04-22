@@ -1,6 +1,8 @@
 
 package syntaxtree;
 
+import symboltable.SymbolTable.Type;
+import java.util.ArrayList;
 /**
  * Represents a variable in the syntax tree.
  * @author Erik Steinmetz
@@ -16,6 +18,11 @@ public class VariableNode extends ExpressionNode {
      */
     public VariableNode( String attr) {
         this.name = attr;
+    }
+    
+    public VariableNode( String attribute, Type t) {
+    	super();
+    this.name = attribute;
     }
     
     /** 
@@ -53,6 +60,15 @@ public class VariableNode extends ExpressionNode {
             if( this.name.equals( other.name)) answer = true;
         }
         return answer;
-    }    
+    }
+
+	public void setType(Type type) {
+		// TODO Auto-generated method stub
+		
+	}    
+	 public ArrayList<VariableNode> getVariable() {
+			// TODO Auto-generated method stub
+			return null;
+	}
     
 }
