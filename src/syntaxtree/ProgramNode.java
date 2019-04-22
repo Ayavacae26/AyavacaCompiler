@@ -13,7 +13,14 @@ public class ProgramNode extends SyntaxTreeNode {
     private SubProgramDeclarationsNode functions;
     private CompoundStatementNode main;
     
-    public ProgramNode( String aName) {
+    /**
+	 * @return the name
+	 */
+	public String getName() {
+		return name;
+	}
+
+	public ProgramNode( String aName) {
         this.name = aName;
     }
 

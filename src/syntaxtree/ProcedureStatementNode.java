@@ -3,7 +3,7 @@ import java.util.ArrayList;
 
 public class ProcedureStatementNode extends StatementNode{
 	private VariableNode variable = null;
-	private ArrayList<ExpressionNode> EXN = new ArrayList();
+	private ArrayList<ExpressionNode> EXN = new ArrayList<ExpressionNode>();
 	
 	public void addExpNode(ExpressionNode input) {
 		EXN.add(input);

@@ -5,20 +5,22 @@ package syntaxtree;
  * @author erikayavaca
  *
  */
-public class SubProgramNode extends SyntaxTreeNode{
-	
-	public SubProgramNode(String aName) {
-		
-	}
+public class SubProgramNode extends ProgramNode{
 
-	/**
-	 * Creates a string representation of the SubprogramNode
-	 * @param level -the tree level at which this node resides 
-	 * @return A string representing this node. 
-	 */
-	@Override
-	public String indentedToString(int level) {
-		return null;
-	}
+	 public SubProgramNode(String aName) {
+	        super(aName);
+	    }
+
+	    @Override
+	    public String indentedToString(int level) {
+	        String answer = this.indentation(level);
+	        answer += "SubProgram: " + this.getName() + "\n";
+	        answer += this.getVariables().indentedToString(level + 1);
+	        answer += this.getFunctions().indentedToString(level + 1);
+	        answer += this.getMain().indentedToString(level + 1);
+	        return answer;
+			
+		}
+	
 
 }
