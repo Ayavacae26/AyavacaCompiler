@@ -85,7 +85,18 @@ public class ParserTest {
 	 */
 	@Test
 	public void statementTest() {
-		Parser par = new Parser("7", false);
+		Parser pars = new Parser("fub := foo * 8", false);
+	        SymbolTable tempTable = pars.getSymbolTable();
+	        tempTable.addVariable("foo", null);
+	        tempTable.addVariable("fub", null);
+	        StatementNode real = pars.statement();
+	        String realString = real.indentedToString(0);
+	        System.out.println(realString);
+	        String expectString = "Assignment:\n|-- Variable: fub\n" +
+	                "|-- Operation: ASTERICK\n|-- --- Variable: foo\n" +
+	                "|-- --- Value: 8\n";
+	        assertEquals(expectString, realString);
+	        System.out.println("Passed Test 1");
 		
 	}
 	
@@ -113,7 +124,7 @@ public class ParserTest {
 		 Parser par = new Parser("var foo : integer ;", false);
 	        DeclarationsNode real = par.declarations();
 	        String realString = real.indentedToString(0);
-	        System.out.println(realString);
+	        //System.out.println(realString);
 	        String expectString = "Declarations\n|-- Name: foo\n";
 	        assertEquals(expectString, realString);
 	        System.out.println("Passed Test 1");
@@ -125,10 +136,10 @@ public class ParserTest {
 	 */
 	@Test
 	public void programTest() {
-		Parser par = new Parser("program foo;\n" + "begin\n" + "end\n" + ".", false);
+	 Parser par = new Parser("program foo;\n" + "begin\n" + "end\n" + ".", false);
 		 ProgramNode real = par.program();
 	        String realString = real.indentedToString(0);
-	        System.out.println(realString);
+	        //System.out.println(realString);
 	        String expected = "Program: foo\n" + 
 	        		"|-- Declarations\n" + 
 	        		"|-- SubProgramDeclarations\n" + 

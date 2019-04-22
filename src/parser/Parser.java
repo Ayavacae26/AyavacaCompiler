@@ -4,6 +4,7 @@ import scanner.*;
 import symboltable.*;
 import symboltable.SymbolTable.Kind;
 import syntaxtree.*;
+import java.util.ArrayList;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -75,8 +76,8 @@ public class Parser {
 		ProgramNode programNode = new ProgramNode(lookahead.getlexeme());
 		String programName = lookahead.getlexeme();
 		match(TokenType.ID);
-		//symbolTable.addProgram(programName);
-		symbolTable.addKind(programName, Kind.PROGRAM, null);
+		symbolTable.addProgram(programName);
+		//symbolTable.addKind(programName, Kind.PROGRAM, null);
 		match(TokenType.SEMICOLON);
 		programNode.setVariables(declarations());
 		programNode.setFunctions(subprogram_declarations());
@@ -89,17 +90,17 @@ public class Parser {
 	 * Executes the rule for the identifer_list non-terminal symbol in the
 	 * expression grammar.
 	 */
-	public void identifer_list() {
-		String IdName = lookahead.getlexeme();
+	public ArrayList<String> identifer_list() {
+		ArrayList<String> idlist = new ArrayList<String>();
+		idlist.add(lookahead.getlexeme());
 		match(TokenType.ID);
-		//symbolTable.addVariable(IdName);
-		symbolTable.addKind(IdName, Kind.VARIABLE, null);
 		if (lookahead.getTokenType() == TokenType.COMMA) {
 			match(TokenType.COMMA);
-			identifer_list();
+			idlist.addAll(identifer_list());
 		} else {
 			
 		}
+		return idlist;
 	}
 
 	/**
@@ -110,7 +111,10 @@ public class Parser {
 		DeclarationsNode declarationsNode = new DeclarationsNode();
 		if (lookahead.getTokenType() == TokenType.VAR) {
 			match(TokenType.VAR);
-			identifer_list();
+			ArrayList<String> idlist = identifer_list();
+			for(String id :idlist) {
+				declarationsNode.addVariable(new VariableNode(id));
+			}
 			match(TokenType.COLON);
 			type();
 			match(TokenType.SEMICOLON);
@@ -307,17 +311,26 @@ public class Parser {
 	 * grammar.
 	 */
 	public StatementNode statement() {
+		StatementNode sNode = null;
 		// Variable or procedure_statement
-		if (lookahead !=null && lookahead.getTokenType() == TokenType.ID && this.symbolTable.isKind(lookahead.getlexeme(),Kind.VARIABLE)) {
-			variable();
+		if (lookahead !=null && lookahead.getTokenType() == TokenType.ID ) {
+			if( this.symbolTable.isVariable(lookahead.getlexeme())) {
+			AssignmentStatementNode assign = new AssignmentStatementNode();
+			VariableNode varNode = variable();
+			assign.setLvalue(variable());
 			match(TokenType.ASSIGN);
-			expression();
-		} else if (lookahead !=null && lookahead.getTokenType() == TokenType.ID && this.symbolTable.isKind(lookahead.getlexeme(),Kind.PROCEDURE)) {
-			procedure_statement();
+			ExpressionNode exp = expression();
+			assign.setExpression(expression());
+			return assign;
+			}
+			//this.symbolTable.isProcedure(lookahead.getlexeme()
+		 else {
+			return procedure_statement();
+		}
 		}
 		// compound statement
 		else if (lookahead.getTokenType() == TokenType.BEGIN) {
-			compound_statement();
+			sNode = compound_statement();
 		} else if (lookahead.getTokenType() == TokenType.IF) {
 			match(TokenType.IF);
 			expression();
@@ -346,14 +359,16 @@ public class Parser {
 		} else {
 			error("Error in statement");
 		}
+		return sNode;
 	}
 
 	/**
 	 * Executes the rule for the variable non-terminal symbol in the expression
 	 * grammar.
 	 */
-	public void variable() {
-		//String variableName = lookahead.getlexeme();
+	public VariableNode variable() {
+		String variableName = lookahead.getlexeme();
+		VariableNode var = new VariableNode(variableName);
 		match(TokenType.ID);
 		//symbolTable.addVariable(variableName);
 		if (lookahead.getTokenType() == TokenType.LEFTBRACKET) {
@@ -361,13 +376,17 @@ public class Parser {
 			expression();
 			match(TokenType.RIGHTBRACKET);
 		}
+		return var;
 	}
 
 	/**
 	 * Executes the rule for the procedure_statement non-terminal symbol in the
 	 * expression grammar.
 	 */
-	public void procedure_statement() {
+	public ProcedureStatementNode procedure_statement() {
+		ProcedureStatementNode proNode = new ProcedureStatementNode();
+		String prodName = lookahead.getlexeme();
+		
 		if (lookahead.getTokenType() == TokenType.ID) {
 			match(TokenType.ID);
 		} else {
@@ -376,6 +395,7 @@ public class Parser {
 			expression_list();
 			match(TokenType.LEFTPARENTHESES);
 		}
+		return proNode;
 	}
 
 	/**
@@ -620,5 +640,8 @@ public class Parser {
 			e.printStackTrace();
 		}
 	}
+	public SymbolTable getSymbolTable() {
+        return symbolTable;
+    }
 
 }
