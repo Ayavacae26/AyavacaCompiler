@@ -345,11 +345,14 @@ public class Parser {
 			ifNode.setThenStatement(statement());
 			match(TokenType.ELSE);
 			ifNode.setElseStatement(statement());
+			return ifNode;
 		} else if (lookahead.getTokenType() == TokenType.WHILE) {
+			WhileStatementNode whileNode = new WhileStatementNode();
 			match(TokenType.WHILE);
-			expression();
+			whileNode.setTest(expression());
 			match(TokenType.DO);
-			statement();
+			whileNode.setDoStatement(statement());
+			return whileNode;
 		} else if (lookahead.getTokenType() == TokenType.READ) {
 			match(TokenType.READ);
 			match(TokenType.LEFTPARENTHESES);
