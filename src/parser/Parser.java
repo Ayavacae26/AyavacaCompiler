@@ -338,12 +338,13 @@ public class Parser {
 		else if (lookahead.getTokenType() == TokenType.BEGIN) {
 			sNode = compound_statement();
 		} else if (lookahead.getTokenType() == TokenType.IF) {
+			IfStatementNode ifNode = new IfStatementNode();
 			match(TokenType.IF);
-			expression();
+			ifNode.setTest(expression());
 			match(TokenType.THEN);
-			statement();
+			ifNode.setThenStatement(statement());
 			match(TokenType.ELSE);
-			statement();
+			ifNode.setElseStatement(statement());
 		} else if (lookahead.getTokenType() == TokenType.WHILE) {
 			match(TokenType.WHILE);
 			expression();
