@@ -45,7 +45,7 @@ public class Recognizer {
 	public Recognizer(String text, boolean isFilename) {
 		symbolTable = new SymbolTable();
 		if (isFilename) {
-			String filename = System.getProperty("user.dir") + "/" + text + ".txt";
+			String filename = text;
 			FileInputStream fis = null;
 			try {
 				fis = new FileInputStream(filename);
