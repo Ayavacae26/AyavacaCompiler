@@ -1,5 +1,12 @@
 package semanticanalysis;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
+import parser.*;
+import symboltable.*;
+import syntaxtree.*;
+
 
 /**
  * In this following class the following must be achived 
