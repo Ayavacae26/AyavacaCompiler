@@ -2,9 +2,9 @@ package semanticanalysis;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-
 import parser.*;
 import symboltable.*;
+import symboltable.SymbolTable.Type;
 import syntaxtree.*;
 
 
@@ -19,5 +19,25 @@ import syntaxtree.*;
  * 
  */
 public class SemanticAnalysis {
-
+	
+	ProgramNode proNode = null;
+	SymbolTable symbol = null;
+	
+	private HashMap<String , Type> varTypes = new HashMap<String , Type>();
+	
+	public  SemanticAnalysis(ProgramNode proNode,SymbolTable symbol) {
+		this.proNode = proNode;
+		this.symbol = symbol;
+	}
+	
+	public ProgramNode analysis() {
+		ArrayList<VariableNode> varNodes = proNode.getVariables().getDeclarations();
+		
+	}
+	
+	
+	
+	
+	
+	
 }
