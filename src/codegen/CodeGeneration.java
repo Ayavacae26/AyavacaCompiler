@@ -16,7 +16,7 @@ import java.util.ArrayList;
 public class CodeGeneration {
 
 	private int currentTRegister = 0;
-	private int currentFRegister = 0;
+
 
 	/**
 	 * Making a .asm file based on read in file
@@ -83,7 +83,7 @@ public class CodeGeneration {
 		}
 		return (code);
 	}
-	public  String writeCode(StatementNode node) {
+	public String writeCode(StatementNode node) {
 		String nodeCode = null;
 		if (node instanceof AssignmentStatementNode) {
 			nodeCode = writeCode((AssignmentStatementNode) node);
@@ -91,21 +91,38 @@ public class CodeGeneration {
 			nodeCode = writeCode((ProcedureStatementNode) node);
 		} else if (node instanceof CompoundStatementNode) {
 			nodeCode = writeCode((CompoundStatementNode) node);
-		} else if (node instanceof IfStatementNode) {
-			nodeCode = writeCode((IfStatementNode) node);
-		} else if (node instanceof WhileStatementNode) {
-			nodeCode = writeCode((WhileStatementNode) node);
 		}
 		return (nodeCode);
 	}
 	
+	/**
+	 * Code for assignment statementNode
+	 * Still needs to be implemented 
+	 */
+	public String writeCode(AssignmentStatementNode node) {
+		String code ="";
+		
+		return code;
+		
+	}
+	
+	/**
+	 * Code for ProcedureStatementNode
+	 * Still needs to be implemented 
+	 */
+	public String writeCode(ProcedureStatementNode node) {
+		String code ="";
+		
+		return code;
+		
+	}
 
 	/**
 	 * Code for SubProgramNode
-	 * @param spN
+	 * @param 
 	 * @return
 	 */
-	public  String writeCode(SubProgramNode node) {
+	public String writeCode(SubProgramNode node) {
 		String code = "";
 		if (node.getFunctions() != null) {
 			for (SubProgramNode spN : node.getFunctions().getProcs()) {
@@ -117,31 +134,12 @@ public class CodeGeneration {
 		}
 		return (code);	}
 
-	/*   
-	*//**
-		 * Starts the code from the root node by writing the outline of the assembly
-		 * code, and telling the root node to write its answer into $s0.
-		 *
-		 * @param root
-		 *            The root node of the equation to be written
-		 * @return A String of the assembly code.
-		 *//*
-			 * public String writeCodeForRoot( ExpressionNode root) { StringBuilder code =
-			 * new StringBuilder(); code.append( ".data\n"); code.append(
-			 * "answer:   .word   0\n\n\n"); code.append( ".text\n"); code.append(
-			 * "main:\n");
-			 * 
-			 * String nodeCode = null; int tempTRegValue = this.currentTRegister; nodeCode =
-			 * writeCode( root, "$s0"); this.currentTRegister = tempTRegValue; code.append(
-			 * nodeCode); code.append( "sw     $s0,   answer\n"); code.append(
-			 * "addi   $v0,   10\n"); code.append( "syscall\n"); return( code.toString()); }
-			 */
-	/**
-	 * Code gen for DeclarationsNode
+
+	 /** Code gen for DeclarationsNode
 	 * @param node
 	 * @return
 	 */
-	public  String writeCode(DeclarationsNode node) {
+	public String writeCode(DeclarationsNode node) {
 		String code = "";
 		ArrayList<VariableNode> variables = node.getVariable();
 		for (VariableNode vN : variables) {
@@ -149,6 +147,8 @@ public class CodeGeneration {
 		}
 		return (code);
 	}
+	
+	
 
 	/**
 	 * Writes code for the given node. This generic write code takes any
@@ -166,6 +166,8 @@ public class CodeGeneration {
 			nodeCode = writeCode((OperationNode) node, reg);
 		} else if (node instanceof ValueNode) {
 			nodeCode = writeCode((ValueNode) node, reg);
+		}else if (node instanceof VariableNode) {
+			nodeCode = writeCode((VariableNode) node, reg);
 		}
 		return (nodeCode);
 	}
