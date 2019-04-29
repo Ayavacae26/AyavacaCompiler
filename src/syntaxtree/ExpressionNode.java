@@ -12,5 +12,10 @@ public abstract class ExpressionNode extends SyntaxTreeNode {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	public void setType(Type real) {
+		// TODO Auto-generated method stub
+		
+	}
     
 }
