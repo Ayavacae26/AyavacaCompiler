@@ -1,5 +1,5 @@
 package compiler;
-import parser.Recognizer;
+import parser.*;
 
 
 
@@ -17,11 +17,12 @@ public class CompilerMain {
 		String filename = args[0];
 		//Parser par = new Parser(filename, true);
 		try {
-			Recognizer recognizer = new Recognizer(filename, true);
-			recognizer.program();
-			recognizer.writeToFile();
-			//par.program();
-			//par.writeToFile();
+			//Recognizer recognizer = new Recognizer(filename, true);
+			//recognizer.program();
+			//recognizer.writeToFile();
+			Parser par = new Parser(filename, true);
+			par.program();
+		    par.writeToFile();
 			System.out.println("file ran with no errors");
 		} catch (Exception e) {
 

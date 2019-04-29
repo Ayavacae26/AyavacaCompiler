@@ -25,8 +25,8 @@ In the Src Folder there exist/will exist the following packages:
 3. symboltable
 4. compiler
 5. syntaxtree
-6. symanticanalysis(currently working on)
-7. codegeneration (upcoming)
+6. symanticanalysis(needs improvement)
+7. codegeneration (currently working on)
 
 In the scanner package these are the following files:
 1. EAScanner.jflex   
@@ -75,6 +75,10 @@ In the syntaxtree package, there are the following files:
 In the semanticanalysis package, there are the following files:
 1. SemanticAnalysis.java
 2. SemanticAnalysisTest.java
+
+In the codegen package, there are the following files:
+1. CodeGeneration.java
+2. CodeGenerationTest.java
 
 
 
