@@ -6,7 +6,7 @@ import parser.Parser;
 
 
 public class SemanticAnalysisTest {
-
+		//test fails
 		@Test
 		public void testSemantic() {
 			Parser par = new Parser("program foo;\n" + "begin\n" + "end\n" + ".", false);
