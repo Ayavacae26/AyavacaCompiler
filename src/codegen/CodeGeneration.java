@@ -16,7 +16,7 @@ import java.util.ArrayList;
 public class CodeGeneration {
 
 	private int currentTRegister = 0;
-	private static int currentFRegister = 0;
+	private int currentFRegister = 0;
 
 	/**
 	 * Making a .asm file based on read in file
@@ -24,7 +24,7 @@ public class CodeGeneration {
 	 * @param filename
 	 * @param root
 	 */
-	public static void writeCodeToFile(String filename, ProgramNode root) {
+	public void writeCodeToFile(String filename, ProgramNode root) {
 		PrintWriter write;
 		try {
 			write = new PrintWriter(
@@ -42,7 +42,7 @@ public class CodeGeneration {
 	 * @param root
 	 * @return
 	 */
-	public static String writeCodeForRoot(ProgramNode root) {
+	public  String writeCodeForRoot(ProgramNode root) {
 		String code = "";
 		code += "    .data\n\n" + "promptuser:    .asciiz \"Enter value: \"" + "\n" + "newline:       .asciiz \"\\n\""
 				+ "\n";
@@ -70,8 +70,12 @@ public class CodeGeneration {
 		code += "\njr $ra";
 		return (code);
 	}
-
-	public static String writeCode(CompoundStatementNode node) {
+/**
+ * For Compound StatementNode 
+ * @param node
+ * @return
+ */
+	public String writeCode(CompoundStatementNode node) {
 		String code = "";
 		ArrayList<StatementNode> state = node.getStateNodes();
 		for (StatementNode sN : state) {
@@ -79,17 +83,29 @@ public class CodeGeneration {
 		}
 		return (code);
 	}
-	public static String writeCode(StatementNode node) {
-		// TODO Auto-generated method stub
-		return null;
+	public  String writeCode(StatementNode node) {
+		String nodeCode = null;
+		if (node instanceof AssignmentStatementNode) {
+			nodeCode = writeCode((AssignmentStatementNode) node);
+		} else if (node instanceof ProcedureStatementNode) {
+			nodeCode = writeCode((ProcedureStatementNode) node);
+		} else if (node instanceof CompoundStatementNode) {
+			nodeCode = writeCode((CompoundStatementNode) node);
+		} else if (node instanceof IfStatementNode) {
+			nodeCode = writeCode((IfStatementNode) node);
+		} else if (node instanceof WhileStatementNode) {
+			nodeCode = writeCode((WhileStatementNode) node);
+		}
+		return (nodeCode);
 	}
+	
 
 	/**
 	 * Code for SubProgramNode
 	 * @param spN
 	 * @return
 	 */
-	public static String writeCode(SubProgramNode node) {
+	public  String writeCode(SubProgramNode node) {
 		String code = "";
 		if (node.getFunctions() != null) {
 			for (SubProgramNode spN : node.getFunctions().getProcs()) {
@@ -125,7 +141,7 @@ public class CodeGeneration {
 	 * @param node
 	 * @return
 	 */
-	public static String writeCode(DeclarationsNode node) {
+	public  String writeCode(DeclarationsNode node) {
 		String code = "";
 		ArrayList<VariableNode> variables = node.getVariable();
 		for (VariableNode vN : variables) {
@@ -214,7 +230,7 @@ public class CodeGeneration {
 	 * @param resultRegister
 	 * @return
 	 */
-	public static String writeCode(VariableNode vNode, String resultRegister) {
+	public  String writeCode(VariableNode vNode, String resultRegister) {
 		String name = vNode.getName();
 		String code = "lw      " + resultRegister + ",   " + name + "\n";
 		return (code);
