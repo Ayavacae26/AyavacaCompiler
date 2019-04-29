@@ -27,7 +27,7 @@ public class ParserTest {
 		String expected = "Value: 26\n";
 		ExpressionNode real = par.factor();
 		String realString = real.indentedToString(0);
-		//System.out.println(realString);
+		System.out.println(realString);
 		assertEquals(expected,realString);
 		System.out.println("passed factor test 1");
 		
@@ -35,7 +35,7 @@ public class ParserTest {
 		expected = "Name: bar\n";
 		real = par.factor();
 		realString = real.indentedToString(0);
-		//System.out.println(realString);
+		System.out.println(realString);
 		assertEquals(expected,realString);
 		System.out.println("passed factor test 2");
 		
@@ -44,7 +44,7 @@ public class ParserTest {
 		expected = "Operation: ASTERISK\n|-- Value: 8\n|-- Value: 5\n";
 		real = par.factor();
 		realString = real.indentedToString(0);
-		//System.out.println(realString);
+		System.out.println(realString);
 		assertEquals(expected,realString);
 		System.out.println("passed factor test 3");	
 	    
@@ -165,4 +165,5 @@ public class ParserTest {
 			//	 assertEquals( expectedString, actualString);
 			
 		 }
+	
 }
