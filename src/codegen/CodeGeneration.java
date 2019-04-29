@@ -9,14 +9,13 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 
 /**
- * In this class, we are using the synaxtree nodes to create code.  
+ * In this class, we are using the synaxtree nodes to create code.
  * 
  * @author Erik Ayavaca-Tirado
  */
 public class CodeGeneration {
 
 	private int currentTRegister = 0;
-
 
 	/**
 	 * Making a .asm file based on read in file
@@ -42,7 +41,7 @@ public class CodeGeneration {
 	 * @param root
 	 * @return
 	 */
-	public  String writeCodeForRoot(ProgramNode root) {
+	public String writeCodeForRoot(ProgramNode root) {
 		String code = "";
 		code += "    .data\n\n" + "promptuser:    .asciiz \"Enter value: \"" + "\n" + "newline:       .asciiz \"\\n\""
 				+ "\n";
@@ -70,11 +69,13 @@ public class CodeGeneration {
 		code += "\njr $ra";
 		return (code);
 	}
-/**
- * For Compound StatementNode 
- * @param node
- * @return
- */
+
+	/**
+	 * For Compound StatementNode
+	 * 
+	 * @param node
+	 * @return
+	 */
 	public String writeCode(CompoundStatementNode node) {
 		String code = "";
 		ArrayList<StatementNode> state = node.getStateNodes();
@@ -83,6 +84,7 @@ public class CodeGeneration {
 		}
 		return (code);
 	}
+
 	public String writeCode(StatementNode node) {
 		String nodeCode = null;
 		if (node instanceof AssignmentStatementNode) {
@@ -91,48 +93,46 @@ public class CodeGeneration {
 			nodeCode = writeCode((ProcedureStatementNode) node);
 		} else if (node instanceof CompoundStatementNode) {
 			nodeCode = writeCode((CompoundStatementNode) node);
-		}else if (node instanceof IfStatementNode) {
+		} else if (node instanceof IfStatementNode) {
 			nodeCode = writeCode((IfStatementNode) node);
 		}
 		return (nodeCode);
 	}
-	
+
 	/**
-	 * Code for assignment statementNode
-	 * Still needs to be implemented 
+	 * Code for assignment statementNode Still needs to be implemented
 	 */
 	public String writeCode(AssignmentStatementNode node) {
-		String code ="";
-		
+		String code = "";
+
 		return code;
-		
+
 	}
-	
+
 	/**
-	 * Code for ProcedureStatementNode
-	 * Still needs to be implemented 
+	 * Code for ProcedureStatementNode Still needs to be implemented
 	 */
 	public String writeCode(ProcedureStatementNode node) {
-		String code ="";
-		
+		String code = "";
+
 		return code;
-		
+
 	}
-	
+
 	/**
-	 * Code for IfStatementNode
-	 * Still needs to be implemented 
+	 * Code for IfStatementNode Still needs to be implemented
 	 */
 	public String writeCode(IfStatementNode node) {
-		String code ="";
-		
+		String code = "";
+
 		return code;
-		
+
 	}
 
 	/**
 	 * Code for SubProgramNode
-	 * @param 
+	 * 
+	 * @param
 	 * @return
 	 */
 	public String writeCode(SubProgramNode node) {
@@ -145,10 +145,12 @@ public class CodeGeneration {
 		if (node.getMain() != null) {
 			code += writeCode(node.getMain());
 		}
-		return (code);	}
+		return (code);
+	}
 
-
-	 /** Code gen for DeclarationsNode
+	/**
+	 * Code gen for DeclarationsNode
+	 * 
 	 * @param node
 	 * @return
 	 */
@@ -160,8 +162,6 @@ public class CodeGeneration {
 		}
 		return (code);
 	}
-	
-	
 
 	/**
 	 * Writes code for the given node. This generic write code takes any
@@ -179,7 +179,7 @@ public class CodeGeneration {
 			nodeCode = writeCode((OperationNode) node, reg);
 		} else if (node instanceof ValueNode) {
 			nodeCode = writeCode((ValueNode) node, reg);
-		}else if (node instanceof VariableNode) {
+		} else if (node instanceof VariableNode) {
 			nodeCode = writeCode((VariableNode) node, reg);
 		}
 		return (nodeCode);
@@ -245,7 +245,7 @@ public class CodeGeneration {
 	 * @param resultRegister
 	 * @return
 	 */
-	public  String writeCode(VariableNode vNode, String resultRegister) {
+	public String writeCode(VariableNode vNode, String resultRegister) {
 		String name = vNode.getName();
 		String code = "lw      " + resultRegister + ",   " + name + "\n";
 		return (code);
