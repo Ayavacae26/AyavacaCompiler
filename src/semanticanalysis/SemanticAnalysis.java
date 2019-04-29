@@ -142,7 +142,6 @@ public class SemanticAnalysis {
 	 */
 	private ExpressionNode getLeftPos(ExpressionNode expression) {
 		ExpressionNode answer = null;
-
 		if (expression instanceof OperationNode) {
 			answer = ((OperationNode) expression).getLeft();
 		}
