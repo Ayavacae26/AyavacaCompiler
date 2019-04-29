@@ -138,8 +138,8 @@ public class CodeGeneration {
 	public String writeCode(SubProgramNode node) {
 		String code = "";
 		if (node.getFunctions() != null) {
-			for (SubProgramNode spN : node.getFunctions().getProcs()) {
-				code += writeCode(spN);
+			for (SubProgramNode sN: node.getFunctions().getProcs()) {
+				code += writeCode(sN);
 			}
 		}
 		if (node.getMain() != null) {
@@ -157,8 +157,8 @@ public class CodeGeneration {
 	public String writeCode(DeclarationsNode node) {
 		String code = "";
 		ArrayList<VariableNode> variables = node.getVariable();
-		for (VariableNode vN : variables) {
-			code += String.format("%-10s     .word 0\n", vN.getName() + ":");
+		for (VariableNode var : variables) {
+			code += String.format("%-10s     .word 0\n", var.getName() + ":");
 		}
 		return (code);
 	}
