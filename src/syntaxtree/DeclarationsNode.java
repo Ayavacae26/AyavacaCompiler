@@ -43,4 +43,9 @@ public class DeclarationsNode extends SyntaxTreeNode {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	public ArrayList<VariableNode> getVariable() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

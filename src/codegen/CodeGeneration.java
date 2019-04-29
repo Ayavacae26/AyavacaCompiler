@@ -71,15 +71,35 @@ public class CodeGeneration {
 		return (code);
 	}
 
-	private static String writeCode(CompoundStatementNode main) {
+	public static String writeCode(CompoundStatementNode node) {
+		String code = "";
+		ArrayList<StatementNode> state = node.getStateNodes();
+		for (StatementNode sN : state) {
+			code += writeCode(sN);
+		}
+		return (code);
+	}
+	public static String writeCode(StatementNode node) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	private static String writeCode(SubProgramNode spN) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	/**
+	 * Code for SubProgramNode
+	 * @param spN
+	 * @return
+	 */
+	public static String writeCode(SubProgramNode node) {
+		String code = "";
+		if (node.getFunctions() != null) {
+			for (SubProgramNode spN : node.getFunctions().getProcs()) {
+				code += writeCode(spN);
+			}
+		}
+		if (node.getMain() != null) {
+			code += writeCode(node.getMain());
+		}
+		return (code);	}
 
 	/*   
 	*//**
@@ -100,10 +120,18 @@ public class CodeGeneration {
 			 * nodeCode); code.append( "sw     $s0,   answer\n"); code.append(
 			 * "addi   $v0,   10\n"); code.append( "syscall\n"); return( code.toString()); }
 			 */
-
-	private static String writeCode(DeclarationsNode variables) {
-		// TODO Auto-generated method stub
-		return null;
+	/**
+	 * Code gen for DeclarationsNode
+	 * @param node
+	 * @return
+	 */
+	public static String writeCode(DeclarationsNode node) {
+		String code = "";
+		ArrayList<VariableNode> variables = node.getVariable();
+		for (VariableNode vN : variables) {
+			code += String.format("%-10s     .word 0\n", vN.getName() + ":");
+		}
+		return (code);
 	}
 
 	/**
