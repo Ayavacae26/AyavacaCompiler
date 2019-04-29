@@ -9,7 +9,7 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 
 /**
- * This class will create code for an Equation tree.
+ * In this class, we are using the synaxtree nodes to create code.  
  * 
  * @author Erik Ayavaca-Tirado
  */
@@ -91,6 +91,8 @@ public class CodeGeneration {
 			nodeCode = writeCode((ProcedureStatementNode) node);
 		} else if (node instanceof CompoundStatementNode) {
 			nodeCode = writeCode((CompoundStatementNode) node);
+		}else if (node instanceof IfStatementNode) {
+			nodeCode = writeCode((IfStatementNode) node);
 		}
 		return (nodeCode);
 	}
@@ -111,6 +113,17 @@ public class CodeGeneration {
 	 * Still needs to be implemented 
 	 */
 	public String writeCode(ProcedureStatementNode node) {
+		String code ="";
+		
+		return code;
+		
+	}
+	
+	/**
+	 * Code for IfStatementNode
+	 * Still needs to be implemented 
+	 */
+	public String writeCode(IfStatementNode node) {
 		String code ="";
 		
 		return code;
