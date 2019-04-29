@@ -32,6 +32,9 @@ public class SemanticAnalysis {
 	
 	public ProgramNode analysis() {
 		ArrayList<VariableNode> varNodes = proNode.getVariables().getDeclarations();
+		for(int i = 0 ;i < varNodes.size();i++) {
+			varTypes.put(varNodes.get(i).getName(), varNodes.get(i).getType());
+		}
 		
 	}
 	

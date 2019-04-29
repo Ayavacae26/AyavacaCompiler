@@ -1,12 +1,14 @@
 package syntaxtree;
 
+import symboltable.SymbolTable.Type;
+
 /**
  * General representation of any expression.
  * @author erik
  */
 public abstract class ExpressionNode extends SyntaxTreeNode {
 
-	public Object getType() {
+	public Type getType() {
 		// TODO Auto-generated method stub
 		return null;
 	}
