@@ -1,5 +1,5 @@
 package compiler;
-import parser.*;
+import parser.Recognizer;
 
 
 
@@ -13,8 +13,8 @@ import parser.*;
 public class CompilerMain {
 
 	public static void main(String[] args) {
-		String filename = "CompilerTest";
-		//String filename = args[0];
+		//String filename = "CompilerTest";
+		String filename = args[0];
 		//Parser par = new Parser(filename, true);
 		try {
 			Recognizer recognizer = new Recognizer(filename, true);

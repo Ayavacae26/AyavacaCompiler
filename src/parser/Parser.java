@@ -42,7 +42,7 @@ public class Parser {
 	public Parser(String text, boolean isFilename) {
 		symbolTable = new SymbolTable();
 		if (isFilename) {
-			String filename = System.getProperty("user.dir") + "/" + text + ".txt";
+			String filename = text;
 			FileInputStream fis = null;
 			try {
 				fis = new FileInputStream(filename);
@@ -338,17 +338,21 @@ public class Parser {
 		else if (lookahead.getTokenType() == TokenType.BEGIN) {
 			sNode = compound_statement();
 		} else if (lookahead.getTokenType() == TokenType.IF) {
+			IfStatementNode ifNode = new IfStatementNode();
 			match(TokenType.IF);
-			expression();
+			ifNode.setTest(expression());
 			match(TokenType.THEN);
-			statement();
+			ifNode.setThenStatement(statement());
 			match(TokenType.ELSE);
-			statement();
+			ifNode.setElseStatement(statement());
+			return ifNode;
 		} else if (lookahead.getTokenType() == TokenType.WHILE) {
+			WhileStatementNode whileNode = new WhileStatementNode();
 			match(TokenType.WHILE);
-			expression();
+			whileNode.setTest(expression());
 			match(TokenType.DO);
-			statement();
+			whileNode.setDoStatement(statement());
+			return whileNode;
 		} else if (lookahead.getTokenType() == TokenType.READ) {
 			match(TokenType.READ);
 			match(TokenType.LEFTPARENTHESES);

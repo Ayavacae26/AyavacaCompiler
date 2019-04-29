@@ -1,29 +1,32 @@
 Erik Ayavaca-Tirado
-
 CSC 451
-
 Pascal Compiler 
 
 ReadMe
 
-In this project I am going to create a the scanner for our Pascal language as described in the
-grammar given in class.  The scanner will be created using the JFlex tool.  This is just the 
-begining part for the pascal compiler. This project will be divided in 4 main sections:
+In this project I am going to create a compiler for our Pascal language as described in the
+grammar given in class.  The scanner will be created using the JFlex tool. This project will be divided in a few main sections:
 1. Scanner 
 2. Parser 
 3. Symbol Table 
 4. Syntax Tree
+5. Compiler
+6. Semantic Analysis
+7. Code Generation
 
-This project on the main level will contain
+This project on the main level will contain:
 1. SDD folder - most recent version of the Software Design Document. Word and PDF version
-2.  Src Folder - All current code for the compiler
+2. Src Folder - All current code for the compiler
+3. Product Folder - user manual and  along with a .jar executable (upcoming)
 
-In the Src Folder there exist the following packages:
+In the Src Folder there exist/will exist the following packages:
 1. scanner 
 2. parser
 3. symboltable
 4. compiler
 5. syntaxtree
+6. symanticanalysis(currently working on)
+7. codegeneration (upcoming)
 
 In the scanner package these are the following files:
 1. EAScanner.jflex   
@@ -40,6 +43,7 @@ In the parser package these are the following files:
 1. Recognizer.java   
 2. RecognizerTest.java
 3. Parser.java
+4. ParserTest.java
 
 In the symboltable package, these are the following files:
 1. SymbolTable.java    
@@ -64,5 +68,13 @@ In the syntaxtree package, there are the following files:
 12. SyntaxTreeTest.java
 13. ValueNode.java
 14. VariableNode.java
+15. ProcedureStatementNode.java
+16. UnaryOperationNode.java
+17. WhileStatementNode.java
+
+In the semanticanalysis package, there are the following files:
+1. SemanticAnalysis.java
+2. SemanticAnalysisTest.java
+
 
 

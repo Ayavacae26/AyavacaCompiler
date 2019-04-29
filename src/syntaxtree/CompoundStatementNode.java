@@ -41,4 +41,9 @@ public class CompoundStatementNode extends StatementNode {
 		// TODO Auto-generated method stub
 		
 	}
+
+	public ArrayList<StatementNode> getStateNodes() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

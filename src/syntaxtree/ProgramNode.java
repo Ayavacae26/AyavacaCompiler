@@ -1,6 +1,8 @@
 
 package syntaxtree;
 
+import java.util.ArrayList;
+
 /**
  * Represents a Pascal Program
  * @author Erik Steinmetz
@@ -62,4 +64,9 @@ public class ProgramNode extends SyntaxTreeNode {
         answer += main.indentedToString( level + 1);
         return answer;
     }
+
+	public ArrayList<String> getVarNames() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
