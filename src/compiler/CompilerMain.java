@@ -17,13 +17,16 @@ public class CompilerMain {
 		String filename = args[0];
 		//Parser par = new Parser(filename, true);
 		try {
-			//Recognizer recognizer = new Recognizer(filename, true);
-			//recognizer.program();
-			//recognizer.writeToFile();
+			Recognizer recognizer = new Recognizer(filename, true);
+			recognizer.program();
+			recognizer.writeToFile();
+			System.out.println("recognizer works");
 			Parser par = new Parser(filename, true);
 			par.program();
 		    par.writeToFile();
+		    System.out.println("parser works");
 			System.out.println("file ran with no errors");
+			
 		} catch (Exception e) {
 
 		}
