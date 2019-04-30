@@ -25,6 +25,7 @@ public class CompilerMain {
 			par.program();
 		    par.writeToFile();
 		    System.out.println("parser works");
+		    
 			System.out.println("file ran with no errors");
 			
 		} catch (Exception e) {
