@@ -76,7 +76,8 @@ public class Parser {
 		ProgramNode programNode = new ProgramNode(lookahead.getlexeme());
 		String programName = lookahead.getlexeme();
 		match(TokenType.ID);
-		symbolTable.addProgram(programName);
+		if (!symbolTable.addProgram(programName))
+            error("name already exists in symbol table");
 		//symbolTable.addKind(programName, Kind.PROGRAM, null);
 		match(TokenType.SEMICOLON);
 		programNode.setVariables(declarations());
@@ -214,17 +215,20 @@ public class Parser {
 			match(TokenType.FUNCTION);
 			String functionName = lookahead.getlexeme();
 			match(TokenType.ID);
-			//symbolTable.addFunction(functionName);
+			 if (!symbolTable.addFunction(functionName, null)) 
+	            error(functionName + " already in symbol table");
 			SpN = new SubProgramNode(functionName);
 			arguments();
 			match(TokenType.COLON);
-			standard_type();
+			Type t = standard_type();
+			symbolTable.setType(functionName, t);
 			match(TokenType.SEMICOLON);
 		} else if (lookahead.getTokenType() == TokenType.PROCEDURE) {
 			match(TokenType.PROCEDURE);
 			String procedureName = lookahead.getlexeme();
 			match(TokenType.ID);
-			//symbolTable.addProcedure(procedureName);
+			 if (!symbolTable.addProcedure(procedureName))
+				 error(procedureName + " already in symbol table");
 			SpN = new SubProgramNode(procedureName);
 			arguments();
 			match(TokenType.SEMICOLON);
