@@ -4,6 +4,7 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 import parser.Parser;
 import symboltable.SymbolTable;
+import symboltable.SymbolTable.Type;
 import syntaxtree.*;
 import static scanner.TokenType.VAR;
 
@@ -85,20 +86,21 @@ public class ParserTest {
 	 */
 	@Test
 	public void statementTest() {
-		Parser pars = new Parser("fub := foo * 8", false);
+		 Parser pars = new Parser("fub := foo * 8", false);
 	        SymbolTable tempTable = pars.getSymbolTable();
 	        tempTable.addVariable("foo", null);
 	        tempTable.addVariable("fub", null);
 	        StatementNode real = pars.statement();
 	        String realString = real.indentedToString(0);
 	        System.out.println(realString);
-	        //String expectString = "Assignment:\n|-- Variable: fub\n" +
-	            //    "|-- Operation: ASTERICK\n|-- --- Variable: foo\n" +
-	            //    "|-- --- Value: 8\n";
-	       // assertEquals(expectString, realString);
+	        /*String expectString = "Assignment:\n|-- Variable: fub\n" +
+	               "|-- Operation: ASTERICK\n|-- --- Variable: foo\n" +
+	                "|-- --- Value: 8\n";
+	       assertEquals(expectString, realString);*/
 	        System.out.println("Passed Test 1");
+	    }
 		
-	}
+	
 	
 	/**
 	 * This test is going to be testing the subprogram_declaration function within the parser
@@ -114,7 +116,7 @@ public class ParserTest {
         		"|-- SubProgramDeclarations\n" + 
         		"|-- Compound Statement\n";
         assertEquals(expectString, realString);
-        System.out.println("Passed Test 1");
+        System.out.println(" sub program declrations Passed Test 1");
 		
 	}
 	
@@ -129,7 +131,7 @@ public class ParserTest {
 	        //System.out.println(realString);
 	        String expectString = "Declarations\n|-- Name: foo\n";
 	        assertEquals(expectString, realString);
-	        System.out.println("Passed Test 1");
+	        System.out.println(" declarations Passed Test 1");
 	}
 	
 
@@ -147,10 +149,11 @@ public class ParserTest {
 	        		"|-- SubProgramDeclarations\n" + 
 	        		"|-- Compound Statement\n";
 	        assertEquals(expected, realString);
+	        System.out.println(" program Passed Test 1");
 	}
 	 @Test
 	  public void programTest1() { 
-		 String filename = "/AyavacaCompiler/Money.txt";
+		 String filename = "Money.txt";
 		 Parser parser = new Parser(filename,true); 
 		 ProgramNode actual = parser.program(); 
 		 String actualString = actual.indentedToString( 0); 

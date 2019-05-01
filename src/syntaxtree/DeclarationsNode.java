@@ -2,6 +2,9 @@
 package syntaxtree;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+
+import symboltable.SymbolTable.Type;
 
 /**
  * Represents a set of declarations in a Pascal program.
@@ -35,9 +38,8 @@ public class DeclarationsNode extends SyntaxTreeNode {
     }
 
 	public void addDeclarations(DeclarationsNode declarations) {
-		// TODO Auto-generated method stub
-		
 	}
+
 
 	public ArrayList<VariableNode> getDeclarations() {
 		// TODO Auto-generated method stub

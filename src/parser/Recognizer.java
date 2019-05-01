@@ -412,12 +412,7 @@ public class Recognizer {
 				|| lookahead.getTokenType() == TokenType.PLUS || lookahead.getTokenType() == TokenType.MINUS) {
 			simple_expression();
 			if (isRelop(lookahead.getTokenType())) {
-				match(TokenType.EQUALS);
-				match(TokenType.GUILLEMENTS);
-				match(TokenType.LESS_THAN);
-				match(TokenType.GREATER_THAN);
-				match(TokenType.LESS_THAN_OR_EQUAL);
-				match(TokenType.GREATER_THAN_OR_EQUAL);
+				match(lookahead.getTokenType());
 				simple_expression();
 			}
 		}
@@ -455,9 +450,7 @@ public class Recognizer {
 	 */
 	public void simple_part() {
 		if (isAddop(lookahead.getTokenType())) {
-			match(TokenType.PLUS);
-			match(TokenType.MINUS);
-			match(TokenType.OR);
+			match(lookahead.getTokenType());
 			term();
 			simple_part();
 		} else {
@@ -492,11 +485,7 @@ public class Recognizer {
 	 */
 	public void term_part() {
 		if (isMulop(lookahead.getTokenType())) {
-			match(TokenType.ASTERISK);
-			match(TokenType.SLASH);
-			match(TokenType.DIV);
-			match(TokenType.MOD);
-			match(TokenType.AND);
+			match(lookahead.getTokenType());
 			factor();
 			term_part();
 		}

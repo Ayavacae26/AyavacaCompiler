@@ -1,10 +1,6 @@
-program test; 
-var foo, it, bar : integer;
-function open : real;
-var red : real; 
-begin 
-red := 12 
-end;
+program foo;
+var fee: integer;
 begin
+  fee := 4;
 end
 .

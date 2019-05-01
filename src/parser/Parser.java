@@ -76,8 +76,8 @@ public class Parser {
 		ProgramNode programNode = new ProgramNode(lookahead.getlexeme());
 		String programName = lookahead.getlexeme();
 		match(TokenType.ID);
-		symbolTable.addProgram(programName);
-		//symbolTable.addKind(programName, Kind.PROGRAM, null);
+		if (!symbolTable.addProgram(programName))
+            error("name already exists in symbol table");
 		match(TokenType.SEMICOLON);
 		programNode.setVariables(declarations());
 		programNode.setFunctions(subprogram_declarations());
@@ -97,11 +97,11 @@ public class Parser {
 		if (lookahead.getTokenType() == TokenType.COMMA) {
 			match(TokenType.COMMA);
 			idlist.addAll(identifer_list());
-		} else {
-			
+		} 
+		//else
+		return idlist;	
 		}
-		return idlist;
-	}
+	
 
 	/**
 	 * Executes the rule for the declarations non-terminal symbol in the expression
@@ -113,15 +113,13 @@ public class Parser {
 			match(TokenType.VAR);
 			ArrayList<String> idlist = identifer_list();
 			for(String id :idlist) {
-				declarationsNode.addVariable(new VariableNode(id));
+				declarationsNode.addVariable(new VariableNode(id,null));
 			}
 			match(TokenType.COLON);
 			type();
 			match(TokenType.SEMICOLON);
 			declarationsNode.addDeclarations(declarations());
-		} else {
-			// lamda option
-		}
+		} //else lamda
 		return declarationsNode;
 	}
 
@@ -186,9 +184,7 @@ public class Parser {
 			SPDNode.addSubProgramDeclaration(subprogram_declaration());
 			match(TokenType.SEMICOLON);
 			SPDNode.addall(subprogram_declarations().getProcs());
-		} else {
-			// lamda
-		}
+		}//else lamda
 		return SPDNode;
 	}
 
@@ -210,21 +206,24 @@ public class Parser {
 	 */
 	public SubProgramNode subprogram_head() {
 		  SubProgramNode SpN = null;
-		if (lookahead.getTokenType() == TokenType.FUNCTION) {
+		  if (lookahead.getTokenType() == TokenType.FUNCTION) {
 			match(TokenType.FUNCTION);
 			String functionName = lookahead.getlexeme();
 			match(TokenType.ID);
-			//symbolTable.addFunction(functionName);
+			 if (!symbolTable.addFunction(functionName, null)) 
+	            error(functionName + " already in symbol table");
 			SpN = new SubProgramNode(functionName);
 			arguments();
 			match(TokenType.COLON);
-			standard_type();
+			Type t = standard_type();
+			symbolTable.setType(functionName, t);
 			match(TokenType.SEMICOLON);
 		} else if (lookahead.getTokenType() == TokenType.PROCEDURE) {
 			match(TokenType.PROCEDURE);
 			String procedureName = lookahead.getlexeme();
 			match(TokenType.ID);
-			//symbolTable.addProcedure(procedureName);
+			 if (!symbolTable.addProcedure(procedureName))
+				 error(procedureName + " already in symbol table");
 			SpN = new SubProgramNode(procedureName);
 			arguments();
 			match(TokenType.SEMICOLON);
@@ -286,9 +285,7 @@ public class Parser {
 				|| lookahead.getTokenType() == TokenType.IF || lookahead.getTokenType() == TokenType.WHILE
 				|| lookahead.getTokenType() == TokenType.WRITE || lookahead.getTokenType() == TokenType.READ) {
 			CSNode.addAll(statement_list());
-		} else {
-			// lamda
-		}
+		}// else lamda
 		return CSNode;
 	}
 
@@ -328,11 +325,12 @@ public class Parser {
 			match(TokenType.ASSIGN);
 			ExpressionNode exp = expression();
 			assign.setExpression(expression());
+				if(varNode.getType() != exp.getType()) error("mismatch at " + varNode.getName());
 			return assign;
 			}
 		 else if (this.symbolTable.isProcedure(lookahead.getlexeme())) {
 			return procedure_statement();
-		}
+		} else error(lookahead.getlexeme() + " not in symbol table");
         }
 		// compound statement
 		else if (lookahead.getTokenType() == TokenType.BEGIN) {
@@ -397,7 +395,7 @@ public class Parser {
 	public ProcedureStatementNode procedure_statement() {
 		ProcedureStatementNode proNode = new ProcedureStatementNode();
 		String prodName = lookahead.getlexeme();
-		proNode.setVariable(new VariableNode(lookahead.getlexeme()));
+		proNode.setVariable(new VariableNode(lookahead.getlexeme(),null));
 		match(TokenType.ID);
 	    if (lookahead.getTokenType() == TokenType.LEFTPARENTHESES){
 			match(TokenType.LEFTPARENTHESES);
