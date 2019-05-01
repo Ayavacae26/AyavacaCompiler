@@ -8,14 +8,25 @@ import symboltable.SymbolTable.Type;
  */
 public abstract class ExpressionNode extends SyntaxTreeNode {
 
-	public Type getType() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	  protected Type type;
 
-	public void setType(Type real) {
-		// TODO Auto-generated method stub
-		
-	}
+	    public ExpressionNode() {
+	        type = null;
+	    }
+
+	    public ExpressionNode(Type t) {
+	        this.type = t;
+	    }
+
+	    public Type getType() {
+	        return type;
+	    }
+
+	    public void setType(Type t) {
+	        this.type = t;
+	   
+	    }
+
+
     
 }

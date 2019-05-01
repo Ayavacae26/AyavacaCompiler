@@ -1,12 +1,13 @@
 package syntaxtree;
 
+
 /**
  * this represents a SubProgramNode in a syntax tree
+ * 
  * @author erikayavaca
  *
  */
 public class SubProgramNode extends ProgramNode{
-
 	 public SubProgramNode(String aName) {
 	        super(aName);
 	    }
@@ -21,6 +22,6 @@ public class SubProgramNode extends ProgramNode{
 	        return answer;
 			
 		}
-	
-
 }
+
+

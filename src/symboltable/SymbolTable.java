@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.Map.Entry;
 import java.util.Set;
 
+import scanner.TokenType;
+
 /*
  *  This is a java class, that will be using a hashmap to keep track 
  *  of different id types such as array,function, variable and program ids.
@@ -332,6 +334,7 @@ public class SymbolTable {
 		// TODO Auto-generated method stub
 		
 	}
+
 }
 
 	/**
