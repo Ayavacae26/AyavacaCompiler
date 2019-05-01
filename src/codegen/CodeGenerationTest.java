@@ -20,7 +20,7 @@ public class CodeGenerationTest {
 				+ "addi   $t0,   $zero, 3\n" + "addi   $t2,   $zero, 4\n" + "addi   $t3,   $zero, 7\n"
 				+ "add    $t1,   $t2,   $t3\n" + "mult   $t0,   $t1\n" + "mflo   $s0\n" + "sw     $s0,   answer\n"
 				+ "addi   $v0,   10\n" + "syscall\n" + "";
-		String result = instance.writeCodeForRoot(root);
+		String result = instance.writeCodeEx(root, null);
 		System.out.println("Code is \n" + result);
 		assertEquals(expResult, result);
 	}
