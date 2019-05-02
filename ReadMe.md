@@ -83,6 +83,10 @@ In the codegen package, there are the following files:
 Extra's 
 For the extras I am going to try to implement arrays within this compiler
 What I did for this part:
+created a constructor within the symbol table for adding in the array.
+tried to implement arrays in the parser, specifically Type type function, was unsuccessful, so i commented the code out 
+
+
 
 
 
