@@ -258,10 +258,43 @@ public class SymbolTable {
 			this.kind = kind;
 
 		}
+		
 		public DataType(String name, Kind kind, Type type) {
 			this.name = name;
 			this.kind = kind;
 			this.type = type;
+		}
+		
+		// for array 
+		public DataType(String name, Kind kind, Type type, int begin, int end) {
+			this.name = name;
+			this.kind = kind;
+			this.beginindex = begin;
+			this.endindex = end;
+		}
+		/**
+		 * @return the beginindex
+		 */
+		public int getBeginindex() {
+			return beginindex;
+		}
+		/**
+		 * @param beginindex the beginindex to set
+		 */
+		public void setBeginindex(int beginindex) {
+			this.beginindex = beginindex;
+		}
+		/**
+		 * @return the endindex
+		 */
+		public int getEndindex() {
+			return endindex;
+		}
+		/**
+		 * @param endindex the endindex to set
+		 */
+		public void setEndindex(int endindex) {
+			this.endindex = endindex;
 		}
 
 		/**
