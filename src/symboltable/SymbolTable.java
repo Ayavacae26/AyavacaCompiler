@@ -250,7 +250,9 @@ public class SymbolTable {
 		public String name;
 		public Kind kind;
 		public Type type;
-
+		public int  beginindex;
+		public int endindex;
+		
 		public DataType(String name, Kind kind) {
 			this.name = name;
 			this.kind = kind;
