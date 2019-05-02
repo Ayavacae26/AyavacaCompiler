@@ -113,11 +113,11 @@ public class Parser {
 			match(TokenType.VAR);
 			ArrayList<String> idlist = identifer_list();
 			match(TokenType.COLON);
-			type();
+			Type t = type();
 			
 			for(int a = 0; a < idlist.size(); a++) {
 				declarationsNode.addVariable(new VariableNode(idlist.get(a),null));
-				symbolTable.addVariable(idlist.get(a), null);
+				symbolTable.addVariable(idlist.get(a), t);
 			}
 			
 			match(TokenType.SEMICOLON);
