@@ -17,7 +17,7 @@ public class ToStringTest {
 	public void test() {
 		SymbolTable symbols = new SymbolTable();
         symbols.addProgram("RED");
-	    symbols.addArray("GREEN");
+	    //symbols.addArray("GREEN");
 	    symbols.addFunction("YELLOW", Type.REAL);
 		symbols.addVariable("RUBY ", Type.INTEGER);
 		System.out.println(symbols.toString());

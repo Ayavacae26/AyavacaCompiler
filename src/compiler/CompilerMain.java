@@ -13,8 +13,8 @@ import parser.*;
 public class CompilerMain {
 
 	public static void main(String[] args) {
-		String filename = "Money.txt";
-		//String filename = args[0];
+		//String filename = "Money.txt";
+		String filename = args[0];
 		//Parser par = new Parser(filename, true);
 		try {
 			Recognizer recognizer = new Recognizer(filename, true);

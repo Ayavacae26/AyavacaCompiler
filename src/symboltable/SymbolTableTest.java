@@ -77,7 +77,7 @@ public class SymbolTableTest {
 	 * passes
 	 */
 
-	@Test
+	/*@Test
 	public void addArrayName() {
 		String name = "array Foo";
 		SymbolTable test = new SymbolTable();
@@ -89,7 +89,7 @@ public class SymbolTableTest {
 		assertEquals(expected, actual);
 
 	}
-
+*/
 	/**
 	 * Test case check isArray function return false if input string is not good
 	 * should pass if both expected and actual are false

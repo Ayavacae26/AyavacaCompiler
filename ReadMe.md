@@ -80,5 +80,9 @@ In the codegen package, there are the following files:
 1. CodeGeneration.java
 2. CodeGenerationTest.java
 
+Extra's 
+For the extras I am going to try to implement arrays within this compiler
+What I did for this part:
+
 
 

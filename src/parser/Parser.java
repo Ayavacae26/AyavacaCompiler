@@ -114,12 +114,11 @@ public class Parser {
 			ArrayList<String> idlist = identifer_list();
 			match(TokenType.COLON);
 			Type t = type();
-			
 			for(int a = 0; a < idlist.size(); a++) {
 				declarationsNode.addVariable(new VariableNode(idlist.get(a),null));
 				symbolTable.addVariable(idlist.get(a), t);
 			}
-			
+			//Type t = type(idlist);
 			match(TokenType.SEMICOLON);
 			declarationsNode.addDeclarations(declarations());
 		} //else lamda
@@ -139,20 +138,28 @@ public class Parser {
 
 	/**
 	 * Executes the rule for the type non-terminal symbol in the expression grammar.
+	 * public Type type(ArrayList<String> idlist)// was goint to use for array
 	 */
 	public Type type() {
+		int beginindex;
+		int endindex;
 		Type t = null;
 		if (isType(lookahead.getTokenType())) {
 			t = standard_type();
 		} else if (lookahead.getTokenType() == TokenType.ARRAY) {
 			match(TokenType.ARRAY);
 			match(TokenType.LEFTBRACKET);
+			beginindex = Integer.parseInt(lookahead.getlexeme());
 			match(TokenType.NUMBER);
 			match(TokenType.COLON);
+			endindex = Integer.parseInt(lookahead.getlexeme());
 			match(TokenType.NUMBER);
 			match(TokenType.RIGHTBRACKET);
 			match(TokenType.OF);
-			standard_type();
+			t = standard_type();
+			/*for(String list : idlist) {
+				symbolTable.addArray(list, t, beginindex, endindex);
+			}*/
 		} else {
 			error("Error in type. ");
 		}

@@ -132,13 +132,16 @@ public class SymbolTable {
 	 * @return True if there is no existance of the name.
 	 */
 
-	public boolean addArray(String name) {
+	public boolean addArray(String name,Type type, int begin, int end) {
 		DataType ss = new DataType(name, Kind.ARRAY);
 		if (symbols.containsKey(name)) {
 			return false;
 		} else {
 			ss.name = name;
 			ss.kind = Kind.ARRAY;
+			ss.beginindex = begin;
+			ss.endindex = end;
+			ss.type = type;
 			symbols.put(name, ss); 
 			//System.out.println("Adding " + name + " in type " + ss.kind + " to hashmap");
 			return true;
