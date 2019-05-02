@@ -132,13 +132,16 @@ public class SymbolTable {
 	 * @return True if there is no existance of the name.
 	 */
 
-	public boolean addArray(String name) {
+	public boolean addArray(String name,Type type, int begin, int end) {
 		DataType ss = new DataType(name, Kind.ARRAY);
 		if (symbols.containsKey(name)) {
 			return false;
 		} else {
 			ss.name = name;
 			ss.kind = Kind.ARRAY;
+			ss.beginindex = begin;
+			ss.endindex = end;
+			ss.type = type;
 			symbols.put(name, ss); 
 			//System.out.println("Adding " + name + " in type " + ss.kind + " to hashmap");
 			return true;
@@ -250,16 +253,51 @@ public class SymbolTable {
 		public String name;
 		public Kind kind;
 		public Type type;
-
+		public int  beginindex;
+		public int endindex;
+		
 		public DataType(String name, Kind kind) {
 			this.name = name;
 			this.kind = kind;
 
 		}
+		
 		public DataType(String name, Kind kind, Type type) {
 			this.name = name;
 			this.kind = kind;
 			this.type = type;
+		}
+		
+		// for array 
+		public DataType(String name, Kind kind, Type type, int begin, int end) {
+			this.name = name;
+			this.kind = kind;
+			this.beginindex = begin;
+			this.endindex = end;
+		}
+		/**
+		 * @return the beginindex
+		 */
+		public int getBeginindex() {
+			return beginindex;
+		}
+		/**
+		 * @param beginindex the beginindex to set
+		 */
+		public void setBeginindex(int beginindex) {
+			this.beginindex = beginindex;
+		}
+		/**
+		 * @return the endindex
+		 */
+		public int getEndindex() {
+			return endindex;
+		}
+		/**
+		 * @param endindex the endindex to set
+		 */
+		public void setEndindex(int endindex) {
+			this.endindex = endindex;
 		}
 
 		/**

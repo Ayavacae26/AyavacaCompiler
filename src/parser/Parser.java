@@ -112,11 +112,13 @@ public class Parser {
 		if (lookahead.getTokenType() == TokenType.VAR) {
 			match(TokenType.VAR);
 			ArrayList<String> idlist = identifer_list();
-			for(String id :idlist) {
-				declarationsNode.addVariable(new VariableNode(id,null));
-			}
 			match(TokenType.COLON);
-			type();
+			Type t = type();
+			for(int a = 0; a < idlist.size(); a++) {
+				declarationsNode.addVariable(new VariableNode(idlist.get(a),null));
+				symbolTable.addVariable(idlist.get(a), t);
+			}
+			//Type t = type(idlist);
 			match(TokenType.SEMICOLON);
 			declarationsNode.addDeclarations(declarations());
 		} //else lamda
@@ -136,20 +138,28 @@ public class Parser {
 
 	/**
 	 * Executes the rule for the type non-terminal symbol in the expression grammar.
+	 * public Type type(ArrayList<String> idlist)// was goint to use for array
 	 */
 	public Type type() {
+		int beginindex;
+		int endindex;
 		Type t = null;
 		if (isType(lookahead.getTokenType())) {
 			t = standard_type();
 		} else if (lookahead.getTokenType() == TokenType.ARRAY) {
 			match(TokenType.ARRAY);
 			match(TokenType.LEFTBRACKET);
+			beginindex = Integer.parseInt(lookahead.getlexeme());
 			match(TokenType.NUMBER);
 			match(TokenType.COLON);
+			endindex = Integer.parseInt(lookahead.getlexeme());
 			match(TokenType.NUMBER);
 			match(TokenType.RIGHTBRACKET);
 			match(TokenType.OF);
-			standard_type();
+			t = standard_type();
+			/*for(String list : idlist) {
+				symbolTable.addArray(list, t, beginindex, endindex);
+			}*/
 		} else {
 			error("Error in type. ");
 		}
@@ -270,7 +280,14 @@ public class Parser {
 	public CompoundStatementNode compound_statement() {
 		CompoundStatementNode csNode = new CompoundStatementNode();
 		match(TokenType.BEGIN);
-		csNode = optional_statements();
+		ArrayList<StatementNode> statementList = optional_statements();
+		
+		// add statements one by one into compound statement node 
+		for(StatementNode statement: statementList)
+		{
+			csNode.addStatement(statement);
+		}
+		
 		match(TokenType.END);
 		return csNode;
 	}
@@ -279,14 +296,16 @@ public class Parser {
 	 * Executes the rule for the optional_statement non-terminal symbol in the
 	 * expression grammar.
 	 */
-	public CompoundStatementNode optional_statements() {
-		CompoundStatementNode CSNode = new CompoundStatementNode();
+	public ArrayList<StatementNode> optional_statements() {
+//		CompoundStatementNode CSNode = new CompoundStatementNode();
+		ArrayList<StatementNode> optional = new ArrayList<StatementNode>();
+		
 		if (lookahead.getTokenType() == TokenType.BEGIN || lookahead.getTokenType() == TokenType.ID
 				|| lookahead.getTokenType() == TokenType.IF || lookahead.getTokenType() == TokenType.WHILE
 				|| lookahead.getTokenType() == TokenType.WRITE || lookahead.getTokenType() == TokenType.READ) {
-			CSNode.addAll(statement_list());
+			optional = statement_list();
 		}// else lamda
-		return CSNode;
+		return optional;
 	}
 
 	
@@ -318,13 +337,14 @@ public class Parser {
 		StatementNode sNode = null;
 		// Variable or procedure_statement
 		if (lookahead !=null && lookahead.getTokenType() == TokenType.ID ) {
+			//System.out.println(symbolTable.toString());
 			if(this.symbolTable.isVariable(lookahead.getlexeme())) {
 			AssignmentStatementNode assign = new AssignmentStatementNode();
 			VariableNode varNode = variable();
-			assign.setLvalue(variable());
+			assign.setLvalue(varNode);
 			match(TokenType.ASSIGN);
 			ExpressionNode exp = expression();
-			assign.setExpression(expression());
+			assign.setExpression(exp);
 				if(varNode.getType() != exp.getType()) error("mismatch at " + varNode.getName());
 			return assign;
 			}
