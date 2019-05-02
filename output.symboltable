@@ -1,4 +1,6 @@
 NAME                 KIND                            TYPE 
-foo                  PROGRAM                         null 
-fee                  VARIABLE                        null 
+yen                  VARIABLE                     INTEGER 
+dollars              VARIABLE                     INTEGER 
+sample               PROGRAM                         null 
+bitcoins             VARIABLE                     INTEGER 
 
