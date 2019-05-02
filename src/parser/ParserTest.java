@@ -138,19 +138,19 @@ public class ParserTest {
 	/**
 	 * This test is going to be testing the program function within the parser
 	 */
-	@Test
-	public void programTest() {
-	 Parser par = new Parser("program foo;\n" + "begin\n" + "end\n" + ".", false);
-		 ProgramNode real = par.program();
-	        String realString = real.indentedToString(0);
-	        //System.out.println(realString);
-	        String expected = "Program: foo\n" + 
-	        		"|-- Declarations\n" + 
-	        		"|-- SubProgramDeclarations\n" + 
-	        		"|-- Compound Statement\n";
-	        assertEquals(expected, realString);
-	        System.out.println(" program Passed Test 1");
-	}
+//	@Test
+//	public void programTest() {
+//	 Parser par = new Parser("program foo;\n" + "begin\n" + "end\n" + ".", false);
+//		 ProgramNode real = par.program();
+//	        String realString = real.indentedToString(0);
+//	        //System.out.println(realString);
+//	        String expected = "Program: foo\n" + 
+//	        		"|-- Declarations\n" + 
+//	        		"|-- SubProgramDeclarations\n" + 
+//	        		"|-- Compound Statement\n";
+//	        assertEquals(expected, realString);
+//	        System.out.println(" program Passed Test 1");
+//	}
 	 @Test
 	  public void programTest1() { 
 		 String filename = "Money.txt";
@@ -158,14 +158,26 @@ public class ParserTest {
 		 ProgramNode actual = parser.program(); 
 		 String actualString = actual.indentedToString( 0); 
 		 System.out.println(actualString);
-		 /*String expectedString = "Program: sample\n" + "|-- Declarations\n" + "|-- --- Name: dollars\n" + "|-- --- Name: yen\n"
-						+ "|-- --- Name: bitcoins\n" + "|-- SubProgramDeclarations\n" + "|-- Compound Statement\n"
-						+ "|-- --- Assignment\n" + "|-- --- --- Name: dollars\n" + "|-- --- --- Value: 1000000\n"
-						+ "|-- --- Assignment\n" + "|-- --- --- Name: yen\n" + "|-- --- --- Operation: ASTERISK\n"
-						+ "|-- --- --- --- Name: dollars\n" + "|-- --- --- --- Value: 110\n" + "|-- --- Assignment\n"
-						+ "|-- --- --- Name: bitcoins\n" + "|-- --- --- Operation: SLASH\n" + "|-- --- --- --- Name: dollars\n"
-						+ "|-- --- --- --- Value: 3900\n";*/
-			//	 assertEquals( expectedString, actualString);
+		 String expectedString = "Program: sample\n" + 
+				 "|-- Declarations\n" + "|-- --- Name: dollars\n" + 
+				 "|-- --- Name: yen\n" + 
+				 "|-- --- Name: bitcoins\n" + 
+				 "|-- SubProgramDeclarations\n" + 
+				 "|-- Compound Statement\n" + 
+				 "|-- --- Assignment\n" + 
+				 "|-- --- --- Name: dollars\n" + 
+				"|-- --- --- Value: 1000000\n" + 
+				 "|-- --- Assignment\n" + 
+				"|-- --- --- Name: yen\n" + 
+				 "|-- --- --- Operation: ASTERISK\n"+ 
+				"|-- --- --- --- Name: dollars\n" + 
+						"|-- --- --- --- Value: 110\n" + 
+						"|-- --- Assignment\n"
+						+ "|-- --- --- Name: bitcoins\n" + 
+						"|-- --- --- Operation: SLASH\n" + 
+						"|-- --- --- --- Name: dollars\n"
+						+ "|-- --- --- --- Value: 3900\n";
+			 assertEquals( expectedString, actualString);
 			
 		 }
 	
